@@ -4,8 +4,8 @@ import "remixicon/fonts/remixicon.css"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  description: "Starter project",
-  title: "App",
+  description: "City cheat sheets for Seoul and Melbourne.",
+  title: "CityNote",
 }
 
 export default function RootLayout({

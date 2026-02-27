@@ -1,0 +1,93 @@
+import { AtAGlance } from "@/components/city/sections/at-a-glance"
+import { Climate } from "@/components/city/sections/climate"
+import { Connectivity } from "@/components/city/sections/connectivity"
+import { CostOfLiving } from "@/components/city/sections/cost-of-living"
+import { FoodDrink } from "@/components/city/sections/food-drink"
+import { GettingAround } from "@/components/city/sections/getting-around"
+import { LanguageCulture } from "@/components/city/sections/language-culture"
+import { Neighborhoods } from "@/components/city/sections/neighborhoods"
+import { Practical } from "@/components/city/sections/practical"
+import { Safety } from "@/components/city/sections/safety"
+import { SectionNav } from "@/components/city/section-nav"
+import { cityList, citiesBySlug } from "@/data/cities"
+import type { Metadata } from "next"
+import { notFound } from "next/navigation"
+
+interface CityPageProps {
+  params: Promise<{ citySlug: string }>
+}
+
+const navItems = [
+  { id: "at-a-glance", label: "At a Glance" },
+  { id: "climate", label: "Climate" },
+  { id: "cost-of-living", label: "Cost" },
+  { id: "getting-around", label: "Transport" },
+  { id: "connectivity", label: "Connectivity" },
+  { id: "neighborhoods", label: "Neighborhoods" },
+  { id: "food-drink", label: "Food" },
+  { id: "language-culture", label: "Language" },
+  { id: "safety", label: "Safety" },
+  { id: "practical", label: "Practical" },
+]
+
+export function generateStaticParams() {
+  return cityList.map((city) => ({ citySlug: city.slug }))
+}
+
+export async function generateMetadata({
+  params,
+}: CityPageProps): Promise<Metadata> {
+  const { citySlug } = await params
+  const city = citiesBySlug[citySlug as keyof typeof citiesBySlug]
+
+  if (!city) {
+    return {
+      title: "City Not Found | CityNote",
+    }
+  }
+
+  return {
+    title: `${city.name} City Guide | CityNote`,
+    description: city.tagline,
+  }
+}
+
+export default async function CityPage({ params }: CityPageProps) {
+  const { citySlug } = await params
+  const city = citiesBySlug[citySlug as keyof typeof citiesBySlug]
+
+  if (!city) {
+    notFound()
+  }
+
+  return (
+    <main className="pb-16">
+      <header className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-6 md:px-6">
+        <p className="text-muted-foreground text-xs uppercase tracking-wide">
+          CityNote / {city.country}
+        </p>
+        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
+          {city.name}
+        </h1>
+        <p className="text-muted-foreground text-sm md:text-base">
+          {city.tagline}
+        </p>
+      </header>
+
+      <SectionNav items={navItems} />
+
+      <div className="mx-auto mt-4 flex w-full max-w-6xl flex-col gap-8 px-4 md:px-6">
+        <AtAGlance city={city} />
+        <Climate city={city} />
+        <CostOfLiving city={city} />
+        <GettingAround city={city} />
+        <Connectivity city={city} />
+        <Neighborhoods city={city} />
+        <FoodDrink city={city} />
+        <LanguageCulture city={city} />
+        <Safety city={city} />
+        <Practical city={city} />
+      </div>
+    </main>
+  )
+}

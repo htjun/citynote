@@ -1,0 +1,28 @@
+---
+description: Use pnpm commands, never npm
+alwaysApply: true
+---
+
+# Package Manager
+
+Use `pnpm` for all package management and script execution in this project.
+
+## Rules
+
+- Do not run `npm` commands.
+- Do not suggest `npm` commands in instructions or examples.
+- Prefer `pnpm` equivalents for install, add, remove, update, and scripts.
+
+## Examples
+
+```bash
+# ❌ BAD
+npm install
+npm run dev
+npm i lodash
+
+# ✅ GOOD
+pnpm install
+pnpm dev
+pnpm add lodash
+```
