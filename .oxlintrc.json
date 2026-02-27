@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "./node_modules/ultracite/config/oxlint/core/.oxlintrc.json",
+    "./node_modules/ultracite/config/oxlint/next/.oxlintrc.json"
+  ],
+  "rules": {
+    "semi": ["error", "never"],
+    "func-style": "off",
+    "no-negated-condition": "off",
+    "unicorn/prefer-module": "off",
+    "sort-keys": "off",
+    "no-use-before-define": "off"
+  },
+  "overrides": [
+    {
+      "files": [".storybook/**"],
+      "rules": {
+        "import/no-relative-parent-imports": "off"
+      }
+    }
+  ]
+}
