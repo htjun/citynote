@@ -74,19 +74,23 @@ export default async function CityPage({ params }: CityPageProps) {
         </p>
       </header>
 
-      <SectionNav items={navItems} />
+      <div className="mx-auto mt-4 grid w-full max-w-6xl gap-8 px-4 md:grid-cols-[12rem_minmax(0,1fr)] md:px-6">
+        <aside className="md:sticky md:top-6 md:self-start">
+          <SectionNav items={navItems} />
+        </aside>
 
-      <div className="mx-auto mt-4 flex w-full max-w-6xl flex-col gap-8 px-4 md:px-6">
-        <AtAGlance city={city} />
-        <Climate city={city} />
-        <CostOfLiving city={city} />
-        <GettingAround city={city} />
-        <Connectivity city={city} />
-        <Neighborhoods city={city} />
-        <FoodDrink city={city} />
-        <LanguageCulture city={city} />
-        <Safety city={city} />
-        <Practical city={city} />
+        <div className="flex min-w-0 flex-col gap-8">
+          <AtAGlance city={city} />
+          <Climate city={city} />
+          <CostOfLiving city={city} />
+          <GettingAround city={city} />
+          <Connectivity city={city} />
+          <Neighborhoods city={city} />
+          <FoodDrink city={city} />
+          <LanguageCulture city={city} />
+          <Safety city={city} />
+          <Practical city={city} />
+        </div>
       </div>
     </main>
   )

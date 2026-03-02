@@ -9,13 +9,13 @@ interface SectionNavProps {
 
 export function SectionNav({ items }: SectionNavProps) {
   return (
-    <nav className="bg-background/90 border-border sticky top-0 z-20 border-y backdrop-blur">
-      <ul className="mx-auto flex w-full max-w-6xl gap-2 overflow-x-auto px-4 py-2 md:px-6">
+    <nav className="bg-card border-border rounded-lg border p-2">
+      <ul className="flex flex-col gap-1">
         {items.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
-              className="text-muted-foreground hover:text-foreground border-border inline-flex whitespace-nowrap border px-2 py-1 text-xs transition-colors"
+              className="text-muted-foreground hover:text-foreground hover:bg-muted inline-flex w-full rounded-md px-3 py-2 text-sm transition-colors"
             >
               {item.label}
             </a>
