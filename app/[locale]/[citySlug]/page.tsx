@@ -12,7 +12,8 @@ import { Neighborhoods } from "@/components/city/sections/neighborhoods"
 import { Practical } from "@/components/city/sections/practical"
 import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
-import { SectionNav, type SectionNavItem } from "@/components/city/section-nav"
+import { SectionNav } from "@/components/city/section-nav"
+import type { SectionNavItem } from "@/components/city/section-nav"
 import { getCity, getCitySlugs } from "@/data/cities"
 import type { City } from "@/data/types"
 import type { Locale } from "@/i18n/locales"
@@ -25,18 +26,18 @@ interface CityPageProps {
   params: Promise<{ locale: Locale; citySlug: string }>
 }
 
+function toNavItem(id: SectionNavItem["id"], label: string): SectionNavItem {
+  return {
+    id,
+    label,
+  }
+}
+
 async function getNavItems(
   city: City,
   locale: Locale
 ): Promise<SectionNavItem[]> {
   const t = await getTranslations({ locale, namespace: "city.nav" })
-  const toNavItem = (
-    id: SectionNavItem["id"],
-    label: string
-  ): SectionNavItem => ({
-    id,
-    label,
-  })
 
   return [
     toNavItem("at-a-glance", t("atAGlance")),

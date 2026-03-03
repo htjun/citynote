@@ -1,12 +1,9 @@
-import { cleanup, render, screen } from "@testing-library/react"
+import { render, screen } from "@testing-library/react"
 
-import { SectionNav, type SectionNavItem } from "@/components/city/section-nav"
+import { SectionNav } from "@/components/city/section-nav"
+import type { SectionNavItem } from "@/components/city/section-nav"
 
-afterEach(() => {
-  cleanup()
-})
-
-describe("SectionNav", () => {
+describe("section nav", () => {
   it("renders one link per item with matching anchors", () => {
     const items: SectionNavItem[] = [
       { id: "at-a-glance", label: "At a Glance" },
@@ -19,10 +16,10 @@ describe("SectionNav", () => {
     const links = screen.getAllByRole("link")
     expect(links).toHaveLength(items.length)
 
-    items.forEach((item, index) => {
+    for (const [index, item] of items.entries()) {
       expect(links[index]?.getAttribute("href")).toBe(`#${item.id}`)
       expect(links[index]?.textContent).toContain(item.label)
-    })
+    }
   })
 
   it("renders exactly one decorative icon for each sidebar link", () => {

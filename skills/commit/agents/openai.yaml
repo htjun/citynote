@@ -1,0 +1,4 @@
+interface:
+  display_name: "Commit Changes"
+  short_description: "Format, lint, and commit changes"
+  default_prompt: "Use $commit to run format and lint, review the git diff, then commit all current changes with a clean message."
