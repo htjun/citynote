@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { geistMono, geistSans } from "@/lib/fonts"
+import { TopNav } from "@/components/top-nav"
 import "remixicon/fonts/remixicon.css"
 import "./globals.css"
 
@@ -18,7 +19,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        {children}
+        <div className="min-h-screen">
+          <TopNav />
+          {children}
+        </div>
       </body>
     </html>
   )

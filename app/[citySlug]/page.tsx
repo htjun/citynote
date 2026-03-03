@@ -85,7 +85,7 @@ export default async function CityPage({ params }: CityPageProps) {
     <main className="pb-16">
       <header className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-6 md:px-6">
         <p className="text-muted-foreground text-xs uppercase tracking-wide">
-          CityNote / {city.country}
+          {city.country}
         </p>
         <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
           {city.name}

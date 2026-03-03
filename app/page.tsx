@@ -6,10 +6,7 @@ export default function HomePage() {
   return (
     <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-8 md:px-6">
       <header>
-        <p className="text-muted-foreground text-xs uppercase tracking-wide">
-          CityNote
-        </p>
-        <h1 className="mt-2 text-3xl font-semibold tracking-tight">
+        <h1 className="text-3xl font-semibold tracking-tight">
           Plan your city move or trip faster
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl text-sm">

@@ -1,11 +1,17 @@
-export type RatingLevel = "Low" | "Medium" | "High" | "Very High" | "Excellent"
-export type RiskLevel = "Low" | "Medium" | "High"
+export type RatingLevel =
+  | "low"
+  | "medium"
+  | "high"
+  | "very_high"
+  | "excellent"
+export type RiskLevel = "low" | "medium" | "high"
+export type RainLevel = "low" | "medium" | "high"
 
 export interface MonthlyClimate {
   month: string
   highC: number
   lowC: number
-  rainLevel: "Low" | "Medium" | "High"
+  rainLevel: RainLevel
 }
 
 export interface PriceItem {
