@@ -12,7 +12,7 @@ import { Neighborhoods } from "@/components/city/sections/neighborhoods"
 import { Practical } from "@/components/city/sections/practical"
 import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
-import { SectionNav } from "@/components/city/section-nav"
+import { SectionNav, type SectionNavItem } from "@/components/city/section-nav"
 import { getCity, getCitySlugs } from "@/data/cities"
 import type { City } from "@/data/types"
 import type { Locale } from "@/i18n/locales"
@@ -25,32 +25,42 @@ interface CityPageProps {
   params: Promise<{ locale: Locale; citySlug: string }>
 }
 
-async function getNavItems(city: City, locale: Locale) {
+async function getNavItems(
+  city: City,
+  locale: Locale
+): Promise<SectionNavItem[]> {
   const t = await getTranslations({ locale, namespace: "city.nav" })
+  const toNavItem = (
+    id: SectionNavItem["id"],
+    label: string
+  ): SectionNavItem => ({
+    id,
+    label,
+  })
 
   return [
-    { id: "at-a-glance", label: t("atAGlance") },
+    toNavItem("at-a-glance", t("atAGlance")),
     ...(city.livePulse?.length
-      ? [{ id: "live-pulse", label: t("livePulse") }]
+      ? [toNavItem("live-pulse", t("livePulse"))]
       : []),
     ...(city.ruleTraps?.length
-      ? [{ id: "rule-traps", label: t("ruleTraps") }]
+      ? [toNavItem("rule-traps", t("ruleTraps"))]
       : []),
-    { id: "climate", label: t("climate") },
-    { id: "cost-of-living", label: t("cost") },
-    { id: "getting-around", label: t("transport") },
-    { id: "connectivity", label: t("connectivity") },
-    { id: "neighborhoods", label: t("neighborhoods") },
+    toNavItem("climate", t("climate")),
+    toNavItem("cost-of-living", t("cost")),
+    toNavItem("getting-around", t("transport")),
+    toNavItem("connectivity", t("connectivity")),
+    toNavItem("neighborhoods", t("neighborhoods")),
     ...(city.neighborhoodFit?.length
-      ? [{ id: "neighborhood-fit", label: t("fitMatrix") }]
+      ? [toNavItem("neighborhood-fit", t("fitMatrix"))]
       : []),
     ...(city.accessibility
-      ? [{ id: "accessibility", label: t("accessibility") }]
+      ? [toNavItem("accessibility", t("accessibility"))]
       : []),
-    { id: "food-drink", label: t("food") },
-    { id: "language-culture", label: t("language") },
-    { id: "safety", label: t("safety") },
-    { id: "practical", label: t("practical") },
+    toNavItem("food-drink", t("food")),
+    toNavItem("language-culture", t("language")),
+    toNavItem("safety", t("safety")),
+    toNavItem("practical", t("practical")),
   ]
 }
 
