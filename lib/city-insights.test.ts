@@ -31,6 +31,6 @@ describe("city insights helper functions", () => {
   })
 
   it("uses fallback label for invalid update timestamp text", () => {
-    expect(formatSignalTimestamp("invalid")).toBe("Unknown update time")
+    expect(formatSignalTimestamp("invalid", "en")).toBeNull()
   })
 })

@@ -1,9 +1,4 @@
-export type RatingLevel =
-  | "low"
-  | "medium"
-  | "high"
-  | "very_high"
-  | "excellent"
+export type RatingLevel = "low" | "medium" | "high" | "very_high" | "excellent"
 export type RiskLevel = "low" | "medium" | "high"
 export type RainLevel = "low" | "medium" | "high"
 

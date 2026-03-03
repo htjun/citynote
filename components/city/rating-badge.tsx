@@ -1,24 +1,30 @@
+import type { RatingLevel } from "@/data/types"
+import { useTranslations } from "next-intl"
+
 import { Badge } from "@/components/ui/badge"
 
 interface RatingBadgeProps {
-  level: string
+  level: RatingLevel
 }
 
-const variantByLevel: Record<string, "default" | "secondary" | "outline"> = {
-  Excellent: "default",
-  "Very High": "secondary",
-  High: "secondary",
-  Medium: "outline",
-  Low: "outline",
-}
+const variantByLevel: Record<RatingLevel, "default" | "secondary" | "outline"> =
+  {
+    excellent: "default",
+    very_high: "secondary",
+    high: "secondary",
+    medium: "outline",
+    low: "outline",
+  }
 
 export function RatingBadge({ level }: RatingBadgeProps) {
+  const t = useTranslations("city.labels.rating")
+
   return (
     <Badge
       variant={variantByLevel[level] ?? "outline"}
       className="rounded-none"
     >
-      {level}
+      {t(level)}
     </Badge>
   )
 }

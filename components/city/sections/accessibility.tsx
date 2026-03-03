@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import { DataGrid } from "@/components/city/data-grid"
 import { KeyValue } from "@/components/city/key-value"
 import { RatingBadge } from "@/components/city/rating-badge"
@@ -9,6 +11,7 @@ interface AccessibilityProps {
 }
 
 export function Accessibility({ city }: AccessibilityProps) {
+  const t = useTranslations("city.sections.accessibility")
   const { accessibility } = city
 
   if (!accessibility) {
@@ -19,21 +22,21 @@ export function Accessibility({ city }: AccessibilityProps) {
     <section className="space-y-3">
       <SectionHeader
         id="accessibility"
-        title="Accessibility Reality Check"
-        description="Confidence-oriented view for wheelchair, stroller, and luggage-heavy travel."
+        title={t("title")}
+        description={t("description")}
       />
       <DataGrid className="xl:grid-cols-2">
         <KeyValue
-          label="Wheelchair transit coverage"
-          value={accessibility.wheelchairTransitCoverage ?? "Not published"}
+          label={t("wheelchairTransitCoverage")}
+          value={accessibility.wheelchairTransitCoverage ?? t("notPublished")}
         />
         <KeyValue
-          label="Unknown data ratio"
-          value={accessibility.unknownDataRatio ?? "Low/unknown not reported"}
+          label={t("unknownDataRatio")}
+          value={accessibility.unknownDataRatio ?? t("notReported")}
         />
       </DataGrid>
       <div className="flex items-center gap-2 text-sm">
-        <span className="text-muted-foreground">Step-free confidence</span>
+        <span className="text-muted-foreground">{t("stepFreeConfidence")}</span>
         <RatingBadge level={accessibility.stepFreeConfidence} />
       </div>
       <ul className="list-disc space-y-1 pl-5 text-sm">

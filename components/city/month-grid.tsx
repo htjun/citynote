@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import type { MonthlyClimate } from "@/data/types"
 
 interface MonthGridProps {
@@ -5,6 +7,8 @@ interface MonthGridProps {
 }
 
 export function MonthGrid({ months }: MonthGridProps) {
+  const t = useTranslations("city.labels")
+
   return (
     <div className="grid grid-cols-2 gap-2 sm:grid-cols-3 lg:grid-cols-6">
       {months.map((month) => (
@@ -14,7 +18,7 @@ export function MonthGrid({ months }: MonthGridProps) {
             {month.highC}C / {month.lowC}C
           </p>
           <p className="text-muted-foreground mt-1 text-[11px]">
-            {month.rainLevel} rain
+            {t(`rain.${month.rainLevel}`)} {t("rain.suffix")}
           </p>
         </div>
       ))}

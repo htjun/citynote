@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "title": "{city} 도시 가이드 | CityNote",
+    "notFoundTitle": "도시를 찾을 수 없음 | CityNote"
+  },
+  "nav": {
+    "atAGlance": "핵심 요약",
+    "livePulse": "실시간 펄스",
+    "ruleTraps": "주의 규정",
+    "climate": "기후",
+    "cost": "비용",
+    "transport": "교통",
+    "connectivity": "연결성",
+    "neighborhoods": "지역",
+    "fitMatrix": "적합 매트릭스",
+    "accessibility": "접근성",
+    "food": "음식",
+    "language": "언어",
+    "safety": "안전",
+    "practical": "실용 정보"
+  },
+  "tables": {
+    "phrase": {
+      "local": "현지 표현",
+      "romanization": "로마자 표기",
+      "english": "의미"
+    },
+    "price": {
+      "item": "항목",
+      "value": "값",
+      "note": "비고",
+      "notAvailable": "-"
+    }
+  },
+  "labels": {
+    "rating": {
+      "low": "낮음",
+      "medium": "보통",
+      "high": "높음",
+      "very_high": "매우 높음",
+      "excellent": "매우 우수"
+    },
+    "rain": {
+      "low": "강수 적음",
+      "medium": "강수 보통",
+      "high": "강수 많음",
+      "suffix": ""
+    }
+  },
+  "sections": {
+    "common": {
+      "valueWithNote": "{value} - {note}"
+    },
+    "atAGlance": {
+      "title": "핵심 요약",
+      "description": "빠른 여행/이주 계획에 필요한 핵심 맥락입니다.",
+      "labels": {
+        "country": "국가",
+        "continent": "대륙",
+        "population": "인구",
+        "languages": "언어",
+        "currency": "통화",
+        "timezone": "시간대",
+        "emergency": "긴급번호",
+        "dialingCode": "국가번호"
+      }
+    },
+    "climate": {
+      "title": "기후 및 날씨",
+      "description": "월별 최고/최저 기온과 계절 특성을 요약합니다.",
+      "bestMonths": "추천 시기",
+      "rainySeason": "우기"
+    },
+    "costOfLiving": {
+      "title": "생활비",
+      "description": "예산 구간, 일일 지출, 월간 기준 비용을 제공합니다.",
+      "dailyBudgetTiers": "일일 예산 구간",
+      "dailyEssentials": "일상 필수 지출",
+      "monthlyNomadBaseline": "월간 노마드 기준"
+    },
+    "gettingAround": {
+      "title": "이동 및 교통",
+      "description": "공항 접근, 비자 참고, 교통 품질, 현지 이동 수단을 다룹니다.",
+      "rideHailing": "호출형 이동:",
+      "walkability": "도보 친화도",
+      "bikeability": "자전거 친화도"
+    },
+    "connectivity": {
+      "title": "연결성",
+      "description": "인터넷, SIM 옵션, 원격근무 준비도를 확인합니다.",
+      "averageInternet": "평균 인터넷",
+      "coworkingDayPass": "코워킹 데이패스",
+      "wifiAvailability": "와이파이 접근성",
+      "coworkingExamples": "코워킹 예시:"
+    },
+    "neighborhoods": {
+      "title": "지역 가이드",
+      "description": "동네 분위기와 적합도를 빠르게 파악합니다."
+    },
+    "neighborhoodFit": {
+      "title": "지역 적합 매트릭스",
+      "description": "여행자 유형과 시간대 기준으로 지역 적합도를 제시합니다.",
+      "archetypes": {
+        "first_timer": "첫 방문",
+        "family": "가족",
+        "night_owl": "야행성",
+        "remote_worker": "원격근무자"
+      },
+      "bestAreas": "추천 지역:",
+      "dayFit": "주간 적합:",
+      "lateNightFit": "심야 적합:",
+      "useCaution": "주의 지역:"
+    },
+    "accessibility": {
+      "title": "접근성 현실 점검",
+      "description": "휠체어, 유모차, 대형 수하물 이동 기준으로 접근성을 평가합니다.",
+      "wheelchairTransitCoverage": "휠체어 교통 커버리지",
+      "unknownDataRatio": "미확인 데이터 비율",
+      "notPublished": "공개 정보 없음",
+      "notReported": "낮음/미확인 비율 미공개",
+      "stepFreeConfidence": "무단차 이동 신뢰도"
+    },
+    "foodDrink": {
+      "title": "음식 및 음료",
+      "description": "추천 음식, 식단 대응, 현지 식문화 규칙을 정리합니다.",
+      "mustTry": "꼭 먹어볼 것",
+      "dietaryFriendliness": "식단 친화도",
+      "tapWater": "수돗물:",
+      "tipping": "팁 문화:"
+    },
+    "languageCulture": {
+      "title": "언어 및 문화",
+      "description": "실전 표현과 현지 에티켓을 제공합니다.",
+      "englishUsability": "영어 사용 편의",
+      "do": "권장",
+      "avoid": "주의"
+    },
+    "safety": {
+      "title": "안전 및 보건",
+      "description": "리스크 개요, 사기 유형, 긴급 대응 정보를 제공합니다.",
+      "overallSafety": "전반적 안전도",
+      "healthcare": "의료 수준",
+      "commonScams": "자주 발생하는 사기",
+      "recommendedVaccinations": "권장 예방접종",
+      "emergencyContacts": "긴급 연락처"
+    },
+    "practical": {
+      "title": "실용 정보",
+      "description": "전원 규격, 결제 문화, 유용한 앱, 운영 시간대를 정리합니다.",
+      "plugType": "플러그 타입",
+      "voltage": "전압",
+      "paymentCulture": "결제 문화",
+      "businessHours": "영업 시간",
+      "usefulApps": "유용한 앱"
+    },
+    "livePulse": {
+      "title": "실시간 도시 펄스",
+      "description": "오늘의 이동/건강 의사결정에 영향을 주는 신호를 제공합니다.",
+      "signalLabels": {
+        "transport": "교통",
+        "uv": "자외선",
+        "aqi": "대기질",
+        "advisory": "여행 권고"
+      },
+      "stale": "오래됨",
+      "fresh": "최신",
+      "staleWarning": "정보가 오래되었을 수 있습니다. 행동 전 원문 출처를 확인하세요.",
+      "updatedAt": "업데이트: {value}",
+      "unknownUpdateTime": "업데이트 시각 미확인",
+      "viewSource": "출처 보기"
+    },
+    "ruleTraps": {
+      "title": "주의 규정 및 페널티",
+      "description": "비용 손실이 큰 실수를 공식 출처와 함께 정리했습니다.",
+      "riskBadge": "{level} 위험",
+      "riskLevels": {
+        "low": "낮음",
+        "medium": "보통",
+        "high": "높음"
+      },
+      "trigger": "발생 조건:",
+      "loss": "손실/불이익:",
+      "howToAvoid": "예방 방법:",
+      "officialSource": "공식 출처",
+      "lastVerified": "최종 확인: {date}"
+    }
+  }
+}

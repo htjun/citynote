@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import type { Phrase } from "@/data/types"
 
 interface PhraseTableProps {
@@ -5,14 +7,18 @@ interface PhraseTableProps {
 }
 
 export function PhraseTable({ rows }: PhraseTableProps) {
+  const t = useTranslations("city.tables.phrase")
+
   return (
     <div className="border-border/80 overflow-hidden border">
       <table className="w-full border-collapse text-sm">
         <thead className="bg-muted/40">
           <tr>
-            <th className="px-3 py-2 text-left font-medium">Local</th>
-            <th className="px-3 py-2 text-left font-medium">Romanization</th>
-            <th className="px-3 py-2 text-left font-medium">English</th>
+            <th className="px-3 py-2 text-left font-medium">{t("local")}</th>
+            <th className="px-3 py-2 text-left font-medium">
+              {t("romanization")}
+            </th>
+            <th className="px-3 py-2 text-left font-medium">{t("english")}</th>
           </tr>
         </thead>
         <tbody>

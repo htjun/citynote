@@ -20,6 +20,16 @@ pnpm run format
 pnpm run test:run
 ```
 
+## i18n
+
+```bash
+npm run validate:messages
+```
+
+- Locale routes: `/en/...`, `/ko/...`
+- Message files: `messages/{locale}/{common,home,city}.json`
+- Localized city data: `data/cities/{locale}/`
+
 ## Storybook
 
 ```bash

@@ -12,7 +12,9 @@
     "test:watch": "vitest --watch",
     "test:run": "vitest run",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "validate:messages": "node scripts/validate-messages.mjs",
+    "test:i18n": "npm run validate:messages"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
@@ -20,6 +22,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "next": "16.1.6",
+    "next-intl": "^4.8.3",
     "react": "19.2.3",
     "react-dom": "19.2.3",
     "remixicon": "^4.9.1",

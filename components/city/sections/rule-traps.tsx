@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import { SectionHeader } from "@/components/city/section-header"
 import { Badge } from "@/components/ui/badge"
 import type { City } from "@/data/types"
@@ -8,6 +10,7 @@ interface RuleTrapsProps {
 }
 
 export function RuleTraps({ city }: RuleTrapsProps) {
+  const t = useTranslations("city.sections.ruleTraps")
   const traps = city.ruleTraps
 
   if (!traps || traps.length === 0) {
@@ -18,8 +21,8 @@ export function RuleTraps({ city }: RuleTrapsProps) {
     <section className="space-y-3">
       <SectionHeader
         id="rule-traps"
-        title="Rule Traps & Penalties"
-        description="High-cost mistakes to avoid with official source links."
+        title={t("title")}
+        description={t("description")}
       />
       <div className="grid grid-cols-1 gap-3 xl:grid-cols-2">
         {traps.map((trap) => (
@@ -33,19 +36,19 @@ export function RuleTraps({ city }: RuleTrapsProps) {
                 variant={riskVariant[trap.riskLevel]}
                 className="rounded-none"
               >
-                {trap.riskLevel} Risk
+                {t("riskBadge", { level: t(`riskLevels.${trap.riskLevel}`) })}
               </Badge>
             </div>
             <p className="text-sm">
-              <span className="text-muted-foreground">Trigger:</span>{" "}
+              <span className="text-muted-foreground">{t("trigger")}</span>{" "}
               {trap.triggerScenario}
             </p>
             <p className="text-sm">
-              <span className="text-muted-foreground">Loss:</span>{" "}
+              <span className="text-muted-foreground">{t("loss")}</span>{" "}
               {trap.penaltyOrLoss}
             </p>
             <p className="text-sm">
-              <span className="text-muted-foreground">How to avoid:</span>{" "}
+              <span className="text-muted-foreground">{t("howToAvoid")}</span>{" "}
               {trap.howToAvoid}
             </p>
             <div className="text-muted-foreground flex flex-wrap items-center gap-2 text-xs">
@@ -55,9 +58,9 @@ export function RuleTraps({ city }: RuleTrapsProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                Official source
+                {t("officialSource")}
               </a>
-              <span>Last verified: {trap.lastVerified}</span>
+              <span>{t("lastVerified", { date: trap.lastVerified })}</span>
             </div>
           </article>
         ))}

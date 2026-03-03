@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl"
+
 import { DataGrid } from "@/components/city/data-grid"
 import { KeyValue } from "@/components/city/key-value"
 import { MonthGrid } from "@/components/city/month-grid"
@@ -9,16 +11,18 @@ interface ClimateProps {
 }
 
 export function Climate({ city }: ClimateProps) {
+  const t = useTranslations("city.sections.climate")
+
   return (
     <section className="space-y-3">
       <SectionHeader
         id="climate"
-        title="Climate & Weather"
-        description="Monthly highs/lows plus seasonality notes."
+        title={t("title")}
+        description={t("description")}
       />
       <DataGrid className="xl:grid-cols-2">
-        <KeyValue label="Best Months" value={city.climate.bestMonths} />
-        <KeyValue label="Rainy Season" value={city.climate.rainySeason} />
+        <KeyValue label={t("bestMonths")} value={city.climate.bestMonths} />
+        <KeyValue label={t("rainySeason")} value={city.climate.rainySeason} />
       </DataGrid>
       <MonthGrid months={city.climate.monthly} />
       <ul className="list-disc space-y-1 pl-5 text-sm">

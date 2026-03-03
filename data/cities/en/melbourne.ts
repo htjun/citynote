@@ -23,18 +23,18 @@ export const melbourne: City = {
       "Winters are cool, damp, and breezy rather than freezing.",
     ],
     monthly: [
-      { month: "Jan", highC: 26, lowC: 14, rainLevel: "Low" },
-      { month: "Feb", highC: 26, lowC: 14, rainLevel: "Low" },
-      { month: "Mar", highC: 24, lowC: 13, rainLevel: "Low" },
-      { month: "Apr", highC: 20, lowC: 11, rainLevel: "Medium" },
-      { month: "May", highC: 16, lowC: 9, rainLevel: "Medium" },
-      { month: "Jun", highC: 14, lowC: 7, rainLevel: "Medium" },
-      { month: "Jul", highC: 13, lowC: 6, rainLevel: "Medium" },
-      { month: "Aug", highC: 15, lowC: 7, rainLevel: "Medium" },
-      { month: "Sep", highC: 17, lowC: 8, rainLevel: "Medium" },
-      { month: "Oct", highC: 20, lowC: 10, rainLevel: "Medium" },
-      { month: "Nov", highC: 22, lowC: 12, rainLevel: "Medium" },
-      { month: "Dec", highC: 24, lowC: 13, rainLevel: "Low" },
+      { month: "Jan", highC: 26, lowC: 14, rainLevel: "low" },
+      { month: "Feb", highC: 26, lowC: 14, rainLevel: "low" },
+      { month: "Mar", highC: 24, lowC: 13, rainLevel: "low" },
+      { month: "Apr", highC: 20, lowC: 11, rainLevel: "medium" },
+      { month: "May", highC: 16, lowC: 9, rainLevel: "medium" },
+      { month: "Jun", highC: 14, lowC: 7, rainLevel: "medium" },
+      { month: "Jul", highC: 13, lowC: 6, rainLevel: "medium" },
+      { month: "Aug", highC: 15, lowC: 7, rainLevel: "medium" },
+      { month: "Sep", highC: 17, lowC: 8, rainLevel: "medium" },
+      { month: "Oct", highC: 20, lowC: 10, rainLevel: "medium" },
+      { month: "Nov", highC: 22, lowC: 12, rainLevel: "medium" },
+      { month: "Dec", highC: 24, lowC: 13, rainLevel: "low" },
     ],
   },
   costOfLiving: {
@@ -100,8 +100,8 @@ export const melbourne: City = {
       { item: "Transit fare", price: "Myki-based", note: "Daily caps apply" },
     ],
     rideHailingApps: ["Uber", "DiDi", "13cabs"],
-    walkability: "High",
-    bikeability: "Medium",
+    walkability: "high",
+    bikeability: "medium",
   },
   connectivity: {
     averageSpeedMbps: "50-110 Mbps typical fixed broadband",
@@ -117,7 +117,7 @@ export const melbourne: City = {
         note: "Widely available online",
       },
     ],
-    wifiAvailability: "High",
+    wifiAvailability: "high",
     coworkingDayPass: "$25-45/day typical",
     coworkingExamples: [
       "Hub Melbourne",
@@ -196,7 +196,7 @@ export const melbourne: City = {
     tippingNorm: "Not mandatory; optional for exceptional service.",
   },
   languageCulture: {
-    englishLevel: "Excellent",
+    englishLevel: "excellent",
     phrases: [
       {
         local: "How are you going?",
@@ -227,13 +227,13 @@ export const melbourne: City = {
     ],
   },
   safetyHealth: {
-    overallSafety: "High",
+    overallSafety: "high",
     commonScams: [
       "Occasional fake charity collection attempts.",
       "Taxi route padding in tourist-heavy times.",
       "Ticket resale scams for major events.",
     ],
-    healthcareLevel: "Excellent",
+    healthcareLevel: "excellent",
     recommendedVaccinations: [
       "Routine vaccines",
       "Seasonal influenza",
@@ -264,7 +264,7 @@ export const melbourne: City = {
   ruleTraps: [
     {
       rule: "myki tap on and tap off compliance",
-      riskLevel: "High",
+      riskLevel: "high",
       triggerScenario:
         "Failing to tap on/off where required during tram/train travel",
       penaltyOrLoss: "Can result in fare evasion penalties and travel delays.",
@@ -276,7 +276,7 @@ export const melbourne: City = {
     },
     {
       rule: "Ticket validity checks by authorized officers",
-      riskLevel: "High",
+      riskLevel: "high",
       triggerScenario:
         "Travelling without a valid ticket, concession proof, or correct validation",
       penaltyOrLoss:
@@ -289,7 +289,7 @@ export const melbourne: City = {
     },
     {
       rule: "On-board prohibited items and device rules",
-      riskLevel: "Medium",
+      riskLevel: "medium",
       triggerScenario:
         "Bringing disallowed powered mobility/e-ride items onto services",
       penaltyOrLoss:
@@ -384,7 +384,7 @@ export const melbourne: City = {
   accessibility: {
     wheelchairTransitCoverage:
       "Core tram and train hubs are strong, but stop-level variance remains",
-    stepFreeConfidence: "Medium",
+    stepFreeConfidence: "medium",
     unknownDataRatio:
       "15-25% coverage gaps at local stop/platform detail level",
     notes: [

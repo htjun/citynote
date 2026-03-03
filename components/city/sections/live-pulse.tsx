@@ -1,17 +1,18 @@
+import { useTranslations } from "next-intl"
+
 import { SectionHeader } from "@/components/city/section-header"
 import { Badge } from "@/components/ui/badge"
 import type { City } from "@/data/types"
-import {
-  formatSignalTimestamp,
-  isSignalStale,
-  signalLabels,
-} from "@/lib/city-insights"
+import type { Locale } from "@/i18n/locales"
+import { formatSignalTimestamp, isSignalStale } from "@/lib/city-insights"
 
 interface LivePulseProps {
   city: City
+  locale: Locale
 }
 
-export function LivePulse({ city }: LivePulseProps) {
+export function LivePulse({ city, locale }: LivePulseProps) {
+  const t = useTranslations("city.sections.livePulse")
   const { livePulse } = city
 
   if (!livePulse || livePulse.length === 0) {
@@ -24,12 +25,16 @@ export function LivePulse({ city }: LivePulseProps) {
     <section className="space-y-3">
       <SectionHeader
         id="live-pulse"
-        title="Live City Pulse"
-        description="Signals that can impact mobility and health decisions today."
+        title={t("title")}
+        description={t("description")}
       />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
         {livePulse.map((signal) => {
           const stale = isSignalStale(signal, now)
+          const formattedTimestamp = formatSignalTimestamp(
+            signal.updatedAt,
+            locale
+          )
 
           return (
             <article
@@ -38,23 +43,25 @@ export function LivePulse({ city }: LivePulseProps) {
             >
               <div className="flex items-center justify-between gap-2">
                 <h3 className="text-sm font-semibold">
-                  {signalLabels[signal.name]}
+                  {t(`signalLabels.${signal.name}`)}
                 </h3>
                 <Badge
                   variant={stale ? "secondary" : "outline"}
                   className="rounded-none text-[11px]"
                 >
-                  {stale ? "Stale" : "Fresh"}
+                  {stale ? t("stale") : t("fresh")}
                 </Badge>
               </div>
               <p className="text-sm">{signal.status}</p>
               {stale ? (
                 <p className="text-muted-foreground text-xs">
-                  Status may be outdated. Verify with the source before acting.
+                  {t("staleWarning")}
                 </p>
               ) : null}
               <p className="text-muted-foreground text-xs">
-                Updated: {formatSignalTimestamp(signal.updatedAt)}
+                {t("updatedAt", {
+                  value: formattedTimestamp ?? t("unknownUpdateTime"),
+                })}
               </p>
               <a
                 href={signal.sourceUrl}
@@ -62,7 +69,7 @@ export function LivePulse({ city }: LivePulseProps) {
                 target="_blank"
                 rel="noreferrer"
               >
-                View source
+                {t("viewSource")}
               </a>
             </article>
           )

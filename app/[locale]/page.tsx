@@ -1,17 +1,45 @@
-import Link from "next/link"
+import { Link } from "@/i18n/navigation"
+import type { Locale } from "@/i18n/locales"
+import { getCityList } from "@/data/cities"
+import type { Metadata } from "next"
+import { getTranslations } from "next-intl/server"
 
-import { cityList } from "@/data/cities"
+interface HomePageProps {
+  params: Promise<{ locale: Locale }>
+}
 
-export default function HomePage() {
+export async function generateMetadata({
+  params,
+}: HomePageProps): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: "home.metadata" })
+
+  return {
+    title: t("title"),
+    description: t("description"),
+    alternates: {
+      languages: {
+        en: "/en",
+        ko: "/ko",
+        "x-default": "/en",
+      },
+    },
+  }
+}
+
+export default async function HomePage({ params }: HomePageProps) {
+  const { locale } = await params
+  const t = await getTranslations("home")
+  const cityList = getCityList(locale)
+
   return (
     <main className="mx-auto min-h-screen w-full max-w-6xl px-4 py-8 md:px-6">
       <header>
         <h1 className="text-3xl font-semibold tracking-tight">
-          Plan your city move or trip faster
+          {t("hero.title")}
         </h1>
         <p className="text-muted-foreground mt-2 max-w-2xl text-sm">
-          Dense city cheat sheets for travelers, nomads, and students. Start
-          with Seoul and Melbourne.
+          {t("hero.description")}
         </p>
       </header>
 

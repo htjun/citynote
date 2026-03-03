@@ -13,73 +13,93 @@ import { Practical } from "@/components/city/sections/practical"
 import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
 import { SectionNav } from "@/components/city/section-nav"
-import { cityList, citiesBySlug } from "@/data/cities"
+import { getCity, getCitySlugs } from "@/data/cities"
 import type { City } from "@/data/types"
+import type { Locale } from "@/i18n/locales"
+import { routing } from "@/i18n/routing"
 import type { Metadata } from "next"
+import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
 interface CityPageProps {
-  params: Promise<{ citySlug: string }>
+  params: Promise<{ locale: Locale; citySlug: string }>
 }
 
-function getNavItems(city: City) {
+async function getNavItems(city: City, locale: Locale) {
+  const t = await getTranslations({ locale, namespace: "city.nav" })
+
   return [
-    { id: "at-a-glance", label: "At a Glance" },
+    { id: "at-a-glance", label: t("atAGlance") },
     ...(city.livePulse?.length
-      ? [{ id: "live-pulse", label: "Live Pulse" }]
+      ? [{ id: "live-pulse", label: t("livePulse") }]
       : []),
     ...(city.ruleTraps?.length
-      ? [{ id: "rule-traps", label: "Rule Traps" }]
+      ? [{ id: "rule-traps", label: t("ruleTraps") }]
       : []),
-    { id: "climate", label: "Climate" },
-    { id: "cost-of-living", label: "Cost" },
-    { id: "getting-around", label: "Transport" },
-    { id: "connectivity", label: "Connectivity" },
-    { id: "neighborhoods", label: "Neighborhoods" },
+    { id: "climate", label: t("climate") },
+    { id: "cost-of-living", label: t("cost") },
+    { id: "getting-around", label: t("transport") },
+    { id: "connectivity", label: t("connectivity") },
+    { id: "neighborhoods", label: t("neighborhoods") },
     ...(city.neighborhoodFit?.length
-      ? [{ id: "neighborhood-fit", label: "Fit Matrix" }]
+      ? [{ id: "neighborhood-fit", label: t("fitMatrix") }]
       : []),
     ...(city.accessibility
-      ? [{ id: "accessibility", label: "Accessibility" }]
+      ? [{ id: "accessibility", label: t("accessibility") }]
       : []),
-    { id: "food-drink", label: "Food" },
-    { id: "language-culture", label: "Language" },
-    { id: "safety", label: "Safety" },
-    { id: "practical", label: "Practical" },
+    { id: "food-drink", label: t("food") },
+    { id: "language-culture", label: t("language") },
+    { id: "safety", label: t("safety") },
+    { id: "practical", label: t("practical") },
   ]
 }
 
 export function generateStaticParams() {
-  return cityList.map((city) => ({ citySlug: city.slug }))
+  const citySlugs = getCitySlugs()
+
+  return routing.locales.flatMap((locale) =>
+    citySlugs.map((citySlug) => ({
+      locale,
+      citySlug,
+    }))
+  )
 }
 
 export async function generateMetadata({
   params,
 }: CityPageProps): Promise<Metadata> {
-  const { citySlug } = await params
-  const city = citiesBySlug[citySlug as keyof typeof citiesBySlug]
+  const { locale, citySlug } = await params
+  const t = await getTranslations({ locale, namespace: "city.metadata" })
+  const city = getCity(locale, citySlug)
 
   if (!city) {
     return {
-      title: "City Not Found | CityNote",
+      title: t("notFoundTitle"),
     }
   }
 
   return {
-    title: `${city.name} City Guide | CityNote`,
+    title: t("title", { city: city.name }),
     description: city.tagline,
+    alternates: {
+      languages: {
+        en: `/en/${citySlug}`,
+        ko: `/ko/${citySlug}`,
+        "x-default": `/en/${citySlug}`,
+      },
+    },
   }
 }
 
 export default async function CityPage({ params }: CityPageProps) {
-  const { citySlug } = await params
-  const city = citiesBySlug[citySlug as keyof typeof citiesBySlug]
+  const { locale, citySlug } = await params
+  const city = getCity(locale, citySlug)
 
   if (!city) {
     notFound()
   }
 
-  const navItems = getNavItems(city)
+  const navItems = await getNavItems(city, locale)
 
   return (
     <main className="pb-16">
@@ -102,7 +122,7 @@ export default async function CityPage({ params }: CityPageProps) {
 
         <div className="flex min-w-0 flex-col gap-8">
           <AtAGlance city={city} />
-          <LivePulse city={city} />
+          <LivePulse city={city} locale={locale} />
           <RuleTraps city={city} />
           <Climate city={city} />
           <CostOfLiving city={city} />

@@ -1,0 +1,188 @@
+{
+  "metadata": {
+    "title": "{city} City Guide | CityNote",
+    "notFoundTitle": "City Not Found | CityNote"
+  },
+  "nav": {
+    "atAGlance": "At a Glance",
+    "livePulse": "Live Pulse",
+    "ruleTraps": "Rule Traps",
+    "climate": "Climate",
+    "cost": "Cost",
+    "transport": "Transport",
+    "connectivity": "Connectivity",
+    "neighborhoods": "Neighborhoods",
+    "fitMatrix": "Fit Matrix",
+    "accessibility": "Accessibility",
+    "food": "Food",
+    "language": "Language",
+    "safety": "Safety",
+    "practical": "Practical"
+  },
+  "tables": {
+    "phrase": {
+      "local": "Local",
+      "romanization": "Romanization",
+      "english": "English"
+    },
+    "price": {
+      "item": "Item",
+      "value": "Value",
+      "note": "Note",
+      "notAvailable": "-"
+    }
+  },
+  "labels": {
+    "rating": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "very_high": "Very High",
+      "excellent": "Excellent"
+    },
+    "rain": {
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "suffix": "rain"
+    }
+  },
+  "sections": {
+    "common": {
+      "valueWithNote": "{value} - {note}"
+    },
+    "atAGlance": {
+      "title": "At a Glance",
+      "description": "Core context for quick trip planning.",
+      "labels": {
+        "country": "Country",
+        "continent": "Continent",
+        "population": "Population",
+        "languages": "Languages",
+        "currency": "Currency",
+        "timezone": "Timezone",
+        "emergency": "Emergency",
+        "dialingCode": "Dialing Code"
+      }
+    },
+    "climate": {
+      "title": "Climate & Weather",
+      "description": "Monthly highs/lows plus seasonality notes.",
+      "bestMonths": "Best Months",
+      "rainySeason": "Rainy Season"
+    },
+    "costOfLiving": {
+      "title": "Cost of Living",
+      "description": "Budget tiers, daily spend, and monthly baseline.",
+      "dailyBudgetTiers": "Daily Budget Tiers",
+      "dailyEssentials": "Daily Essentials",
+      "monthlyNomadBaseline": "Monthly Nomad Baseline"
+    },
+    "gettingAround": {
+      "title": "Getting There & Around",
+      "description": "Airports, visa snapshot, transport quality, and local mobility.",
+      "rideHailing": "Ride-hailing:",
+      "walkability": "Walkability",
+      "bikeability": "Bikeability"
+    },
+    "connectivity": {
+      "title": "Connectivity",
+      "description": "Internet, SIM options, and remote-work readiness.",
+      "averageInternet": "Average Internet",
+      "coworkingDayPass": "Coworking Day Pass",
+      "wifiAvailability": "WiFi Availability",
+      "coworkingExamples": "Coworking examples:"
+    },
+    "neighborhoods": {
+      "title": "Neighborhoods",
+      "description": "A fast orientation by district vibe and fit."
+    },
+    "neighborhoodFit": {
+      "title": "Neighborhood Fit Matrix",
+      "description": "Area fit by traveler profile and time of day.",
+      "archetypes": {
+        "first_timer": "First Timer",
+        "family": "Family",
+        "night_owl": "Night Owl",
+        "remote_worker": "Remote Worker"
+      },
+      "bestAreas": "Best areas:",
+      "dayFit": "Day fit:",
+      "lateNightFit": "Late-night fit:",
+      "useCaution": "Use caution:"
+    },
+    "accessibility": {
+      "title": "Accessibility Reality Check",
+      "description": "Confidence-oriented view for wheelchair, stroller, and luggage-heavy travel.",
+      "wheelchairTransitCoverage": "Wheelchair transit coverage",
+      "unknownDataRatio": "Unknown data ratio",
+      "notPublished": "Not published",
+      "notReported": "Low/unknown not reported",
+      "stepFreeConfidence": "Step-free confidence"
+    },
+    "foodDrink": {
+      "title": "Food & Drink",
+      "description": "Must-try food, dietary support, and local dining norms.",
+      "mustTry": "Must-try",
+      "dietaryFriendliness": "Dietary Friendliness",
+      "tapWater": "Tap water:",
+      "tipping": "Tipping:"
+    },
+    "languageCulture": {
+      "title": "Language & Culture",
+      "description": "Useful phrases and practical etiquette.",
+      "englishUsability": "English usability",
+      "do": "Do",
+      "avoid": "Avoid"
+    },
+    "safety": {
+      "title": "Safety & Health",
+      "description": "Risk overview, scam awareness, and emergency references.",
+      "overallSafety": "Overall safety",
+      "healthcare": "Healthcare",
+      "commonScams": "Common scams",
+      "recommendedVaccinations": "Recommended vaccinations",
+      "emergencyContacts": "Emergency contacts"
+    },
+    "practical": {
+      "title": "Practical Info",
+      "description": "Power, payments, useful apps, and daily operating rhythm.",
+      "plugType": "Plug Type",
+      "voltage": "Voltage",
+      "paymentCulture": "Payment Culture",
+      "businessHours": "Business Hours",
+      "usefulApps": "Useful Apps"
+    },
+    "livePulse": {
+      "title": "Live City Pulse",
+      "description": "Signals that can impact mobility and health decisions today.",
+      "signalLabels": {
+        "transport": "Transport",
+        "uv": "UV",
+        "aqi": "Air Quality",
+        "advisory": "Travel Advisory"
+      },
+      "stale": "Stale",
+      "fresh": "Fresh",
+      "staleWarning": "Status may be outdated. Verify with the source before acting.",
+      "updatedAt": "Updated: {value}",
+      "unknownUpdateTime": "Unknown update time",
+      "viewSource": "View source"
+    },
+    "ruleTraps": {
+      "title": "Rule Traps & Penalties",
+      "description": "High-cost mistakes to avoid with official source links.",
+      "riskBadge": "{level} Risk",
+      "riskLevels": {
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High"
+      },
+      "trigger": "Trigger:",
+      "loss": "Loss:",
+      "howToAvoid": "How to avoid:",
+      "officialSource": "Official source",
+      "lastVerified": "Last verified: {date}"
+    }
+  }
+}

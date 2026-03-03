@@ -1,0 +1,10 @@
+{
+  "nav": {
+    "brand": "CityNote",
+    "languageSwitcherLabel": "언어",
+    "locales": {
+      "en": "EN",
+      "ko": "KO"
+    }
+  }
+}

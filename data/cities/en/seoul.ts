@@ -23,18 +23,18 @@ export const seoul: City = {
       "Air quality can vary in spring; check PM forecasts.",
     ],
     monthly: [
-      { month: "Jan", highC: 1, lowC: -7, rainLevel: "Low" },
-      { month: "Feb", highC: 4, lowC: -4, rainLevel: "Low" },
-      { month: "Mar", highC: 10, lowC: 1, rainLevel: "Low" },
-      { month: "Apr", highC: 17, lowC: 7, rainLevel: "Low" },
-      { month: "May", highC: 23, lowC: 13, rainLevel: "Medium" },
-      { month: "Jun", highC: 27, lowC: 18, rainLevel: "Medium" },
-      { month: "Jul", highC: 29, lowC: 22, rainLevel: "High" },
-      { month: "Aug", highC: 30, lowC: 23, rainLevel: "High" },
-      { month: "Sep", highC: 26, lowC: 18, rainLevel: "Medium" },
-      { month: "Oct", highC: 20, lowC: 11, rainLevel: "Low" },
-      { month: "Nov", highC: 12, lowC: 3, rainLevel: "Low" },
-      { month: "Dec", highC: 4, lowC: -4, rainLevel: "Low" },
+      { month: "Jan", highC: 1, lowC: -7, rainLevel: "low" },
+      { month: "Feb", highC: 4, lowC: -4, rainLevel: "low" },
+      { month: "Mar", highC: 10, lowC: 1, rainLevel: "low" },
+      { month: "Apr", highC: 17, lowC: 7, rainLevel: "low" },
+      { month: "May", highC: 23, lowC: 13, rainLevel: "medium" },
+      { month: "Jun", highC: 27, lowC: 18, rainLevel: "medium" },
+      { month: "Jul", highC: 29, lowC: 22, rainLevel: "high" },
+      { month: "Aug", highC: 30, lowC: 23, rainLevel: "high" },
+      { month: "Sep", highC: 26, lowC: 18, rainLevel: "medium" },
+      { month: "Oct", highC: 20, lowC: 11, rainLevel: "low" },
+      { month: "Nov", highC: 12, lowC: 3, rainLevel: "low" },
+      { month: "Dec", highC: 4, lowC: -4, rainLevel: "low" },
     ],
   },
   costOfLiving: {
@@ -100,8 +100,8 @@ export const seoul: City = {
       },
     ],
     rideHailingApps: ["Kakao T", "UT"],
-    walkability: "High",
-    bikeability: "Medium",
+    walkability: "high",
+    bikeability: "medium",
   },
   connectivity: {
     averageSpeedMbps: "120-220 Mbps typical fixed broadband",
@@ -113,7 +113,7 @@ export const seoul: City = {
       },
       { item: "Major providers", price: "SK Telecom, KT, LG U+" },
     ],
-    wifiAvailability: "Excellent",
+    wifiAvailability: "excellent",
     coworkingDayPass: "$20-35/day typical",
     coworkingExamples: ["WeWork Euljiro", "FastFive", "Impact Hub Seoul"],
   },
@@ -189,7 +189,7 @@ export const seoul: City = {
     tippingNorm: "No tipping expected in most situations.",
   },
   languageCulture: {
-    englishLevel: "Medium",
+    englishLevel: "medium",
     phrases: [
       { local: "안녕하세요", romanization: "annyeonghaseyo", english: "Hello" },
       {
@@ -240,13 +240,13 @@ export const seoul: City = {
     ],
   },
   safetyHealth: {
-    overallSafety: "Excellent",
+    overallSafety: "excellent",
     commonScams: [
       "Overpriced tourist taxis around nightlife zones.",
       "Bar tab misunderstandings in late-night areas.",
       "Street touts near major tourist hubs.",
     ],
-    healthcareLevel: "Excellent",
+    healthcareLevel: "excellent",
     recommendedVaccinations: [
       "Routine vaccines",
       "Hepatitis A",
@@ -277,7 +277,7 @@ export const seoul: City = {
   ruleTraps: [
     {
       rule: "Climate Card users must tap out every trip",
-      riskLevel: "High",
+      riskLevel: "high",
       triggerScenario: "Skipping tap-out repeatedly on subway/bus exits",
       penaltyOrLoss:
         "Repeated non-compliance can lock card benefits and force full-fare trips.",
@@ -289,7 +289,7 @@ export const seoul: City = {
     },
     {
       rule: "Avoid unofficial airport taxi solicitation",
-      riskLevel: "High",
+      riskLevel: "high",
       triggerScenario: "Accepting ride offers before official taxi queue",
       penaltyOrLoss:
         "Overcharging risk and longer routes; difficult dispute recovery for visitors.",
@@ -300,7 +300,7 @@ export const seoul: City = {
     },
     {
       rule: "Late-night bar billing disputes in nightlife zones",
-      riskLevel: "Medium",
+      riskLevel: "medium",
       triggerScenario:
         "No menu/price confirmation before ordering extra rounds",
       penaltyOrLoss: "Unexpected high bill and time loss during dispute.",
@@ -392,7 +392,7 @@ export const seoul: City = {
   accessibility: {
     wheelchairTransitCoverage:
       "High on core subway corridors, variable at older stations",
-    stepFreeConfidence: "Medium",
+    stepFreeConfidence: "medium",
     unknownDataRatio: "20-30% of POIs still lack reliable wheelchair tags",
     notes: [
       "Confirm elevator status on route-level station pages before peak commute windows.",
