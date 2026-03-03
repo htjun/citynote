@@ -6,6 +6,9 @@
   "nav": {
     "atAGlance": "At a Glance",
     "livePulse": "Live Pulse",
+    "weatherNow": "Weather",
+    "currencyWatch": "Currency",
+    "cityNews": "City News",
     "ruleTraps": "Rule Traps",
     "climate": "Climate",
     "cost": "Cost",
@@ -165,6 +168,67 @@
       "stale": "Stale",
       "fresh": "Fresh",
       "staleWarning": "Status may be outdated. Verify with the source before acting.",
+      "updatedAt": "Updated: {value}",
+      "unknownUpdateTime": "Unknown update time",
+      "viewSource": "View source"
+    },
+    "weatherNow": {
+      "title": "Weather Now",
+      "description": "Current weather and exposure indicators with bounded refresh cadence.",
+      "labels": {
+        "temperature": "Temperature",
+        "feelsLike": "Feels like",
+        "uvIndex": "UV index",
+        "aqi": "AQI"
+      },
+      "freshness": {
+        "fresh": "Fresh",
+        "stale": "Stale cache",
+        "fallback": "Fallback",
+        "unavailable": "Unavailable"
+      },
+      "valueUnavailable": "Not available",
+      "nonFreshNote": "Live weather is not fresh. Verify before making time-sensitive plans.",
+      "updatedAt": "Updated: {value}",
+      "unknownUpdateTime": "Unknown update time",
+      "viewSource": "View source"
+    },
+    "currencyWatch": {
+      "title": "Currency Watch",
+      "description": "Daily FX anchors for local spending context.",
+      "labels": {
+        "rates": "Rates"
+      },
+      "freshness": {
+        "fresh": "Fresh",
+        "stale": "Stale cache",
+        "fallback": "Fallback",
+        "unavailable": "Unavailable"
+      },
+      "pairValue": "1 {base} = {rate} {target}",
+      "valueUnavailable": "Not available",
+      "allRatesUnavailable": "Live currency quotes are currently unavailable.",
+      "nonFreshNote": "Showing stale or fallback currency data.",
+      "updatedAt": "Updated: {value}",
+      "asOfDate": "Rate date: {value}",
+      "unknownUpdateTime": "Unknown update time",
+      "viewSource": "View source"
+    },
+    "cityNews": {
+      "title": "City News",
+      "description": "Recent city-linked headlines with conservative update cadence.",
+      "labels": {
+        "headlines": "Headlines"
+      },
+      "freshness": {
+        "fresh": "Fresh",
+        "stale": "Stale cache",
+        "fallback": "Fallback",
+        "unavailable": "Unavailable"
+      },
+      "headlineMeta": "{source} - {publishedAt}",
+      "noHeadlines": "No headlines available right now.",
+      "nonFreshNote": "Showing stale or fallback city news data.",
       "updatedAt": "Updated: {value}",
       "unknownUpdateTime": "Unknown update time",
       "viewSource": "View source"

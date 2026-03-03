@@ -3,6 +3,8 @@ import { AtAGlance } from "@/components/city/sections/at-a-glance"
 import { Climate } from "@/components/city/sections/climate"
 import { Connectivity } from "@/components/city/sections/connectivity"
 import { CostOfLiving } from "@/components/city/sections/cost-of-living"
+import { CityNews } from "@/components/city/sections/city-news"
+import { CurrencyWatch } from "@/components/city/sections/currency-watch"
 import { FoodDrink } from "@/components/city/sections/food-drink"
 import { GettingAround } from "@/components/city/sections/getting-around"
 import { LanguageCulture } from "@/components/city/sections/language-culture"
@@ -12,12 +14,14 @@ import { Neighborhoods } from "@/components/city/sections/neighborhoods"
 import { Practical } from "@/components/city/sections/practical"
 import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
+import { WeatherNow } from "@/components/city/sections/weather-now"
 import { SectionNav } from "@/components/city/section-nav"
 import type { SectionNavItem } from "@/components/city/section-nav"
 import { getCity, getCitySlugs } from "@/data/cities"
 import type { City } from "@/data/types"
 import type { Locale } from "@/i18n/locales"
 import { routing } from "@/i18n/routing"
+import { getCityRuntimeInsights } from "@/lib/insights/get-city-runtime-insights"
 import type { Metadata } from "next"
 import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
@@ -44,6 +48,9 @@ async function getNavItems(
     ...(city.livePulse?.length
       ? [toNavItem("live-pulse", t("livePulse"))]
       : []),
+    toNavItem("weather-now", t("weatherNow")),
+    toNavItem("currency-watch", t("currencyWatch")),
+    toNavItem("city-news", t("cityNews")),
     ...(city.ruleTraps?.length
       ? [toNavItem("rule-traps", t("ruleTraps"))]
       : []),
@@ -111,6 +118,7 @@ export default async function CityPage({ params }: CityPageProps) {
   }
 
   const navItems = await getNavItems(city, locale)
+  const runtimeInsights = await getCityRuntimeInsights({ city, locale })
 
   return (
     <main className="pb-16">
@@ -134,6 +142,12 @@ export default async function CityPage({ params }: CityPageProps) {
         <div className="flex min-w-0 flex-col gap-8">
           <AtAGlance city={city} />
           <LivePulse city={city} locale={locale} />
+          <WeatherNow weather={runtimeInsights.weatherNow} locale={locale} />
+          <CurrencyWatch
+            currencyWatch={runtimeInsights.currencyWatch}
+            locale={locale}
+          />
+          <CityNews cityNews={runtimeInsights.cityNews} locale={locale} />
           <RuleTraps city={city} />
           <Climate city={city} />
           <CostOfLiving city={city} />

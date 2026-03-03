@@ -6,6 +6,9 @@
   "nav": {
     "atAGlance": "핵심 요약",
     "livePulse": "실시간 펄스",
+    "weatherNow": "날씨",
+    "currencyWatch": "환율",
+    "cityNews": "도시 뉴스",
     "ruleTraps": "주의 규정",
     "climate": "기후",
     "cost": "비용",
@@ -165,6 +168,67 @@
       "stale": "오래됨",
       "fresh": "최신",
       "staleWarning": "정보가 오래되었을 수 있습니다. 행동 전 원문 출처를 확인하세요.",
+      "updatedAt": "업데이트: {value}",
+      "unknownUpdateTime": "업데이트 시각 미확인",
+      "viewSource": "출처 보기"
+    },
+    "weatherNow": {
+      "title": "현재 날씨",
+      "description": "갱신 주기를 제한한 현재 날씨 및 노출 지표입니다.",
+      "labels": {
+        "temperature": "기온",
+        "feelsLike": "체감 온도",
+        "uvIndex": "자외선 지수",
+        "aqi": "AQI"
+      },
+      "freshness": {
+        "fresh": "최신",
+        "stale": "오래된 캐시",
+        "fallback": "대체 데이터",
+        "unavailable": "사용 불가"
+      },
+      "valueUnavailable": "정보 없음",
+      "nonFreshNote": "실시간 날씨 정보가 최신이 아닙니다. 시간 민감한 일정 전 원문을 확인하세요.",
+      "updatedAt": "업데이트: {value}",
+      "unknownUpdateTime": "업데이트 시각 미확인",
+      "viewSource": "출처 보기"
+    },
+    "currencyWatch": {
+      "title": "환율 보기",
+      "description": "현지 지출 기준으로 확인하는 일일 환율 지표입니다.",
+      "labels": {
+        "rates": "환율"
+      },
+      "freshness": {
+        "fresh": "최신",
+        "stale": "오래된 캐시",
+        "fallback": "대체 데이터",
+        "unavailable": "사용 불가"
+      },
+      "pairValue": "1 {base} = {rate} {target}",
+      "valueUnavailable": "정보 없음",
+      "allRatesUnavailable": "현재 실시간 환율 정보를 불러올 수 없습니다.",
+      "nonFreshNote": "오래된 캐시 또는 대체 환율 데이터를 표시 중입니다.",
+      "updatedAt": "업데이트: {value}",
+      "asOfDate": "환율 기준일: {value}",
+      "unknownUpdateTime": "업데이트 시각 미확인",
+      "viewSource": "출처 보기"
+    },
+    "cityNews": {
+      "title": "도시 뉴스",
+      "description": "보수적인 갱신 주기로 수집한 도시 관련 최신 헤드라인입니다.",
+      "labels": {
+        "headlines": "헤드라인"
+      },
+      "freshness": {
+        "fresh": "최신",
+        "stale": "오래된 캐시",
+        "fallback": "대체 데이터",
+        "unavailable": "사용 불가"
+      },
+      "headlineMeta": "{source} · {publishedAt}",
+      "noHeadlines": "현재 표시할 헤드라인이 없습니다.",
+      "nonFreshNote": "오래된 캐시 또는 대체 도시 뉴스 데이터를 표시 중입니다.",
       "updatedAt": "업데이트: {value}",
       "unknownUpdateTime": "업데이트 시각 미확인",
       "viewSource": "출처 보기"

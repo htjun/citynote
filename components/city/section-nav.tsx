@@ -2,7 +2,9 @@ import type { RemixiconComponentType } from "@remixicon/react"
 import {
   RiAlertLine,
   RiCompass3Line,
+  RiExchangeDollarLine,
   RiFootprintLine,
+  RiGlobalLine,
   RiMapPinLine,
   RiPulseLine,
   RiRestaurant2Line,
@@ -19,6 +21,9 @@ import {
 export type SectionNavItemId =
   | "at-a-glance"
   | "live-pulse"
+  | "weather-now"
+  | "currency-watch"
+  | "city-news"
   | "rule-traps"
   | "climate"
   | "cost-of-living"
@@ -44,6 +49,9 @@ interface SectionNavProps {
 const navItemIcons: Record<SectionNavItemId, RemixiconComponentType> = {
   "at-a-glance": RiCompass3Line,
   "live-pulse": RiPulseLine,
+  "weather-now": RiSunLine,
+  "currency-watch": RiExchangeDollarLine,
+  "city-news": RiGlobalLine,
   "rule-traps": RiAlertLine,
   climate: RiSunLine,
   "cost-of-living": RiWalletLine,
