@@ -274,4 +274,131 @@ export const seoul: City = {
     businessHours:
       "Typical shops 10:00-21:00, cafes often 08:00-22:00, many restaurants open late.",
   },
+  ruleTraps: [
+    {
+      rule: "Climate Card users must tap out every trip",
+      riskLevel: "High",
+      triggerScenario: "Skipping tap-out repeatedly on subway/bus exits",
+      penaltyOrLoss:
+        "Repeated non-compliance can lock card benefits and force full-fare trips.",
+      howToAvoid:
+        "Treat tap-out as mandatory; check gate confirmation before leaving the station.",
+      sourceUrl:
+        "https://english.seoul.go.kr/policy/transportation/climate-card/",
+      lastVerified: "2026-03-02",
+    },
+    {
+      rule: "Avoid unofficial airport taxi solicitation",
+      riskLevel: "High",
+      triggerScenario: "Accepting ride offers before official taxi queue",
+      penaltyOrLoss:
+        "Overcharging risk and longer routes; difficult dispute recovery for visitors.",
+      howToAvoid:
+        "Use official taxi lines, Kakao T pickup flows, or marked airport bus counters.",
+      sourceUrl: "https://english.visitseoul.net/transportation",
+      lastVerified: "2026-03-02",
+    },
+    {
+      rule: "Late-night bar billing disputes in nightlife zones",
+      riskLevel: "Medium",
+      triggerScenario:
+        "No menu/price confirmation before ordering extra rounds",
+      penaltyOrLoss: "Unexpected high bill and time loss during dispute.",
+      howToAvoid:
+        "Confirm menu pricing up front and pay itemized bills with receipts each round.",
+      sourceUrl: "https://english.visitkorea.or.kr/",
+      lastVerified: "2026-03-01",
+    },
+  ],
+  livePulse: [
+    {
+      name: "transport",
+      status:
+        "Check TOPIS corridor incidents and expressway congestion before transfers.",
+      updatedAt: "2026-03-03T08:40:00+09:00",
+      sourceUrl: "https://topis.seoul.go.kr/openEngBigData.do",
+      staleAfterMinutes: 120,
+    },
+    {
+      name: "uv",
+      status:
+        "Spring UV swings quickly; prioritize sunscreen for outdoor midday plans.",
+      updatedAt: "2026-03-03T08:00:00+09:00",
+      sourceUrl: "https://www.weather.go.kr/",
+      staleAfterMinutes: 180,
+    },
+    {
+      name: "aqi",
+      status:
+        "PM and ozone can shift by district; verify index before long outdoor walks.",
+      updatedAt: "2026-03-02T18:00:00+09:00",
+      sourceUrl: "https://open-meteo.com/en/docs/air-quality-api",
+      staleAfterMinutes: 180,
+    },
+    {
+      name: "advisory",
+      status:
+        "Check latest travel advisory level before committing regional side trips.",
+      updatedAt: "2026-02-28T10:00:00+09:00",
+      sourceUrl:
+        "https://travel.state.gov/en/international-travel/travel-advisories.html",
+      staleAfterMinutes: 1440,
+    },
+  ],
+  neighborhoodFit: [
+    {
+      archetype: "first_timer",
+      bestAreas: ["Myeongdong", "Jongno", "Hongdae"],
+      cautionAreas: ["Outermost districts with limited late-night transit"],
+      notes: "Prioritize direct subway connectivity over hotel star rating.",
+      timeFit: {
+        day: ["Jongno", "Myeongdong"],
+        lateNight: ["Hongdae", "Itaewon"],
+      },
+    },
+    {
+      archetype: "family",
+      bestAreas: ["Jamsil", "Jongno", "Yeouido"],
+      cautionAreas: ["Dense nightlife streets after 22:00"],
+      notes:
+        "Look for stations with elevators and avoid steep lane networks for strollers.",
+      timeFit: {
+        day: ["Jongno", "Yeouido"],
+        lateNight: ["Jamsil"],
+      },
+    },
+    {
+      archetype: "night_owl",
+      bestAreas: ["Hongdae", "Itaewon", "Euljiro"],
+      cautionAreas: ["Airport-bound routes with early final trains"],
+      notes: "Book near a night bus corridor if return after 01:00 is likely.",
+      timeFit: {
+        day: ["Seongsu", "Euljiro"],
+        lateNight: ["Hongdae", "Itaewon"],
+      },
+    },
+    {
+      archetype: "remote_worker",
+      bestAreas: ["Seongsu", "Gangnam", "Mapo"],
+      cautionAreas: ["Blocks with limited cafes before 10:00"],
+      notes:
+        "Optimize for daytime cafe density and backup coworking options in walking range.",
+      timeFit: {
+        day: ["Seongsu", "Gangnam"],
+        lateNight: ["Mapo"],
+      },
+    },
+  ],
+  accessibility: {
+    wheelchairTransitCoverage:
+      "High on core subway corridors, variable at older stations",
+    stepFreeConfidence: "Medium",
+    unknownDataRatio: "20-30% of POIs still lack reliable wheelchair tags",
+    notes: [
+      "Confirm elevator status on route-level station pages before peak commute windows.",
+      "Bus low-floor availability is broad but stop platform quality varies by district.",
+      "Old alley grids in historic neighborhoods can include steep gradients and curbs.",
+      "Treat unknown mapping labels as inaccessible until manually confirmed.",
+    ],
+  },
 }

@@ -261,4 +261,137 @@ export const melbourne: City = {
     businessHours:
       "Typical retail 10:00-18:00, late-night dining available in key areas, weekend markets common.",
   },
+  ruleTraps: [
+    {
+      rule: "myki tap on and tap off compliance",
+      riskLevel: "High",
+      triggerScenario:
+        "Failing to tap on/off where required during tram/train travel",
+      penaltyOrLoss: "Can result in fare evasion penalties and travel delays.",
+      howToAvoid:
+        "Tap on for every trip; tap off when required and review mode-specific guidance.",
+      sourceUrl:
+        "https://transport.vic.gov.au/tickets-and-myki/myki/tap-on-and-off-with-myki",
+      lastVerified: "2026-03-02",
+    },
+    {
+      rule: "Ticket validity checks by authorized officers",
+      riskLevel: "High",
+      triggerScenario:
+        "Travelling without a valid ticket, concession proof, or correct validation",
+      penaltyOrLoss:
+        "Infringement notices can exceed the trip cost by a large margin.",
+      howToAvoid:
+        "Carry active ticket status and supporting concession ID if applicable.",
+      sourceUrl:
+        "https://transport.vic.gov.au/plan-a-journey/public-transport-tools-and-resources/travel-tips-and-resources/public-transport-safety-and-security/fines-and-authorised-officers-on-public-transport",
+      lastVerified: "2026-03-02",
+    },
+    {
+      rule: "On-board prohibited items and device rules",
+      riskLevel: "Medium",
+      triggerScenario:
+        "Bringing disallowed powered mobility/e-ride items onto services",
+      penaltyOrLoss:
+        "Denied boarding, potential penalties, and service disruption.",
+      howToAvoid:
+        "Review current transport rule updates before travel with any powered device.",
+      sourceUrl:
+        "https://transport.vic.gov.au/news-and-resources/news/changes-to-the-way-you-use-public-transport-and-the-rules-for-travelling-on-board",
+      lastVerified: "2026-03-02",
+    },
+  ],
+  livePulse: [
+    {
+      name: "transport",
+      status:
+        "Track planned works and disruptions before interchanging at Southern Cross/Flinders Street.",
+      updatedAt: "2026-03-03T07:35:00+11:00",
+      sourceUrl: "https://www.ptv.vic.gov.au/disruptions/",
+      staleAfterMinutes: 120,
+    },
+    {
+      name: "uv",
+      status:
+        "UV can be high even on mild-temperature days; treat UV risk separately from heat.",
+      updatedAt: "2026-03-03T07:00:00+11:00",
+      sourceUrl:
+        "https://www.bom.gov.au/resources/learn-and-explore/uv-knowledge-centre/about-the-uv-index",
+      staleAfterMinutes: 180,
+    },
+    {
+      name: "aqi",
+      status:
+        "Air quality may fluctuate with smoke/haze events; verify before long outdoor plans.",
+      updatedAt: "2026-03-02T15:20:00+11:00",
+      sourceUrl: "https://open-meteo.com/en/docs/air-quality-api",
+      staleAfterMinutes: 180,
+    },
+    {
+      name: "advisory",
+      status:
+        "Use Smartraveller for outbound side-trip advisories and policy changes.",
+      updatedAt: "2026-03-01T09:00:00+11:00",
+      sourceUrl: "https://www.smartraveller.gov.au/vi/advice-explained",
+      staleAfterMinutes: 1440,
+    },
+  ],
+  neighborhoodFit: [
+    {
+      archetype: "first_timer",
+      bestAreas: ["CBD", "Carlton", "Southbank"],
+      cautionAreas: ["Outer suburbs when relying on late-night transit only"],
+      notes:
+        "Stay near tram/train interchanges to reduce first-trip navigation risk.",
+      timeFit: {
+        day: ["CBD", "Carlton"],
+        lateNight: ["CBD", "Southbank"],
+      },
+    },
+    {
+      archetype: "family",
+      bestAreas: ["South Yarra", "Carlton", "Docklands"],
+      cautionAreas: ["High-nightlife strips on weekend nights"],
+      notes:
+        "Prefer properties with direct tram access and supermarket walk distance.",
+      timeFit: {
+        day: ["Carlton", "South Yarra"],
+        lateNight: ["Docklands"],
+      },
+    },
+    {
+      archetype: "night_owl",
+      bestAreas: ["Fitzroy", "CBD", "St Kilda"],
+      cautionAreas: ["Long transfer paths after final train windows"],
+      notes: "Choose districts with multiple ride options after midnight.",
+      timeFit: {
+        day: ["Fitzroy", "CBD"],
+        lateNight: ["St Kilda", "CBD"],
+      },
+    },
+    {
+      archetype: "remote_worker",
+      bestAreas: ["Fitzroy", "Richmond", "CBD"],
+      cautionAreas: ["Transit-thin zones for frequent cross-city meetings"],
+      notes:
+        "Pick areas with dense cafes, coworking backups, and short tram access.",
+      timeFit: {
+        day: ["CBD", "Richmond"],
+        lateNight: ["Fitzroy"],
+      },
+    },
+  ],
+  accessibility: {
+    wheelchairTransitCoverage:
+      "Core tram and train hubs are strong, but stop-level variance remains",
+    stepFreeConfidence: "Medium",
+    unknownDataRatio:
+      "15-25% coverage gaps at local stop/platform detail level",
+    notes: [
+      "Station and stop upgrades are ongoing; always check route-level accessibility before departure.",
+      "Free Tram Zone convenience does not guarantee uniform step-free boarding.",
+      "Major event days can sharply reduce practical accessibility despite nominal coverage.",
+      "Validate elevator/escalator outages for critical interchanges on disruption pages.",
+    ],
+  },
 }

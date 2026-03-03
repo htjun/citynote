@@ -1,4 +1,5 @@
 export type RatingLevel = "Low" | "Medium" | "High" | "Very High" | "Excellent"
+export type RiskLevel = "Low" | "Medium" | "High"
 
 export interface MonthlyClimate {
   month: string
@@ -28,6 +29,42 @@ export interface Phrase {
 export interface LinkApp {
   name: string
   purpose: string
+}
+
+export interface RuleTrap {
+  rule: string
+  riskLevel: RiskLevel
+  triggerScenario: string
+  penaltyOrLoss: string
+  howToAvoid: string
+  sourceUrl: string
+  lastVerified: string
+}
+
+export interface LiveSignal {
+  name: "transport" | "uv" | "aqi" | "advisory"
+  status: string
+  updatedAt: string
+  sourceUrl: string
+  staleAfterMinutes: number
+}
+
+export interface NeighborhoodFit {
+  archetype: "first_timer" | "family" | "night_owl" | "remote_worker"
+  bestAreas: string[]
+  cautionAreas?: string[]
+  notes: string
+  timeFit: {
+    day: string[]
+    lateNight: string[]
+  }
+}
+
+export interface AccessibilitySnapshot {
+  wheelchairTransitCoverage?: string
+  stepFreeConfidence: "Low" | "Medium" | "High"
+  unknownDataRatio?: string
+  notes: string[]
 }
 
 export interface City {
@@ -99,4 +136,8 @@ export interface City {
     usefulApps: LinkApp[]
     businessHours: string
   }
+  ruleTraps?: RuleTrap[]
+  livePulse?: LiveSignal[]
+  neighborhoodFit?: NeighborhoodFit[]
+  accessibility?: AccessibilitySnapshot
 }
