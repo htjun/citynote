@@ -69,8 +69,8 @@
       }
     },
     "climate": {
-      "title": "Climate & Weather",
-      "description": "Monthly highs/lows plus seasonality notes.",
+      "title": "Seasonal Climate Baseline",
+      "description": "Long-horizon monthly highs/lows and seasonality notes.",
       "bestMonths": "Best Months",
       "rainySeason": "Rainy Season"
     },

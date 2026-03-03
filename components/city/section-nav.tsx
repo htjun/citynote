@@ -37,9 +37,15 @@ export type SectionNavItemId =
   | "safety"
   | "practical"
 
+export interface SectionNavChildItem {
+  id: SectionNavItemId
+  label: string
+}
+
 export interface SectionNavItem {
   id: SectionNavItemId
   label: string
+  children?: SectionNavChildItem[]
 }
 
 interface SectionNavProps {
@@ -82,6 +88,20 @@ export function SectionNav({ items }: SectionNavProps) {
                 <Icon aria-hidden="true" className="size-4 shrink-0" />
                 <span className="min-w-0 flex-1">{item.label}</span>
               </a>
+              {item.children?.length ? (
+                <ul className="mt-1 space-y-0.5 pl-7">
+                  {item.children.map((child) => (
+                    <li key={`${item.id}-${child.id}`}>
+                      <a
+                        href={`#${child.id}`}
+                        className="text-muted-foreground/90 hover:text-foreground hover:bg-muted inline-flex w-full items-center rounded-md px-2 py-1 text-xs transition-colors"
+                      >
+                        <span className="min-w-0 flex-1">{child.label}</span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
             </li>
           )
         })}

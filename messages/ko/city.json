@@ -69,8 +69,8 @@
       }
     },
     "climate": {
-      "title": "기후 및 날씨",
-      "description": "월별 최고/최저 기온과 계절 특성을 요약합니다.",
+      "title": "계절별 기후 기준선",
+      "description": "장기 관점의 월별 최고/최저 기온과 계절 특성을 요약합니다.",
       "bestMonths": "추천 시기",
       "rainySeason": "우기"
     },

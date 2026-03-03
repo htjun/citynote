@@ -54,7 +54,6 @@ async function getNavItems(
     ...(city.ruleTraps?.length
       ? [toNavItem("rule-traps", t("ruleTraps"))]
       : []),
-    toNavItem("climate", t("climate")),
     toNavItem("cost-of-living", t("cost")),
     toNavItem("getting-around", t("transport")),
     toNavItem("connectivity", t("connectivity")),
@@ -143,13 +142,13 @@ export default async function CityPage({ params }: CityPageProps) {
           <AtAGlance city={city} />
           <LivePulse city={city} locale={locale} />
           <WeatherNow weather={runtimeInsights.weatherNow} locale={locale} />
+          <Climate city={city} />
           <CurrencyWatch
             currencyWatch={runtimeInsights.currencyWatch}
             locale={locale}
           />
           <CityNews cityNews={runtimeInsights.cityNews} locale={locale} />
           <RuleTraps city={city} />
-          <Climate city={city} />
           <CostOfLiving city={city} />
           <GettingAround city={city} />
           <Connectivity city={city} />
