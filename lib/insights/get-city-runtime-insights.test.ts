@@ -3,11 +3,11 @@ import {
   clearRuntimeInsightsCacheForTests,
   getCityRuntimeInsights,
 } from "@/lib/insights/get-city-runtime-insights"
-import type * as CurrentsProvider from "@/lib/insights/providers/currents"
 import type * as FrankfurterProvider from "@/lib/insights/providers/frankfurter"
+import type * as NewsSourcesProvider from "@/lib/insights/providers/news-sources"
 import type * as WeatherProvider from "@/lib/insights/providers/weatherapi"
-import { fetchCityNews } from "@/lib/insights/providers/currents"
 import { fetchCurrencyWatch } from "@/lib/insights/providers/frankfurter"
+import { fetchCityNews } from "@/lib/insights/providers/news-sources"
 import { fetchWeatherNow } from "@/lib/insights/providers/weatherapi"
 import type {
   CityNewsData,
@@ -29,8 +29,8 @@ vi.mock<typeof FrankfurterProvider>(
   })
 )
 
-vi.mock<typeof CurrentsProvider>(
-  import("@/lib/insights/providers/currents"),
+vi.mock<typeof NewsSourcesProvider>(
+  import("@/lib/insights/providers/news-sources"),
   () => ({
     fetchCityNews: vi.fn(),
   })
@@ -48,18 +48,14 @@ function getCityOrThrow(slug: string) {
 
 function setInsightsEnv(): void {
   process.env.WEATHERAPI_KEY = "test-weather-key"
-  process.env.CURRENTS_API_KEY = "test-currents-key"
   process.env.CURRENCY_BASES = "USD,EUR"
   process.env.NEWS_HEADLINE_LIMIT = "5"
-  process.env.NEWS_FALLBACK_LANG = "en"
 }
 
 function clearInsightsEnv(): void {
   delete process.env.WEATHERAPI_KEY
-  delete process.env.CURRENTS_API_KEY
   delete process.env.CURRENCY_BASES
   delete process.env.NEWS_HEADLINE_LIMIT
-  delete process.env.NEWS_FALLBACK_LANG
 }
 
 function weatherSuccess(): {
@@ -122,12 +118,16 @@ function newsSuccess(): {
           source: "Example News",
           publishedAt: "2026-03-03T10:00:00.000Z",
           language: "en",
+          provider: "feed",
+          relevanceScore: 55,
+          relevanceSignals: ["city_alias", "impact_keyword", "source_tier_1"],
+          sourceTier: 1,
         },
       ],
       updatedAt: "2026-03-03T10:00:00.000Z",
     },
     fetchedAt: "2026-03-03T10:00:00.000Z",
-    sourceUrl: "https://currentsapi.services/en/docs/",
+    sourceUrl: "https://www.sbs.com.au/news/feeds/",
   }
 }
 
@@ -208,7 +208,7 @@ describe("runtime insights orchestrator", () => {
       upstreamFailure("https://frankfurter.dev/")
     )
     vi.mocked(fetchCityNews).mockResolvedValueOnce(
-      upstreamFailure("https://currentsapi.services/en/docs/")
+      upstreamFailure("https://www.sbs.com.au/news/feeds/")
     )
 
     const runtime = await getCityRuntimeInsights({

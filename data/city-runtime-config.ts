@@ -2,7 +2,12 @@ export interface CityRuntimeConfig {
   slug: string
   weatherQuery: string
   localCurrency: string
-  newsKeywords: string[]
+  newsProfile: {
+    cityAliases: string[]
+    countryAliases: string[]
+    impactKeywords: string[]
+    excludedAmbiguities: string[]
+  }
   newsFallbackLinks: {
     title: string
     url: string
@@ -15,7 +20,30 @@ export const cityRuntimeConfigBySlug = {
     slug: "melbourne",
     weatherQuery: "-37.8136,144.9631",
     localCurrency: "AUD",
-    newsKeywords: ["Melbourne", "Victoria Australia"],
+    newsProfile: {
+      cityAliases: ["melbourne", "victoria"],
+      countryAliases: ["australia", "australian", "victorian"],
+      impactKeywords: [
+        "disruption",
+        "transport",
+        "train",
+        "tram",
+        "bus",
+        "incident",
+        "fire",
+        "emergency",
+        "warning",
+        "alert",
+        "policy",
+        "visa",
+        "travel advisory",
+        "flood",
+        "storm",
+        "inflation",
+        "interest rate",
+      ],
+      excludedAmbiguities: ["melbourne florida", "florida usa"],
+    },
     newsFallbackLinks: [
       {
         title: "Visit Melbourne updates",
@@ -33,7 +61,29 @@ export const cityRuntimeConfigBySlug = {
     slug: "seoul",
     weatherQuery: "37.5665,126.9780",
     localCurrency: "KRW",
-    newsKeywords: ["Seoul", "South Korea"],
+    newsProfile: {
+      cityAliases: ["seoul"],
+      countryAliases: ["south korea", "republic of korea", "korea", "korean"],
+      impactKeywords: [
+        "subway",
+        "metro",
+        "transport",
+        "strike",
+        "warning",
+        "advisory",
+        "visa",
+        "entry",
+        "policy",
+        "typhoon",
+        "flood",
+        "air quality",
+        "missile",
+        "north korea",
+        "security",
+        "emergency",
+      ],
+      excludedAmbiguities: [],
+    },
     newsFallbackLinks: [
       {
         title: "Visit Seoul updates",

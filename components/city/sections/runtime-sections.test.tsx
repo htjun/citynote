@@ -77,10 +77,10 @@ describe("runtime sections", () => {
       headlines: [],
       updatedAt: "2026-03-03T10:00:00.000Z",
       meta: {
-        provider: "currents",
+        provider: "news-sources",
         fetchedAt: "2026-03-03T10:00:00.000Z",
         freshness: "unavailable",
-        sourceUrl: "https://currentsapi.services/en/docs/",
+        sourceUrl: "https://www.sbs.com.au/news/feeds/",
       },
     }
 

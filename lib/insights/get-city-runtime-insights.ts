@@ -12,8 +12,8 @@ import {
   readRuntimeCache,
   writeRuntimeCache,
 } from "@/lib/insights/provider-cache"
-import { fetchCityNews } from "@/lib/insights/providers/currents"
 import { fetchCurrencyWatch } from "@/lib/insights/providers/frankfurter"
+import { fetchCityNews } from "@/lib/insights/providers/news-sources"
 import { fetchWeatherNow } from "@/lib/insights/providers/weatherapi"
 import type {
   CityNewsData,
@@ -129,7 +129,7 @@ function unavailableCityNews(input: {
       updatedAt: input.fetchedAt,
     },
     {
-      provider: "currents",
+      provider: "news-sources",
       sourceUrl: input.sourceUrl,
       fetchedAt: input.fetchedAt,
       freshness: "unavailable",
@@ -270,7 +270,7 @@ function resolveNews(city: City, locale: Locale): Promise<CityNewsData> {
     return Promise.resolve(
       unavailableCityNews({
         fetchedAt: new Date().toISOString(),
-        sourceUrl: "https://currentsapi.services/en/docs/",
+        sourceUrl: "https://www.sbs.com.au/news/feeds/",
         errorCode: "upstream",
       })
     )
@@ -279,7 +279,7 @@ function resolveNews(city: City, locale: Locale): Promise<CityNewsData> {
   return resolveSection({
     cacheKey: `news:${city.slug}:${locale}`,
     staleWindowSeconds: providerMaxStaleSeconds.news,
-    provider: "currents",
+    provider: "news-sources",
     fetcher: () => fetchCityNews(config, locale),
     fallback: (input) => buildCityNewsFallback(config, input),
     unavailable: unavailableCityNews,

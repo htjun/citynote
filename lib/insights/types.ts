@@ -1,4 +1,4 @@
-export type RuntimeProvider = "weatherapi" | "frankfurter" | "currents"
+export type RuntimeProvider = "weatherapi" | "frankfurter" | "news-sources"
 
 export type RuntimeErrorCode =
   | "timeout"
@@ -64,6 +64,10 @@ export interface CityNewsHeadline {
   source: string
   publishedAt: string
   language: string
+  provider: "feed" | "html" | "fallback"
+  relevanceScore: number
+  relevanceSignals: string[]
+  sourceTier: 1 | 2 | 3
 }
 
 export interface CityNewsData {

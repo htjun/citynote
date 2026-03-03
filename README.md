@@ -23,7 +23,7 @@ pnpm run test:run
 ## i18n
 
 ```bash
-npm run validate:messages
+pnpm run validate:messages
 ```
 
 - Locale routes: `/en/...`, `/ko/...`

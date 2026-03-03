@@ -54,6 +54,10 @@ export function buildCityNewsFallback(
       source: link.source,
       publishedAt: input.fetchedAt,
       language: "en",
+      provider: "fallback",
+      relevanceScore: 0,
+      relevanceSignals: ["curated_fallback"],
+      sourceTier: 1,
     })
   )
 
