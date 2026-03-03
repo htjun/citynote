@@ -62,11 +62,24 @@
         "continent": "대륙",
         "population": "인구",
         "languages": "언어",
+        "visaEntry": "Visa / Entry",
+        "bestMonths": "Best Months",
+        "dailyBudgetRange": "Daily Budget Range",
+        "airportToCity": "Airport to City",
         "currency": "통화",
+        "paymentCulture": "Payment Culture",
         "timezone": "시간대",
+        "safetyLevel": "Safety Level",
+        "englishUsability": "English Usability",
+        "transitQuality": "Transit Quality",
+        "tapWaterSafety": "Tap Water Safety",
+        "plugVoltage": "Plug + Voltage",
+        "internetSpeed": "Internet Speed",
+        "emergencyContacts": "Emergency Contacts",
         "emergency": "긴급번호",
         "dialingCode": "국가번호"
-      }
+      },
+      "valueUnavailable": "Not available"
     },
     "climate": {
       "title": "계절별 기후 기준선",

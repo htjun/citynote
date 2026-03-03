@@ -62,11 +62,24 @@
         "continent": "Continent",
         "population": "Population",
         "languages": "Languages",
+        "visaEntry": "Visa / Entry",
+        "bestMonths": "Best Months",
+        "dailyBudgetRange": "Daily Budget Range",
+        "airportToCity": "Airport to City",
         "currency": "Currency",
+        "paymentCulture": "Payment Culture",
         "timezone": "Timezone",
+        "safetyLevel": "Safety Level",
+        "englishUsability": "English Usability",
+        "transitQuality": "Transit Quality",
+        "tapWaterSafety": "Tap Water Safety",
+        "plugVoltage": "Plug + Voltage",
+        "internetSpeed": "Internet Speed",
+        "emergencyContacts": "Emergency Contacts",
         "emergency": "Emergency",
         "dialingCode": "Dialing Code"
-      }
+      },
+      "valueUnavailable": "Not available"
     },
     "climate": {
       "title": "Seasonal Climate Baseline",
