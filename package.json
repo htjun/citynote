@@ -14,7 +14,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "validate:messages": "node scripts/validate-messages.mjs",
-    "test:i18n": "pnpm run validate:messages"
+    "test:i18n": "pnpm run validate:messages",
+    "admin": "pnpm --filter @citynote/admin dev"
   },
   "dependencies": {
     "@base-ui/react": "^1.2.0",
