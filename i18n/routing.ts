@@ -5,5 +5,5 @@ import { defaultLocale, locales } from "@/i18n/locales"
 export const routing = defineRouting({
   locales: [...locales],
   defaultLocale,
-  localePrefix: "always",
+  localePrefix: "as-needed",
 })
