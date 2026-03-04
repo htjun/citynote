@@ -3,7 +3,7 @@ import type { Locale } from "@/i18n/locales"
 import { Link } from "@/i18n/navigation"
 import { getTranslations } from "next-intl/server"
 
-import { LocaleSwitcher } from "@/components/locale-switcher"
+import { PreferencesPopover } from "@/components/preferences-popover"
 
 interface TopNavProps {
   locale: Locale
@@ -36,7 +36,7 @@ export async function TopNav({ locale }: TopNavProps) {
         </div>
 
         <div className="ml-auto">
-          <LocaleSwitcher />
+          <PreferencesPopover />
         </div>
       </div>
     </nav>
