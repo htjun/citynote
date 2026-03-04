@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router"
 import { Layout } from "./Layout"
 import { CitiesPage } from "./pages/cities"
+import { CityDetailPage } from "./pages/city-detail"
 import { AgentsPage } from "./pages/agents"
 import { SchedulesPage } from "./pages/schedules"
 
@@ -11,6 +12,7 @@ export function App() {
         <Route element={<Layout />}>
           <Route index element={<Navigate to="/cities" replace />} />
           <Route path="cities" element={<CitiesPage />} />
+          <Route path="cities/:slug" element={<CityDetailPage />} />
           <Route path="agents" element={<AgentsPage />} />
           <Route path="schedules" element={<SchedulesPage />} />
         </Route>

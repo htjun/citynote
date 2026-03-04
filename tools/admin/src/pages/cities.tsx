@@ -1,3 +1,4 @@
+import { Link } from "react-router"
 import { cityRuntimeConfigBySlug } from "@citynote/data/city-runtime-config"
 import type { CityRuntimeConfig } from "@citynote/data/city-runtime-config"
 
@@ -27,7 +28,9 @@ export function CitiesPage() {
           {configs.map((config) => (
             <tr key={config.slug} style={trStyle}>
               <td style={tdStyle}>
-                <code style={codeStyle}>{config.slug}</code>
+                <Link to={`/cities/${config.slug}`} style={slugLinkStyle}>
+                  {config.slug}
+                </Link>
               </td>
               <td style={tdStyle}>{config.localCurrency}</td>
               <td style={tdStyle}>
@@ -97,6 +100,14 @@ const trStyle: React.CSSProperties = {
 const tdStyle: React.CSSProperties = {
   padding: "8px 12px",
   verticalAlign: "top",
+}
+
+const slugLinkStyle: React.CSSProperties = {
+  color: "#1a73e8",
+  textDecoration: "none",
+  fontWeight: 500,
+  fontSize: 13,
+  fontFamily: "monospace",
 }
 
 const codeStyle: React.CSSProperties = {
