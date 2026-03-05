@@ -16,13 +16,34 @@ import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
 import { WeatherNow } from "@/components/city/sections/weather-now"
 import { SectionNav } from "@/components/city/section-nav"
-import type { SectionNavItem } from "@/components/city/section-nav"
+import type {
+  SectionNavGroup,
+  SectionNavItem,
+} from "@/components/city/section-nav"
 import { getCity, getCitySlugs } from "@/data/cities"
 import type { City } from "@/data/types"
 import type { Locale } from "@/i18n/locales"
 import { routing } from "@/i18n/routing"
+import { buildPersonalizationProfile } from "@/lib/ia/profile"
+import { rankSections } from "@/lib/ia/rank-sections"
+import {
+  getVisibleSectionCandidates,
+  getRuntimeFreshnessMap,
+} from "@/lib/ia/section-registry"
+import { selectContent } from "@/lib/ia/select-content"
+import { SECTION_GROUP_ORDER } from "@/lib/ia/types"
+import type {
+  CitySectionId,
+  RankedSection,
+  SectionGroupId,
+} from "@/lib/ia/types"
 import { getCityRuntimeInsights } from "@/lib/insights/get-city-runtime-insights"
+import {
+  parsePersonalizationInput,
+  PERSONALIZATION_COOKIE_KEYS,
+} from "@/lib/personalization/schema"
 import type { Metadata } from "next"
+import { cookies } from "next/headers"
 import { getTranslations } from "next-intl/server"
 import { notFound } from "next/navigation"
 
@@ -30,45 +51,156 @@ interface CityPageProps {
   params: Promise<{ locale: Locale; citySlug: string }>
 }
 
-function toNavItem(id: SectionNavItem["id"], label: string): SectionNavItem {
-  return {
-    id,
-    label,
+export const dynamic = "force-dynamic"
+
+interface RenderContext {
+  city: City
+  locale: Locale
+  runtimeInsights: Awaited<ReturnType<typeof getCityRuntimeInsights>>
+  contentSelection: ReturnType<typeof selectContent>
+}
+
+type GroupLabelMap = Record<SectionGroupId, string>
+
+const groupLabelKeyById: Record<SectionGroupId, string> = {
+  essentials: "essentials",
+  "right-now": "rightNow",
+  "plan-your-stay": "planYourStay",
+  "local-context": "localContext",
+}
+
+// oxlint-disable-next-line max-statements
+function renderSection(sectionId: CitySectionId, context: RenderContext) {
+  switch (sectionId) {
+    case "at-a-glance": {
+      return (
+        <AtAGlance
+          city={context.city}
+          maxItems={context.contentSelection.atAGlance.maxItems}
+        />
+      )
+    }
+    case "getting-around": {
+      return <GettingAround city={context.city} />
+    }
+    case "safety": {
+      return <Safety city={context.city} />
+    }
+    case "rule-traps": {
+      return <RuleTraps city={context.city} />
+    }
+    case "live-pulse": {
+      return <LivePulse city={context.city} locale={context.locale} />
+    }
+    case "weather-now": {
+      return (
+        <WeatherNow
+          weather={context.runtimeInsights.weatherNow}
+          locale={context.locale}
+        />
+      )
+    }
+    case "currency-watch": {
+      return (
+        <CurrencyWatch
+          currencyWatch={context.runtimeInsights.currencyWatch}
+          locale={context.locale}
+          compact={context.contentSelection.currencyWatch.compact}
+        />
+      )
+    }
+    case "city-news": {
+      return (
+        <CityNews
+          cityNews={context.runtimeInsights.cityNews}
+          locale={context.locale}
+        />
+      )
+    }
+    case "cost-of-living": {
+      return (
+        <CostOfLiving
+          city={context.city}
+          emphasize={context.contentSelection.costOfLiving.emphasize}
+          dailyEssentialsLimit={
+            context.contentSelection.costOfLiving.dailyEssentialsLimit
+          }
+        />
+      )
+    }
+    case "neighborhoods": {
+      return <Neighborhoods city={context.city} />
+    }
+    case "neighborhood-fit": {
+      return <NeighborhoodFit city={context.city} />
+    }
+    case "connectivity": {
+      return <Connectivity city={context.city} />
+    }
+    case "practical": {
+      return <Practical city={context.city} />
+    }
+    case "accessibility": {
+      return <Accessibility city={context.city} />
+    }
+    case "language-culture": {
+      return (
+        <LanguageCulture
+          city={context.city}
+          phraseLimit={context.contentSelection.languageCulture.phraseLimit}
+          etiquetteLimit={
+            context.contentSelection.languageCulture.etiquetteLimit
+          }
+        />
+      )
+    }
+    case "food-drink": {
+      return (
+        <FoodDrink
+          city={context.city}
+          mustTryLimit={context.contentSelection.foodDrink.mustTryLimit}
+          cultureNoteLimit={context.contentSelection.foodDrink.cultureNoteLimit}
+        />
+      )
+    }
+    case "climate": {
+      return <Climate city={context.city} />
+    }
+    default: {
+      return null
+    }
   }
 }
 
-async function getNavItems(
-  city: City,
-  locale: Locale
-): Promise<SectionNavItem[]> {
-  const t = await getTranslations({ locale, namespace: "city.nav" })
+function toNavGroups(
+  orderedSections: RankedSection[],
+  navLabels: Record<string, string>,
+  groupLabels: GroupLabelMap
+): SectionNavGroup[] {
+  return SECTION_GROUP_ORDER.map((groupId) => {
+    const items: SectionNavItem[] = orderedSections
+      .filter((section) => section.group === groupId)
+      .map((section) => ({
+        id: section.id,
+        label: navLabels[section.id],
+      }))
 
-  return [
-    toNavItem("at-a-glance", t("atAGlance")),
-    ...(city.livePulse?.length
-      ? [toNavItem("live-pulse", t("livePulse"))]
-      : []),
-    toNavItem("weather-now", t("weatherNow")),
-    toNavItem("currency-watch", t("currencyWatch")),
-    toNavItem("city-news", t("cityNews")),
-    ...(city.ruleTraps?.length
-      ? [toNavItem("rule-traps", t("ruleTraps"))]
-      : []),
-    toNavItem("cost-of-living", t("cost")),
-    toNavItem("getting-around", t("transport")),
-    toNavItem("connectivity", t("connectivity")),
-    toNavItem("neighborhoods", t("neighborhoods")),
-    ...(city.neighborhoodFit?.length
-      ? [toNavItem("neighborhood-fit", t("fitMatrix"))]
-      : []),
-    ...(city.accessibility
-      ? [toNavItem("accessibility", t("accessibility"))]
-      : []),
-    toNavItem("food-drink", t("food")),
-    toNavItem("language-culture", t("language")),
-    toNavItem("safety", t("safety")),
-    toNavItem("practical", t("practical")),
-  ]
+    return {
+      id: groupId,
+      label: groupLabels[groupId],
+      items,
+    }
+  }).filter((group) => group.items.length > 0)
+}
+
+function toForYouItems(
+  orderedSections: RankedSection[],
+  navLabels: Record<string, string>
+): SectionNavItem[] {
+  return orderedSections.slice(0, 3).map((section) => ({
+    id: section.id,
+    label: navLabels[section.id],
+  }))
 }
 
 export function generateStaticParams() {
@@ -108,6 +240,7 @@ export async function generateMetadata({
   }
 }
 
+// oxlint-disable-next-line max-statements
 export default async function CityPage({ params }: CityPageProps) {
   const { locale, citySlug } = await params
   const city = getCity(locale, citySlug)
@@ -116,8 +249,52 @@ export default async function CityPage({ params }: CityPageProps) {
     notFound()
   }
 
-  const navItems = await getNavItems(city, locale)
   const runtimeInsights = await getCityRuntimeInsights({ city, locale })
+
+  const cookieStore = await cookies()
+  const personalizationInput = parsePersonalizationInput({
+    purpose:
+      cookieStore.get(PERSONALIZATION_COOKIE_KEYS.purpose)?.value ?? null,
+    nationality:
+      cookieStore.get(PERSONALIZATION_COOKIE_KEYS.nationality)?.value ?? null,
+  })
+  const profile = buildPersonalizationProfile({
+    personalization: personalizationInput,
+    cityCountryCode: city.countryCode,
+  })
+  const contentSelection = selectContent(profile)
+
+  const sectionCandidates = getVisibleSectionCandidates({
+    city,
+    runtimeInsights,
+  })
+  const runtimeFreshness = getRuntimeFreshnessMap({ city, runtimeInsights })
+  const orderedSections = rankSections({
+    sections: sectionCandidates,
+    profile,
+    runtimeFreshness,
+    citySlug: city.slug,
+  })
+
+  const tNav = await getTranslations({ locale, namespace: "city.nav" })
+  const tNavGroups = await getTranslations({
+    locale,
+    namespace: "city.navGroups",
+  })
+  const tForYou = await getTranslations({ locale, namespace: "city.forYou" })
+
+  const navLabels = Object.fromEntries(
+    orderedSections.map((section) => [section.id, tNav(section.navLabelKey)])
+  ) as Record<string, string>
+  const groupLabels = Object.fromEntries(
+    SECTION_GROUP_ORDER.map((groupId) => [
+      groupId,
+      tNavGroups(groupLabelKeyById[groupId]),
+    ])
+  ) as GroupLabelMap
+
+  const navGroups = toNavGroups(orderedSections, navLabels, groupLabels)
+  const forYouItems = toForYouItems(orderedSections, navLabels)
 
   return (
     <main className="pb-16">
@@ -133,32 +310,50 @@ export default async function CityPage({ params }: CityPageProps) {
         </p>
       </header>
 
-      <div className="mx-auto mt-4 grid w-full max-w-6xl gap-8 px-4 md:grid-cols-[12rem_minmax(0,1fr)] md:px-6">
+      <div className="mx-auto mt-4 grid w-full max-w-6xl gap-8 px-4 md:grid-cols-[14rem_minmax(0,1fr)] md:px-6">
         <aside className="md:sticky md:top-6 md:self-start">
-          <SectionNav items={navItems} />
+          <SectionNav groups={navGroups} />
         </aside>
 
         <div className="flex min-w-0 flex-col gap-8">
-          <AtAGlance city={city} />
-          <LivePulse city={city} locale={locale} />
-          <WeatherNow weather={runtimeInsights.weatherNow} locale={locale} />
-          <Climate city={city} />
-          <CurrencyWatch
-            currencyWatch={runtimeInsights.currencyWatch}
-            locale={locale}
-          />
-          <CityNews cityNews={runtimeInsights.cityNews} locale={locale} />
-          <RuleTraps city={city} />
-          <CostOfLiving city={city} />
-          <GettingAround city={city} />
-          <Connectivity city={city} />
-          <Neighborhoods city={city} />
-          <NeighborhoodFit city={city} />
-          <Accessibility city={city} />
-          <FoodDrink city={city} />
-          <LanguageCulture city={city} />
-          <Safety city={city} />
-          <Practical city={city} />
+          {forYouItems.length > 0 ? (
+            <section className="border-border/80 bg-card space-y-3 border p-4">
+              <div className="space-y-1">
+                <h2 className="text-lg font-semibold tracking-tight">
+                  {tForYou("title")}
+                </h2>
+                <p className="text-muted-foreground text-sm">
+                  {tForYou("description")}
+                </p>
+              </div>
+              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3">
+                {forYouItems.map((item, index) => (
+                  <li key={item.id}>
+                    <a
+                      href={`#${item.id}`}
+                      className="border-border/80 hover:bg-muted block border px-3 py-2 text-sm transition-colors"
+                    >
+                      <span className="text-muted-foreground mr-2 text-xs">
+                        {index + 1}.
+                      </span>
+                      <span>{item.label}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {orderedSections.map((section) => (
+            <div key={section.id}>
+              {renderSection(section.id, {
+                city,
+                locale,
+                runtimeInsights,
+                contentSelection,
+              })}
+            </div>
+          ))}
         </div>
       </div>
     </main>

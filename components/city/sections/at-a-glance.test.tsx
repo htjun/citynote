@@ -91,7 +91,7 @@ function createCityWithMissingAtAGlanceSources(): City {
 }
 
 describe("at a glance section", () => {
-  it("renders the extended 15-card set in the planned order", () => {
+  it("renders the compact 10-card set in the planned order", () => {
     renderWithIntl(<AtAGlance city={seoul} />)
     const section = getAtAGlanceSection()
 
@@ -106,11 +106,6 @@ describe("at a glance section", () => {
       "Timezone",
       "Safety Level",
       "English Usability",
-      "Transit Quality",
-      "Tap Water Safety",
-      "Plug + Voltage",
-      "Internet Speed",
-      "Emergency Contacts",
     ])
   })
 
@@ -128,7 +123,7 @@ describe("at a glance section", () => {
       ],
     ]
 
-    renderWithIntl(<AtAGlance city={city} />)
+    renderWithIntl(<AtAGlance city={city} maxItems={15} />)
 
     const section = getAtAGlanceSection()
 

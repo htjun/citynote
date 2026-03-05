@@ -4,6 +4,7 @@ export const melbourne: City = {
   slug: "melbourne",
   name: "멜버른",
   country: "호주",
+  countryCode: "AU",
   tagline: "살기 좋고 창의적이며 카페 문화가 강한 해안 도시.",
   atAGlance: {
     continent: "오세아니아",

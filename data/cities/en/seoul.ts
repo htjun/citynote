@@ -4,6 +4,7 @@ export const seoul: City = {
   slug: "seoul",
   name: "Seoul",
   country: "South Korea",
+  countryCode: "KR",
   tagline: "Fast, safe, and highly connected megacity.",
   atAGlance: {
     continent: "Asia",

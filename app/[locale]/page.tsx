@@ -66,6 +66,21 @@ export default async function HomePage({ params }: HomePageProps) {
           </div>
 
           <div className="pointer-events-auto grid w-full max-w-2xl grid-cols-1 gap-3 md:grid-cols-2">
+            <article className="bg-background/80 border-border/80 border p-4 backdrop-blur-sm">
+              <h2 className="text-sm font-semibold">{t("setup.title")}</h2>
+              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                {t("setup.description")}
+              </p>
+            </article>
+            <article className="bg-background/80 border-border/80 border p-4 backdrop-blur-sm">
+              <h2 className="text-sm font-semibold">{t("trust.title")}</h2>
+              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                {t("trust.description")}
+              </p>
+            </article>
+          </div>
+
+          <div className="pointer-events-auto grid w-full max-w-2xl grid-cols-1 gap-3 md:grid-cols-2">
             {cityList.map((city) => (
               <Link
                 key={city.slug}

@@ -7,10 +7,19 @@ import type { City } from "@/data/types"
 
 interface LanguageCultureProps {
   city: City
+  phraseLimit?: number
+  etiquetteLimit?: number
 }
 
-export function LanguageCulture({ city }: LanguageCultureProps) {
+export function LanguageCulture({
+  city,
+  phraseLimit = 10,
+  etiquetteLimit = 5,
+}: LanguageCultureProps) {
   const t = useTranslations("city.sections.languageCulture")
+  const phrases = city.languageCulture.phrases.slice(0, phraseLimit)
+  const dos = city.languageCulture.dos.slice(0, etiquetteLimit)
+  const donts = city.languageCulture.donts.slice(0, etiquetteLimit)
 
   return (
     <section className="space-y-3">
@@ -23,12 +32,12 @@ export function LanguageCulture({ city }: LanguageCultureProps) {
         <span className="text-muted-foreground">{t("englishUsability")}</span>
         <RatingBadge level={city.languageCulture.englishLevel} />
       </div>
-      <PhraseTable rows={city.languageCulture.phrases} />
+      <PhraseTable rows={phrases} />
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div>
           <h3 className="text-sm font-medium">{t("do")}</h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-            {city.languageCulture.dos.map((item) => (
+            {dos.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>
@@ -36,7 +45,7 @@ export function LanguageCulture({ city }: LanguageCultureProps) {
         <div>
           <h3 className="text-sm font-medium">{t("avoid")}</h3>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-sm">
-            {city.languageCulture.donts.map((item) => (
+            {donts.map((item) => (
               <li key={item}>{item}</li>
             ))}
           </ul>

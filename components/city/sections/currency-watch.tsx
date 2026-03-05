@@ -11,6 +11,7 @@ import type { CurrencyWatchData } from "@/lib/insights/types"
 interface CurrencyWatchProps {
   currencyWatch: CurrencyWatchData
   locale: Locale
+  compact?: boolean
 }
 
 function freshnessVariant(freshness: CurrencyWatchData["meta"]["freshness"]) {
@@ -33,10 +34,17 @@ function formatRate(rate: number | null): string | null {
   return rate.toFixed(rate >= 100 ? 2 : 4)
 }
 
-export function CurrencyWatch({ currencyWatch, locale }: CurrencyWatchProps) {
+export function CurrencyWatch({
+  currencyWatch,
+  locale,
+  compact = false,
+}: CurrencyWatchProps) {
   const t = useTranslations("city.sections.currencyWatch")
   const updatedAt = formatSignalTimestamp(currencyWatch.updatedAt, locale)
   const hasAnyRate = currencyWatch.quotes.some((quote) => quote.rate !== null)
+  const visibleQuotes = compact
+    ? currencyWatch.quotes.slice(0, 1)
+    : currencyWatch.quotes
 
   return (
     <section className="space-y-3">
@@ -58,7 +66,7 @@ export function CurrencyWatch({ currencyWatch, locale }: CurrencyWatchProps) {
         </div>
 
         <DataGrid className="xl:grid-cols-2">
-          {currencyWatch.quotes.map((quote) => (
+          {visibleQuotes.map((quote) => (
             <KeyValue
               key={`${quote.base}-${quote.target}`}
               label={`${quote.base} -> ${quote.target}`}
@@ -74,6 +82,10 @@ export function CurrencyWatch({ currencyWatch, locale }: CurrencyWatchProps) {
             />
           ))}
         </DataGrid>
+
+        {compact && currencyWatch.quotes.length > visibleQuotes.length ? (
+          <p className="text-muted-foreground text-xs">{t("compactNote")}</p>
+        ) : null}
 
         {hasAnyRate ? null : (
           <p className="text-muted-foreground text-xs">

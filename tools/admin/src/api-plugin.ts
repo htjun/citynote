@@ -1,7 +1,7 @@
 import path from "node:path"
 import type { IncomingMessage, ServerResponse } from "node:http"
-import { loadEnv } from 'vite';
-import type { Plugin } from 'vite';
+import { loadEnv } from "vite"
+import type { Plugin } from "vite"
 
 function json(res: ServerResponse, data: unknown, status = 200) {
   res.writeHead(status, { "Content-Type": "application/json" })
@@ -38,8 +38,10 @@ export function adminApiPlugin(): Plugin {
       }
 
       server.middlewares.use(async (req, res, next) => {
-        const {url} = req
-        if (!url?.startsWith("/api/")) {return next()}
+        const { url } = req
+        if (!url?.startsWith("/api/")) {
+          return next()
+        }
 
         const path = url.split("?")[0]
         const method = req.method?.toUpperCase()
@@ -65,7 +67,9 @@ export function adminApiPlugin(): Plugin {
             const slug = cityMatch[1]
             const mod = await server.ssrLoadModule("@/data/cities/index")
             const city = mod.getCity("en", slug)
-            if (!city) {return json(res, { error: "City not found" }, 404)}
+            if (!city) {
+              return json(res, { error: "City not found" }, 404)
+            }
             json(res, { city })
             return
           }
@@ -88,7 +92,9 @@ export function adminApiPlugin(): Plugin {
 
             const citiesMod = await server.ssrLoadModule("@/data/cities/index")
             const city = citiesMod.getCity("en", slug)
-            if (!city) {return json(res, { error: "City not found" }, 404)}
+            if (!city) {
+              return json(res, { error: "City not found" }, 404)
+            }
 
             const validateMod = await server.ssrLoadModule(
               "@/lib/perplexity/validate-section"
@@ -124,7 +130,9 @@ export function adminApiPlugin(): Plugin {
 
             const citiesMod = await server.ssrLoadModule("@/data/cities/index")
             const city = citiesMod.getCity("en", slug)
-            if (!city) {return json(res, { error: "City not found" }, 404)}
+            if (!city) {
+              return json(res, { error: "City not found" }, 404)
+            }
 
             const newsMod = await server.ssrLoadModule(
               "@/lib/perplexity/search-news"

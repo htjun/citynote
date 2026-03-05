@@ -1,6 +1,6 @@
 import type { SearchResult } from "./types"
-import { searchWeb } from './client';
-import type { SearchWebOptions } from './client';
+import { searchWeb } from "./client"
+import type { SearchWebOptions } from "./client"
 
 export interface CityNewsSearchOptions {
   maxResults?: number

@@ -6,5 +6,13 @@
   "hero": {
     "title": "어떤 도시든 몇 분 만에 파악하세요",
     "description": "동네, 교통, 비용, 문화에 대한 핵심 정보를 빠르게 정리했습니다."
+  },
+  "setup": {
+    "title": "Set your purpose and nationality",
+    "description": "Use the Preferences menu in the top navigation to set purpose (Trip, Study, Live) and optional nationality for personalized section order."
+  },
+  "trust": {
+    "title": "Trust live signals responsibly",
+    "description": "Weather, currency, and news blocks always show freshness and source links. Verify stale/fallback data before time-sensitive decisions."
   }
 }

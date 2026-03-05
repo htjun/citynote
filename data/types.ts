@@ -72,6 +72,7 @@ export interface City {
   slug: string
   name: string
   country: string
+  countryCode: string
   tagline: string
   atAGlance: {
     continent: string

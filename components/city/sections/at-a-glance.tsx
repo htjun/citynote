@@ -7,6 +7,7 @@ import type { City } from "@/data/types"
 
 interface AtAGlanceProps {
   city: City
+  maxItems?: number
 }
 
 interface AtAGlanceCard {
@@ -76,7 +77,13 @@ function toEmergencyContacts(
   return `${emergencyLabel}: ${emergencyValue} | ${dialingCodeLabel}: ${dialingCodeValue}`
 }
 
-export function AtAGlance({ city }: AtAGlanceProps) {
+const priorityRank: Record<AtAGlanceCard["priority"], number> = {
+  P0: 0,
+  P1: 1,
+  P2: 2,
+}
+
+export function AtAGlance({ city, maxItems = 10 }: AtAGlanceProps) {
   const t = useTranslations("city.sections.atAGlance")
   const rating = useTranslations("city.labels.rating")
   const fallback = t("valueUnavailable")
@@ -168,6 +175,9 @@ export function AtAGlance({ city }: AtAGlanceProps) {
       priority: "P1",
     },
   ]
+  const visibleCards = cards
+    .toSorted((a, b) => priorityRank[a.priority] - priorityRank[b.priority])
+    .slice(0, maxItems)
 
   return (
     <section className="space-y-3">
@@ -177,7 +187,7 @@ export function AtAGlance({ city }: AtAGlanceProps) {
         description={t("description")}
       />
       <DataGrid>
-        {cards.map((card) => (
+        {visibleCards.map((card) => (
           <KeyValue key={card.label} label={card.label} value={card.value} />
         ))}
       </DataGrid>

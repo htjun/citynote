@@ -6,21 +6,31 @@
   "nav": {
     "atAGlance": "At a Glance",
     "livePulse": "Live Pulse",
-    "weatherNow": "Weather",
-    "currencyWatch": "Currency",
+    "weatherNow": "Weather Now",
+    "currencyWatch": "Currency Watch",
     "cityNews": "City News",
     "ruleTraps": "Rule Traps",
     "climate": "Climate",
-    "cost": "Cost",
-    "transport": "Transport",
+    "cost": "Cost of Living",
+    "transport": "Getting Around",
     "connectivity": "Connectivity",
     "neighborhoods": "Neighborhoods",
-    "fitMatrix": "Fit Matrix",
+    "fitMatrix": "Neighborhood Fit",
     "accessibility": "Accessibility",
-    "food": "Food",
-    "language": "Language",
+    "food": "Food & Drink",
+    "language": "Language & Culture",
     "safety": "Safety",
-    "practical": "Practical"
+    "practical": "Practical Info"
+  },
+  "navGroups": {
+    "essentials": "Essentials",
+    "rightNow": "Right Now",
+    "planYourStay": "Plan Your Stay",
+    "localContext": "Local Context"
+  },
+  "forYou": {
+    "title": "For You Now",
+    "description": "Top sections prioritized from your purpose, nationality, and data freshness."
   },
   "tables": {
     "phrase": {
@@ -212,6 +222,7 @@
       "labels": {
         "rates": "Rates"
       },
+      "compactNote": "Showing a compact view for domestic profile settings.",
       "freshness": {
         "fresh": "Fresh",
         "stale": "Stale cache",

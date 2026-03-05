@@ -22,6 +22,16 @@
     "safety": "안전",
     "practical": "실용 정보"
   },
+  "navGroups": {
+    "essentials": "Essentials",
+    "rightNow": "Right Now",
+    "planYourStay": "Plan Your Stay",
+    "localContext": "Local Context"
+  },
+  "forYou": {
+    "title": "For You Now",
+    "description": "Top sections prioritized from your purpose, nationality, and data freshness."
+  },
   "tables": {
     "phrase": {
       "local": "현지 표현",
@@ -212,6 +222,7 @@
       "labels": {
         "rates": "환율"
       },
+      "compactNote": "Showing a compact view for domestic profile settings.",
       "freshness": {
         "fresh": "최신",
         "stale": "오래된 캐시",

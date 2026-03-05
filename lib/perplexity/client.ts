@@ -21,8 +21,12 @@ export function isApiKeyConfigured(): boolean {
 }
 
 function normalizeHttpError(status: number): string {
-  if (status === 429) {return "quota"}
-  if (status === 401 || status === 403) {return "missing_key"}
+  if (status === 429) {
+    return "quota"
+  }
+  if (status === 401 || status === 403) {
+    return "missing_key"
+  }
   return "upstream"
 }
 
@@ -64,7 +68,9 @@ export async function sonarChat(
 
     return (await response.json()) as SonarResponse
   } catch (error) {
-    if (error instanceof PerplexityError) {throw error}
+    if (error instanceof PerplexityError) {
+      throw error
+    }
     if (error instanceof DOMException && error.name === "AbortError") {
       throw new PerplexityError("Request timed out", undefined, "timeout")
     }
@@ -102,13 +108,18 @@ export async function searchWeb(
       query,
       max_results: options?.maxResults ?? 5,
     }
-    if (options?.country) {body.country = options.country}
-    if (options?.searchLanguageFilter)
-      {body.search_language_filter = options.searchLanguageFilter}
-    if (options?.searchDomainFilter)
-      {body.search_domain_filter = options.searchDomainFilter}
-    if (options?.maxTokensPerPage)
-      {body.max_tokens_per_page = options.maxTokensPerPage}
+    if (options?.country) {
+      body.country = options.country
+    }
+    if (options?.searchLanguageFilter) {
+      body.search_language_filter = options.searchLanguageFilter
+    }
+    if (options?.searchDomainFilter) {
+      body.search_domain_filter = options.searchDomainFilter
+    }
+    if (options?.maxTokensPerPage) {
+      body.max_tokens_per_page = options.maxTokensPerPage
+    }
 
     const response = await fetch(`${API_BASE}/search`, {
       method: "POST",
@@ -131,7 +142,9 @@ export async function searchWeb(
 
     return (await response.json()) as SearchResponse
   } catch (error) {
-    if (error instanceof PerplexityError) {throw error}
+    if (error instanceof PerplexityError) {
+      throw error
+    }
     if (error instanceof DOMException && error.name === "AbortError") {
       throw new PerplexityError("Request timed out", undefined, "timeout")
     }

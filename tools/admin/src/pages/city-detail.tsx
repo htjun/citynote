@@ -202,7 +202,9 @@ export function CityDetailPage() {
     )
   }
 
-  const visibleSections = SECTIONS.filter((s) => city[s.key] != null)
+  const visibleSections = SECTIONS.filter(
+    (s) => city[s.key] !== null && city[s.key] !== undefined
+  )
 
   return (
     <div className="space-y-6">

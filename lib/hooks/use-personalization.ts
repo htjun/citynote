@@ -2,7 +2,7 @@
 
 import { useLocale } from "next-intl"
 import { usePreferences } from "@/lib/stores/preferences"
-import type { TravelType } from "@/lib/stores/preferences"
+import type { TravelType } from "@/lib/personalization/schema"
 import type { Locale } from "@/i18n/locales"
 
 export interface Personalization {

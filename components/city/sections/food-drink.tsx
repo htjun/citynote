@@ -6,10 +6,18 @@ import type { City } from "@/data/types"
 
 interface FoodDrinkProps {
   city: City
+  mustTryLimit?: number
+  cultureNoteLimit?: number
 }
 
-export function FoodDrink({ city }: FoodDrinkProps) {
+export function FoodDrink({
+  city,
+  mustTryLimit = 6,
+  cultureNoteLimit = 3,
+}: FoodDrinkProps) {
   const t = useTranslations("city.sections.foodDrink")
+  const mustTryRows = city.foodDrink.mustTry.slice(0, mustTryLimit)
+  const cultureNotes = city.foodDrink.cultureNotes.slice(0, cultureNoteLimit)
 
   return (
     <section className="space-y-3">
@@ -20,10 +28,10 @@ export function FoodDrink({ city }: FoodDrinkProps) {
       />
       <div className="space-y-2">
         <h3 className="text-sm font-medium">{t("mustTry")}</h3>
-        <PriceTable rows={city.foodDrink.mustTry} />
+        <PriceTable rows={mustTryRows} />
       </div>
       <ul className="list-disc space-y-1 pl-5 text-sm">
-        {city.foodDrink.cultureNotes.map((note) => (
+        {cultureNotes.map((note) => (
           <li key={note}>{note}</li>
         ))}
       </ul>

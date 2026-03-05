@@ -1,0 +1,25 @@
+surface,section_id,current_order,readability,usefulness,clarity,relevance,action,target_group,target_order,notes
+home,hero,1,4,4,4,4,keep,home,1,Core value proposition
+home,city-selector,2,4,5,4,5,keep,home,2,Primary route into city content
+home,purpose-nationality-setup,none,3,5,4,5,split,home,3,Add explicit setup panel on home
+home,runtime-trust-note,none,4,4,4,4,keep,home,4,Add freshness/source trust hint
+city,at-a-glance,1,3,5,3,5,split,essentials,1,Reduce to 8-10 high-signal items
+city,live-pulse,2,4,4,4,4,keep,right-now,1,Keep optional based on data
+city,weather-now,3,4,5,4,5,keep,right-now,2,Preserve freshness and source
+city,climate,4,4,3,4,2,demote,local-context,3,Low short-term actionability
+city,currency-watch,5,4,3,4,3,demote,right-now,3,Less useful for domestic users
+city,city-news,6,3,3,3,3,demote,right-now,4,Keep but lower in prominence
+city,rule-traps,7,4,5,4,5,keep,essentials,4,Priority for international users
+city,cost-of-living,8,3,5,3,5,keep,plan-your-stay,1,Core planning section
+city,getting-around,9,4,5,4,5,keep,essentials,2,High actionability
+city,connectivity,10,4,4,4,4,keep,plan-your-stay,4,Important for study/live
+city,neighborhoods,11,4,5,4,5,keep,plan-your-stay,2,Strong fit and location decisions
+city,neighborhood-fit,12,3,4,4,4,keep,plan-your-stay,3,Optional segmentation layer
+city,accessibility,13,4,4,4,4,keep,plan-your-stay,6,Important trust and practical planning
+city,food-drink,14,4,3,4,3,demote,local-context,2,Contextual and experiential
+city,language-culture,15,4,4,4,4,keep,local-context,1,Higher for study/international
+city,safety,16,4,5,4,5,keep,essentials,3,Must remain prominent
+city,practical,17,4,4,4,4,keep,plan-your-stay,5,Setup and routines
+nav,section-nav-flat-list,1,3,4,3,4,split,city-nav,1,Replace flat list with grouped nav
+nav,climate-link-missing,none,2,4,2,4,keep,city-nav,2,Fix mismatch with rendered body content
+personalization,preferences-captured-not-applied,none,2,5,3,5,split,ranking,1,Use purpose and nationality for section ranking/depth
