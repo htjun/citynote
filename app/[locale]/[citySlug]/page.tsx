@@ -15,7 +15,7 @@ import { Practical } from "@/components/city/sections/practical"
 import { RuleTraps } from "@/components/city/sections/rule-traps"
 import { Safety } from "@/components/city/sections/safety"
 import { WeatherNow } from "@/components/city/sections/weather-now"
-import { SectionNav } from "@/components/city/section-nav"
+import { CityPageShell } from "@/components/city/city-page-shell"
 import type {
   SectionNavGroup,
   SectionNavItem,
@@ -281,8 +281,6 @@ export default async function CityPage({ params }: CityPageProps) {
     locale,
     namespace: "city.navGroups",
   })
-  const tForYou = await getTranslations({ locale, namespace: "city.forYou" })
-
   const navLabels = Object.fromEntries(
     orderedSections.map((section) => [section.id, tNav(section.navLabelKey)])
   ) as Record<string, string>
@@ -297,65 +295,27 @@ export default async function CityPage({ params }: CityPageProps) {
   const forYouItems = toForYouItems(orderedSections, navLabels)
 
   return (
-    <main className="pb-16">
-      <header className="mx-auto flex w-full max-w-6xl flex-col gap-2 px-4 py-6 md:px-6">
-        <p className="text-muted-foreground text-xs uppercase tracking-wide">
-          {city.country}
-        </p>
-        <h1 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          {city.name}
-        </h1>
-        <p className="text-muted-foreground text-sm md:text-base">
-          {city.tagline}
-        </p>
-      </header>
-
-      <div className="mx-auto mt-4 grid w-full max-w-6xl gap-8 px-4 md:grid-cols-[14rem_minmax(0,1fr)] md:px-6">
-        <aside className="md:sticky md:top-6 md:self-start">
-          <SectionNav groups={navGroups} />
-        </aside>
-
-        <div className="flex min-w-0 flex-col gap-8">
-          {forYouItems.length > 0 ? (
-            <section className="border-border/80 bg-card space-y-3 border p-4">
-              <div className="space-y-1">
-                <h2 className="text-lg font-semibold tracking-tight">
-                  {tForYou("title")}
-                </h2>
-                <p className="text-muted-foreground text-sm">
-                  {tForYou("description")}
-                </p>
-              </div>
-              <ul className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-                {forYouItems.map((item, index) => (
-                  <li key={item.id}>
-                    <a
-                      href={`#${item.id}`}
-                      className="border-border/80 hover:bg-muted block border px-3 py-2 text-sm transition-colors"
-                    >
-                      <span className="text-muted-foreground mr-2 text-xs">
-                        {index + 1}.
-                      </span>
-                      <span>{item.label}</span>
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ) : null}
-
-          {orderedSections.map((section) => (
-            <div key={section.id}>
-              {renderSection(section.id, {
-                city,
-                locale,
-                runtimeInsights,
-                contentSelection,
-              })}
-            </div>
-          ))}
+    <CityPageShell
+      city={{
+        country: city.country,
+        name: city.name,
+        tagline: city.tagline,
+      }}
+      forYouItems={forYouItems}
+      locale={locale}
+      navGroups={navGroups}
+      runtimeInsights={runtimeInsights}
+    >
+      {orderedSections.map((section) => (
+        <div key={section.id}>
+          {renderSection(section.id, {
+            city,
+            locale,
+            runtimeInsights,
+            contentSelection,
+          })}
         </div>
-      </div>
-    </main>
+      ))}
+    </CityPageShell>
   )
 }

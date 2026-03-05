@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import { TopNav } from "@/components/top-nav"
 import { geistMono, geistSans } from "@/lib/fonts"
 import { NextIntlClientProvider, hasLocale } from "next-intl"
 import {
@@ -65,10 +64,7 @@ export default async function LocaleLayout({
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
         <NextIntlClientProvider messages={messages}>
-          <div className="min-h-screen">
-            <TopNav locale={locale} />
-            {children}
-          </div>
+          {children}
         </NextIntlClientProvider>
       </body>
     </html>

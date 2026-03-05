@@ -32,6 +32,23 @@
     "title": "For You Now",
     "description": "Top sections prioritized from your purpose, nationality, and data freshness."
   },
+  "shell": {
+    "openMenu": "Open city menu",
+    "closeMenu": "Close city menu",
+    "headerPrefix": "Citynote Guide",
+    "searchLabel": "Search city guide",
+    "searchPlaceholder": "Search in {city}",
+    "searchAction": "Search",
+    "saveAction": "Save",
+    "shareAction": "Share",
+    "runtime": {
+      "title": "Right Now",
+      "description": "Quick runtime signals while you browse sections.",
+      "weatherValue": "{temperature} · feels like {feelsLike}",
+      "updatedAt": "Updated: {value}",
+      "unknownUpdateTime": "Unknown update time"
+    }
+  },
   "tables": {
     "phrase": {
       "local": "현지 표현",

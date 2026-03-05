@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react"
+import { fireEvent, render, screen } from "@testing-library/react"
 
 import { SectionNav } from "@/components/city/section-nav"
 import type { SectionNavGroup } from "@/components/city/section-nav"
@@ -84,5 +84,30 @@ describe("section nav", () => {
       .map((link) => link.getAttribute("href"))
 
     expect(hrefs).toStrictEqual(["#safety", "#live-pulse", "#practical"])
+  })
+
+  it("supports sidebar mode styling and navigate callback", () => {
+    const groups: SectionNavGroup[] = [
+      {
+        id: "right-now",
+        label: "Right Now",
+        items: [{ id: "live-pulse", label: "Live Pulse" }],
+      },
+    ]
+    const onNavigate = vi.fn()
+
+    render(
+      <SectionNav groups={groups} mode="sidebar" onNavigate={onNavigate} />
+    )
+
+    const nav = screen.getByRole("navigation")
+    expect(nav.className).toContain("bg-base")
+    expect(nav.className).toContain("border-subtlest")
+
+    const link = screen.getByRole("link", { name: "Live Pulse" })
+    fireEvent.click(link)
+
+    expect(onNavigate).toHaveBeenCalledWith(expect.anything())
+    expect(onNavigate.mock.calls[1]).toBeUndefined()
   })
 })
