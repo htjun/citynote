@@ -48,9 +48,9 @@ export function adminApiPlugin(): Plugin {
 
         try {
           if (method === "GET" && path === "/api/status") {
-            const mod = await server.ssrLoadModule("@/lib/perplexity/client")
+            const mod = await server.ssrLoadModule("@/lib/research/client")
             json(res, {
-              perplexityConfigured: mod.isApiKeyConfigured(),
+              apiConfigured: mod.isApiKeyConfigured(),
             })
             return
           }
@@ -97,7 +97,7 @@ export function adminApiPlugin(): Plugin {
             }
 
             const validateMod = await server.ssrLoadModule(
-              "@/lib/perplexity/validate-section"
+              "@/lib/research/validate-section"
             )
 
             if (!validateMod.isValidatableSection(section)) {
@@ -135,7 +135,7 @@ export function adminApiPlugin(): Plugin {
             }
 
             const newsMod = await server.ssrLoadModule(
-              "@/lib/perplexity/search-news"
+              "@/lib/research/search-news"
             )
             const result = await newsMod.searchCityNews(
               city.name,

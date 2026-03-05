@@ -6,3 +6,9 @@
   --geist-mono:
     "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 }
+
+html,
+body,
+#root {
+  min-height: 100%;
+}

@@ -82,8 +82,7 @@ export function PreferencesPopover() {
     <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         className={cn(
-          "hover:bg-muted relative inline-flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors",
-          "text-muted-foreground hover:text-foreground"
+          "relative inline-flex size-9 cursor-pointer items-center justify-center rounded-lg border border-transparent text-quiet transition-[background-color,border-color,color,box-shadow] duration-normal ease-fluid hover:bg-subtle hover:text-foreground focus-visible:border-super/40 focus-visible:ring-2 focus-visible:ring-super/30 focus-visible:outline-none"
         )}
         aria-label={t("preferences.trigger")}
       >
@@ -91,7 +90,7 @@ export function PreferencesPopover() {
         {hasPreferences && (
           <span
             aria-hidden
-            className="bg-primary absolute top-1 right-1 size-1.5 rounded-full"
+            className="bg-super absolute top-1.5 right-1.5 size-1.5 rounded-full"
           />
         )}
       </Popover.Trigger>
@@ -100,10 +99,10 @@ export function PreferencesPopover() {
         <Popover.Positioner
           side="bottom"
           align="end"
-          sideOffset={4}
+          sideOffset={6}
           className="z-50 outline-none"
         >
-          <Popover.Popup className="bg-popover text-popover-foreground ring-foreground/10 w-72 origin-(--transform-origin) rounded-md shadow-lg ring-1 data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 transition-[transform,opacity,scale] duration-150">
+          <Popover.Popup className="bg-base text-foreground border-subtlest w-72 origin-(--transform-origin) rounded-2xl border p-0 shadow-[var(--shadow-raised)] data-ending-style:scale-95 data-ending-style:opacity-0 data-starting-style:scale-95 data-starting-style:opacity-0 transition-[transform,opacity,scale] duration-normal ease-fluid">
             <div className="space-y-4 p-4">
               <PreferenceSection label={t("preferences.language")}>
                 <div className="flex flex-wrap gap-1.5">
@@ -120,10 +119,10 @@ export function PreferencesPopover() {
                           }
                         }}
                         className={cn(
-                          "inline-flex cursor-pointer items-center justify-center rounded-md border px-3 py-1.5 text-xs font-medium transition-colors",
+                          "inline-flex cursor-pointer items-center justify-center rounded-lg border px-3 py-1.5 text-xs font-medium transition-[background-color,border-color,color,opacity] duration-normal ease-fluid",
                           active
-                            ? "bg-foreground border-foreground text-background"
-                            : "border-input bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
+                            ? "border-super/30 bg-super/12 text-super"
+                            : "border-subtle bg-raised text-quiet hover:bg-subtle hover:text-foreground"
                         )}
                       >
                         {opt.label}
@@ -169,14 +168,14 @@ function PreferenceSection({
 }) {
   return (
     <div className="space-y-2">
-      <p className="text-muted-foreground text-xs font-medium">{label}</p>
+      <p className="text-quiet text-xs font-medium">{label}</p>
       {children}
     </div>
   )
 }
 
 function Divider() {
-  return <div className="bg-border h-px" />
+  return <div className="bg-subtlest h-px" />
 }
 
 function NationalitySelect({
@@ -230,9 +229,8 @@ function NationalitySelect({
         type="button"
         onClick={() => setOpen(!open)}
         className={cn(
-          "border-input bg-background flex w-full cursor-pointer items-center justify-between rounded-md border px-3 py-1.5 text-xs transition-colors",
-          "hover:bg-muted hover:text-foreground focus-visible:ring-ring focus-visible:ring-1 focus-visible:outline-none",
-          !selected && "text-muted-foreground"
+          "border-subtle bg-raised text-foreground focus-visible:border-super/45 focus-visible:ring-super/30 flex w-full cursor-pointer items-center justify-between rounded-lg border px-3 py-2 text-xs transition-[background-color,border-color,color,box-shadow] duration-normal ease-fluid hover:bg-subtle focus-visible:ring-2 focus-visible:outline-none",
+          !selected && "text-quiet"
         )}
       >
         <span className="truncate">
@@ -242,7 +240,7 @@ function NationalitySelect({
           <span
             role="button"
             tabIndex={0}
-            className="text-muted-foreground hover:text-foreground ml-1 shrink-0 cursor-pointer"
+            className="text-quieter hover:text-foreground ml-1 shrink-0 cursor-pointer"
             onClick={(e) => {
               e.stopPropagation()
               onChange(null)
@@ -266,20 +264,20 @@ function NationalitySelect({
       </button>
 
       {open && (
-        <div className="ring-foreground/10 bg-popover absolute top-full left-0 z-10 mt-1 w-full overflow-hidden rounded-sm shadow-md ring-1">
-          <div className="border-border border-b p-1.5">
+        <div className="bg-base border-subtlest absolute top-full left-0 z-10 mt-1.5 w-full overflow-hidden rounded-xl border shadow-[var(--shadow-raised)]">
+          <div className="border-subtlest border-b p-2">
             <input
               autoFocus
               type="text"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder={placeholder}
-              className="bg-transparent w-full text-xs outline-none"
+              className="text-foreground placeholder:text-quieter w-full bg-transparent text-xs outline-none"
             />
           </div>
-          <div className="max-h-40 overflow-y-auto py-1">
+          <div className="max-h-44 overflow-y-auto py-1">
             {filtered.length === 0 ? (
-              <p className="text-muted-foreground px-2 py-2 text-center text-xs">
+              <p className="text-quieter px-2 py-2 text-center text-xs">
                 {emptyLabel}
               </p>
             ) : (
@@ -293,9 +291,9 @@ function NationalitySelect({
                     setOpen(false)
                   }}
                   className={cn(
-                    "flex w-full cursor-pointer items-center px-2 py-1.5 text-xs transition-colors",
-                    "hover:bg-accent hover:text-accent-foreground",
-                    country.code === value && "bg-accent/50 font-medium"
+                    "flex w-full cursor-pointer items-center rounded-md px-2.5 py-1.5 text-xs transition-[background-color,color] duration-normal ease-fluid hover:bg-subtle hover:text-foreground",
+                    country.code === value &&
+                      "bg-super/10 text-super font-medium"
                   )}
                 >
                   {country.localizedName}
@@ -312,7 +310,7 @@ function NationalitySelect({
 function ChevronDown() {
   return (
     <svg
-      className="text-muted-foreground ml-1 size-3 shrink-0"
+      className="text-quiet ml-1 size-3 shrink-0"
       viewBox="0 0 16 16"
       fill="none"
       aria-hidden

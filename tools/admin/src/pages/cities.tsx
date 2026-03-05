@@ -21,21 +21,21 @@ export function CitiesPage() {
       <Card className="gap-0 overflow-hidden py-0">
         <div className="overflow-x-auto">
           <table className="min-w-full text-xs">
-            <thead className="bg-muted/40">
+            <thead className="bg-subtle/70">
               <tr>
-                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                <th className="text-quieter border-subtlest border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
                   Slug
                 </th>
-                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                <th className="text-quieter border-subtlest border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
                   Currency
                 </th>
-                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                <th className="text-quieter border-subtlest border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
                   Weather Query
                 </th>
-                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                <th className="text-quieter border-subtlest border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
                   News Aliases
                 </th>
-                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                <th className="text-quieter border-subtlest border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
                   Fallback Links
                 </th>
               </tr>
@@ -44,12 +44,12 @@ export function CitiesPage() {
               {configs.map((config) => (
                 <tr
                   key={config.slug}
-                  className="border-border/60 border-b last:border-b-0"
+                  className="border-subtlest border-b last:border-b-0"
                 >
                   <td className="px-3 py-2 align-top text-xs">
                     <Link
                       to={`/cities/${config.slug}`}
-                      className="text-primary font-mono text-xs font-medium hover:underline"
+                      className="text-super font-mono text-xs font-medium hover:underline"
                     >
                       {config.slug}
                     </Link>
@@ -58,7 +58,7 @@ export function CitiesPage() {
                     {config.localCurrency}
                   </td>
                   <td className="px-3 py-2 align-top text-xs">
-                    <code className="bg-muted rounded-none px-1.5 py-0.5 font-mono text-[11px]">
+                    <code className="bg-subtle rounded-md px-1.5 py-0.5 font-mono text-[11px]">
                       {config.weatherQuery}
                     </code>
                   </td>
@@ -79,15 +79,12 @@ export function CitiesPage() {
         {configs.map((config) => (
           <Card key={config.slug} className="gap-0 overflow-hidden py-0">
             <details className="group">
-              <summary className="hover:bg-muted/40 cursor-pointer px-4 py-3 text-sm font-medium transition-colors">
+              <summary className="hover:bg-subtle/70 cursor-pointer px-4 py-3 text-sm font-medium transition-colors duration-normal ease-fluid">
                 <span className="font-mono text-xs">{config.slug}</span>
-                <span className="text-muted-foreground">
-                  {" "}
-                  - full runtime config
-                </span>
+                <span className="text-quiet"> - full runtime config</span>
               </summary>
-              <div className="border-border/70 border-t">
-                <pre className="bg-muted/30 max-h-96 overflow-auto px-4 py-4 font-mono text-[11px] leading-relaxed">
+              <div className="border-subtlest border-t">
+                <pre className="bg-subtle/50 max-h-96 overflow-auto px-4 py-4 font-mono text-[11px] leading-relaxed">
                   {JSON.stringify(config, null, 2)}
                 </pre>
               </div>

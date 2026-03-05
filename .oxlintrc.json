@@ -36,7 +36,7 @@
       }
     },
     {
-      "files": ["lib/perplexity/**"],
+      "files": ["lib/research/**"],
       "rules": {
         "max-statements": "off"
       }

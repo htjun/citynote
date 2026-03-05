@@ -57,14 +57,14 @@ export function SegmentedControl<T extends string>({
       role="radiogroup"
       aria-label={ariaLabel}
       className={cn(
-        "bg-muted relative inline-flex items-center gap-0.5 rounded-md p-0.5",
+        "bg-subtle border-subtlest relative inline-flex items-center gap-0.5 rounded-xl border p-0.5",
         className
       )}
     >
       {indicator && (
         <span
           aria-hidden
-          className="bg-background absolute top-0.5 bottom-0.5 rounded-sm shadow-sm transition-all duration-200 ease-out"
+          className="bg-raised border-subtlest absolute top-0.5 bottom-0.5 rounded-lg border shadow-[var(--shadow-subtle)] transition-all duration-normal ease-fluid"
           style={{ left: indicator.left, width: indicator.width }}
         />
       )}
@@ -79,10 +79,8 @@ export function SegmentedControl<T extends string>({
             aria-checked={active}
             onClick={() => onValueChange(option.value)}
             className={cn(
-              "relative z-10 cursor-pointer rounded-sm px-2.5 py-1 text-xs font-medium whitespace-nowrap transition-colors",
-              active
-                ? "text-foreground"
-                : "text-muted-foreground hover:text-foreground/80"
+              "relative z-10 cursor-pointer rounded-lg px-3 py-1.5 text-xs font-medium whitespace-nowrap transition-colors duration-normal ease-fluid",
+              active ? "text-foreground" : "text-quiet hover:text-foreground"
             )}
           >
             {option.label}
@@ -124,10 +122,10 @@ export function ChipGroup<T extends string>({
             aria-checked={active}
             onClick={() => onValueChange(option.value)}
             className={cn(
-              "inline-flex cursor-pointer items-center justify-center rounded-md border px-3 py-1.5 text-xs font-medium transition-colors",
+              "inline-flex cursor-pointer items-center justify-center rounded-lg border px-3 py-1.5 text-xs font-medium transition-[background-color,border-color,color] duration-normal ease-fluid",
               active
-                ? "bg-foreground border-foreground text-background"
-                : "border-input bg-background text-muted-foreground hover:bg-muted hover:text-foreground"
+                ? "border-super/30 bg-super/12 text-super"
+                : "border-subtle bg-raised text-quiet hover:bg-subtle hover:text-foreground"
             )}
           >
             {option.label}

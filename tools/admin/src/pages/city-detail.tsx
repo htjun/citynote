@@ -102,7 +102,7 @@ export function CityDetailPage() {
           return
         }
         setCity(cityRes.city)
-        setApiConfigured(statusRes.perplexityConfigured)
+        setApiConfigured(statusRes.apiConfigured)
         setStatusChecked(true)
       })
       .catch((requestError) => setError(requestError.message))
@@ -227,7 +227,7 @@ export function CityDetailPage() {
 
       {!apiConfigured && statusChecked && (
         <div className="rounded-none border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900">
-          PERPLEXITY_API_KEY is not set. Export it in your shell before running
+          RESEARCH_API_KEY is not set. Export it in your shell before running
           the admin tool.
         </div>
       )}
@@ -282,7 +282,7 @@ function StatusBadge({
         variant="secondary"
         className="border-emerald-600/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
       >
-        Perplexity API connected
+        Research API connected
       </Badge>
     )
   }
@@ -445,8 +445,8 @@ function NewsPanel({
           <div>
             <CardTitle>News Preview</CardTitle>
             <CardDescription className="mt-1">
-              Preview city news from Perplexity Search API. This will replace
-              the current RSS-based news provider.
+              Preview city news from the search API. This will replace the
+              current RSS-based news provider.
             </CardDescription>
           </div>
           <Button

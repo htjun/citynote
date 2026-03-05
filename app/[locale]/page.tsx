@@ -49,7 +49,7 @@ export default async function HomePage({ params }: HomePageProps) {
     })
 
   return (
-    <main>
+    <main className="bg-base">
       <section className="relative min-h-screen">
         <div className="absolute inset-0">
           <Globe cities={globeCities} locale={locale} />
@@ -60,21 +60,21 @@ export default async function HomePage({ params }: HomePageProps) {
             <h1 className="text-3xl font-semibold tracking-tight md:text-5xl">
               {t("hero.title")}
             </h1>
-            <p className="text-muted-foreground mt-3 max-w-lg text-sm leading-relaxed md:text-base">
+            <p className="text-quiet mt-3 max-w-lg text-sm leading-relaxed md:text-base">
               {t("hero.description")}
             </p>
           </div>
 
           <div className="pointer-events-auto grid w-full max-w-2xl grid-cols-1 gap-3 md:grid-cols-2">
-            <article className="bg-background/80 border-border/80 border p-4 backdrop-blur-sm">
+            <article className="bg-raised/90 border-subtlest rounded-xl border p-4 shadow-[var(--shadow-subtle)] backdrop-blur-sm">
               <h2 className="text-sm font-semibold">{t("setup.title")}</h2>
-              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+              <p className="text-quiet mt-2 text-sm leading-relaxed">
                 {t("setup.description")}
               </p>
             </article>
-            <article className="bg-background/80 border-border/80 border p-4 backdrop-blur-sm">
+            <article className="bg-raised/90 border-subtlest rounded-xl border p-4 shadow-[var(--shadow-subtle)] backdrop-blur-sm">
               <h2 className="text-sm font-semibold">{t("trust.title")}</h2>
-              <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+              <p className="text-quiet mt-2 text-sm leading-relaxed">
                 {t("trust.description")}
               </p>
             </article>
@@ -85,15 +85,13 @@ export default async function HomePage({ params }: HomePageProps) {
               <Link
                 key={city.slug}
                 href={`/${city.slug}`}
-                className="bg-background/80 border-border/80 hover:bg-accent/40 block border p-4 backdrop-blur-sm transition-colors"
+                className="bg-raised/90 border-subtlest hover:bg-subtle/90 block rounded-xl border p-4 shadow-[var(--shadow-subtle)] backdrop-blur-sm transition-[background-color,border-color,box-shadow] duration-normal ease-fluid"
               >
-                <p className="text-muted-foreground text-xs uppercase tracking-wide">
+                <p className="text-quieter text-xs uppercase tracking-wide">
                   {city.country}
                 </p>
                 <h2 className="mt-1 text-xl font-medium">{city.name}</h2>
-                <p className="text-muted-foreground mt-2 text-sm">
-                  {city.tagline}
-                </p>
+                <p className="text-quiet mt-2 text-sm">{city.tagline}</p>
               </Link>
             ))}
           </div>

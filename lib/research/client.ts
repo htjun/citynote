@@ -1,14 +1,14 @@
 import type { SonarMessage, SonarResponse, SearchResponse } from "./types"
-import { PerplexityError } from "./types"
+import { ResearchApiError } from "./types"
 
-const API_BASE = "https://api.perplexity.ai"
+const API_BASE = process.env.RESEARCH_API_BASE ?? "https://api.pplx.ai"
 const DEFAULT_TIMEOUT_MS = 30_000
 
 function getApiKey(): string {
-  const key = process.env.PERPLEXITY_API_KEY
+  const key = process.env.RESEARCH_API_KEY
   if (!key) {
-    throw new PerplexityError(
-      "PERPLEXITY_API_KEY environment variable is not set",
+    throw new ResearchApiError(
+      "RESEARCH_API_KEY environment variable is not set",
       undefined,
       "missing_key"
     )
@@ -17,7 +17,7 @@ function getApiKey(): string {
 }
 
 export function isApiKeyConfigured(): boolean {
-  return !!process.env.PERPLEXITY_API_KEY
+  return !!process.env.RESEARCH_API_KEY
 }
 
 function normalizeHttpError(status: number): string {
@@ -59,7 +59,7 @@ export async function sonarChat(
 
     if (!response.ok) {
       const body = await response.text().catch(() => "")
-      throw new PerplexityError(
+      throw new ResearchApiError(
         `Sonar API ${response.status}: ${body}`,
         response.status,
         normalizeHttpError(response.status)
@@ -68,13 +68,13 @@ export async function sonarChat(
 
     return (await response.json()) as SonarResponse
   } catch (error) {
-    if (error instanceof PerplexityError) {
+    if (error instanceof ResearchApiError) {
       throw error
     }
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new PerplexityError("Request timed out", undefined, "timeout")
+      throw new ResearchApiError("Request timed out", undefined, "timeout")
     }
-    throw new PerplexityError(
+    throw new ResearchApiError(
       error instanceof Error ? error.message : String(error),
       undefined,
       "upstream"
@@ -133,7 +133,7 @@ export async function searchWeb(
 
     if (!response.ok) {
       const responseBody = await response.text().catch(() => "")
-      throw new PerplexityError(
+      throw new ResearchApiError(
         `Search API ${response.status}: ${responseBody}`,
         response.status,
         normalizeHttpError(response.status)
@@ -142,13 +142,13 @@ export async function searchWeb(
 
     return (await response.json()) as SearchResponse
   } catch (error) {
-    if (error instanceof PerplexityError) {
+    if (error instanceof ResearchApiError) {
       throw error
     }
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new PerplexityError("Request timed out", undefined, "timeout")
+      throw new ResearchApiError("Request timed out", undefined, "timeout")
     }
-    throw new PerplexityError(
+    throw new ResearchApiError(
       error instanceof Error ? error.message : String(error),
       undefined,
       "upstream"

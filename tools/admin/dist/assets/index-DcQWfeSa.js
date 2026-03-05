@@ -16763,7 +16763,7 @@ function q0() {
             C(ce.error)
             return
           }
-          ;(s(ce.city), f(Me.perplexityConfigured), y(!0))
+          ;(s(ce.city), f(Me.apiConfigured), y(!0))
         })
         .catch((ce) => C(ce.message))
         .finally(() => g(!1)))
@@ -16870,7 +16870,7 @@ function q0() {
           className:
             "rounded-none border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900",
           children:
-            "PERPLEXITY_API_KEY is not set. Export it in your shell before running the admin tool.",
+            "RESEARCH_API_KEY is not set. Export it in your shell before running the admin tool.",
         }),
       B
         ? N.jsx("div", {
@@ -16915,7 +16915,7 @@ function Y0({ configured: i, checked: c }) {
           variant: "secondary",
           className:
             "border-emerald-600/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-          children: "Perplexity API connected",
+          children: "Research API connected",
         })
       : N.jsx(Ci, {
           variant: "destructive",
@@ -17083,7 +17083,7 @@ function X0({
                 N.jsx(kh, {
                   className: "mt-1",
                   children:
-                    "Preview city news from Perplexity Search API. This will replace the current RSS-based news provider.",
+                    "Preview city news from the search API. This will replace the current RSS-based news provider.",
                 }),
               ],
             }),

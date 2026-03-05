@@ -22,15 +22,13 @@ export function FeaturePlaceholder({
 }: FeaturePlaceholderProps) {
   return (
     <Card className="max-w-3xl">
-      <CardHeader className="border-b">
-        {icon ? (
-          <div className="text-muted-foreground text-sm">{icon}</div>
-        ) : null}
+      <CardHeader className="border-subtlest border-b">
+        {icon ? <div className="text-quiet text-sm">{icon}</div> : null}
         <CardTitle>{title}</CardTitle>
         <CardDescription>{description}</CardDescription>
       </CardHeader>
       <CardContent className="pt-4">
-        <ul className="text-muted-foreground list-disc space-y-2 pl-5 text-sm">
+        <ul className="text-quiet list-disc space-y-2 pl-5 text-sm">
           {items.map((item) => (
             <li key={item}>{item}</li>
           ))}

@@ -10,9 +10,9 @@ const navItems = [
 
 export function Layout() {
   return (
-    <div className="min-h-screen bg-background text-foreground">
+    <div className="bg-base min-h-screen text-foreground">
       <div className="flex min-h-screen flex-col md:flex-row">
-        <nav className="border-border/80 bg-card border-b px-3 py-4 md:w-60 md:shrink-0 md:border-r md:border-b-0">
+        <nav className="border-subtlest bg-raised border-b px-3 py-4 md:w-64 md:shrink-0 md:border-r md:border-b-0">
           <div className="px-2 pb-4">
             <p className="text-sm font-semibold tracking-tight">
               Citynote Admin
@@ -26,8 +26,8 @@ export function Layout() {
                   to={item.to}
                   className={({ isActive }) =>
                     cn(
-                      "text-muted-foreground hover:text-foreground hover:bg-muted block rounded-none border border-transparent px-3 py-2 text-sm font-medium transition-colors",
-                      isActive && "text-foreground border-border/80 bg-muted"
+                      "text-quiet hover:text-foreground hover:bg-subtle block rounded-lg border border-transparent px-3 py-2 text-sm font-medium transition-[background-color,border-color,color] duration-normal ease-fluid",
+                      isActive && "text-foreground border-subtlest bg-subtle"
                     )
                   }
                 >
@@ -37,14 +37,14 @@ export function Layout() {
             ))}
           </ul>
 
-          <div className="border-border/70 mt-4 border-t pt-3">
-            <Badge variant="secondary" className="font-mono text-[11px]">
+          <div className="border-subtlest mt-4 border-t pt-3">
+            <Badge variant="outline" className="font-mono text-[11px]">
               DEV ONLY
             </Badge>
           </div>
         </nav>
 
-        <main className="flex-1 bg-background">
+        <main className="bg-base flex-1">
           <div className="mx-auto w-full max-w-6xl px-4 py-6 md:px-8 md:py-8">
             <Outlet />
           </div>

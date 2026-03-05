@@ -7,7 +7,11 @@ export function SchedulesPage() {
       <FeaturePlaceholder
         title="Task scheduling"
         description="Task scheduling will be configured here."
-        icon={<span className="font-mono text-xs uppercase">Schedules</span>}
+        icon={
+          <span className="text-quiet font-mono text-xs uppercase">
+            Schedules
+          </span>
+        }
         items={[
           "Create and manage scheduled tasks",
           "Set cron expressions and intervals",
