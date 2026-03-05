@@ -10,16 +10,14 @@
   "preferences": {
     "trigger": "Preferences",
     "language": "Language",
-    "travelType": "I am a...",
-    "nationality": "Nationality",
+    "travelType": "Purpose",
+    "nationality": "Nationality (optional)",
     "nationalityPlaceholder": "Search country...",
     "nationalityEmpty": "No country found",
     "types": {
-      "tourist": "Tourist",
-      "nomad": "Nomad",
-      "student": "Student",
-      "immigrant": "Immigrant",
-      "expat": "Expat"
+      "trip": "Trip",
+      "study": "Study",
+      "live": "Live"
     }
   }
 }

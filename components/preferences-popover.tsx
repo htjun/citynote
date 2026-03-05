@@ -13,12 +13,58 @@ import type { TravelType } from "@/lib/stores/preferences"
 import { countries } from "@/data/countries"
 import { ChipGroup } from "@/components/ui/segmented-control"
 
+const REOPEN_AFTER_LOCALE_SWITCH_KEY = "citynote:reopen-preferences-popover"
+
+interface RegionDisplayNames {
+  of: (regionCode: string) => string | undefined
+}
+
+interface IntlWithDisplayNames {
+  DisplayNames?: new (
+    locales?: string | readonly string[],
+    options?: { type: "region" }
+  ) => RegionDisplayNames
+}
+
+function markPopoverForReopenAfterLocaleSwitch() {
+  if (typeof window === "undefined") {
+    return
+  }
+  window.sessionStorage.setItem(REOPEN_AFTER_LOCALE_SWITCH_KEY, "1")
+}
+
+function createRegionDisplayNames(locale: string): RegionDisplayNames | null {
+  const { DisplayNames } = Intl as unknown as IntlWithDisplayNames
+  if (!DisplayNames) {
+    return null
+  }
+  try {
+    return new DisplayNames([locale], { type: "region" })
+  } catch {
+    return null
+  }
+}
+
 export function PreferencesPopover() {
   const t = useTranslations("common")
   const locale = useLocale()
   const pathname = usePathname()
   const { nationality, travelType, setNationality, setTravelType } =
     usePreferences()
+  const [open, setOpen] = React.useState(false)
+
+  React.useEffect(() => {
+    if (typeof window === "undefined") {
+      return
+    }
+    const shouldReopen =
+      window.sessionStorage.getItem(REOPEN_AFTER_LOCALE_SWITCH_KEY) === "1"
+    if (!shouldReopen) {
+      return
+    }
+    window.sessionStorage.removeItem(REOPEN_AFTER_LOCALE_SWITCH_KEY)
+    setOpen(true)
+  }, [])
 
   const hasPreferences = nationality !== null || travelType !== null
 
@@ -33,7 +79,7 @@ export function PreferencesPopover() {
   }))
 
   return (
-    <Popover.Root>
+    <Popover.Root open={open} onOpenChange={setOpen}>
       <Popover.Trigger
         className={cn(
           "hover:bg-muted relative inline-flex size-8 cursor-pointer items-center justify-center rounded-md transition-colors",
@@ -68,6 +114,11 @@ export function PreferencesPopover() {
                         key={opt.value}
                         href={pathname}
                         locale={opt.value}
+                        onClick={() => {
+                          if (opt.value !== locale) {
+                            markPopoverForReopenAfterLocaleSwitch()
+                          }
+                        }}
                         className={cn(
                           "inline-flex cursor-pointer items-center justify-center rounded-md border px-3 py-1.5 text-xs font-medium transition-colors",
                           active
@@ -82,6 +133,16 @@ export function PreferencesPopover() {
                 </div>
               </PreferenceSection>
 
+              <PreferenceSection label={t("preferences.nationality")}>
+                <NationalitySelect
+                  locale={locale}
+                  value={nationality}
+                  onChange={setNationality}
+                  placeholder={t("preferences.nationalityPlaceholder")}
+                  emptyLabel={t("preferences.nationalityEmpty")}
+                />
+              </PreferenceSection>
+
               <Divider />
 
               <PreferenceSection label={t("preferences.travelType")}>
@@ -89,17 +150,6 @@ export function PreferencesPopover() {
                   options={travelOptions}
                   value={travelType}
                   onValueChange={setTravelType}
-                />
-              </PreferenceSection>
-
-              <Divider />
-
-              <PreferenceSection label={t("preferences.nationality")}>
-                <NationalitySelect
-                  value={nationality}
-                  onChange={setNationality}
-                  placeholder={t("preferences.nationalityPlaceholder")}
-                  emptyLabel={t("preferences.nationalityEmpty")}
                 />
               </PreferenceSection>
             </div>
@@ -130,11 +180,13 @@ function Divider() {
 }
 
 function NationalitySelect({
+  locale,
   value,
   onChange,
   placeholder,
   emptyLabel,
 }: {
+  locale: string
   value: string | null
   onChange: (code: string | null) => void
   placeholder: string
@@ -143,17 +195,34 @@ function NationalitySelect({
   const [search, setSearch] = React.useState("")
   const [open, setOpen] = React.useState(false)
 
+  const localizedCountries = React.useMemo(() => {
+    const regionDisplayNames = createRegionDisplayNames(locale)
+    return countries
+      .map((country) => ({
+        ...country,
+        localizedName: regionDisplayNames?.of(country.code) ?? country.name,
+      }))
+      .toSorted((a, b) =>
+        a.localizedName.localeCompare(b.localizedName, locale)
+      )
+  }, [locale])
+
   const filtered = React.useMemo(() => {
     if (!search) {
-      return countries
+      return localizedCountries
     }
     const q = search.toLowerCase()
-    return countries.filter(
-      (c) => c.name.toLowerCase().includes(q) || c.code.toLowerCase() === q
+    return localizedCountries.filter(
+      (c) =>
+        c.localizedName.toLowerCase().includes(q) ||
+        c.name.toLowerCase().includes(q) ||
+        c.code.toLowerCase() === q
     )
-  }, [search])
+  }, [localizedCountries, search])
 
-  const selected = value ? countries.find((c) => c.code === value) : null
+  const selected = value
+    ? (localizedCountries.find((c) => c.code === value) ?? null)
+    : null
 
   return (
     <div className="relative">
@@ -167,7 +236,7 @@ function NationalitySelect({
         )}
       >
         <span className="truncate">
-          {selected ? selected.name : placeholder}
+          {selected ? selected.localizedName : placeholder}
         </span>
         {selected ? (
           <span
@@ -229,7 +298,7 @@ function NationalitySelect({
                     country.code === value && "bg-accent/50 font-medium"
                   )}
                 >
-                  {country.name}
+                  {country.localizedName}
                 </button>
               ))
             )}

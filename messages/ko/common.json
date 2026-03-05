@@ -10,16 +10,14 @@
   "preferences": {
     "trigger": "설정",
     "language": "언어",
-    "travelType": "나는...",
-    "nationality": "국적",
+    "travelType": "목적",
+    "nationality": "국적 (선택)",
     "nationalityPlaceholder": "국가 검색...",
     "nationalityEmpty": "국가를 찾을 수 없습니다",
     "types": {
-      "tourist": "여행자",
-      "nomad": "노마드",
-      "student": "학생",
-      "immigrant": "이민자",
-      "expat": "주재원"
+      "trip": "여행",
+      "study": "학업",
+      "live": "거주"
     }
   }
 }
