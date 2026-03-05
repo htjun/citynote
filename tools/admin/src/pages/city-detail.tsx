@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react"
-import { useParams, Link } from "react-router"
+import { Link, useParams } from "react-router"
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
 interface SonarUsage {
   prompt_tokens: number
@@ -76,7 +85,9 @@ export function CityDetailPage() {
   const [newsError, setNewsError] = useState<string | null>(null)
 
   useEffect(() => {
-    if (!slug) {return}
+    if (!slug) {
+      return
+    }
 
     setLoading(true)
     setError(null)
@@ -94,12 +105,14 @@ export function CityDetailPage() {
         setApiConfigured(statusRes.perplexityConfigured)
         setStatusChecked(true)
       })
-      .catch((error) => setError(error.message))
+      .catch((requestError) => setError(requestError.message))
       .finally(() => setLoading(false))
   }, [slug])
 
   async function handleValidate(section: string) {
-    if (!slug) {return}
+    if (!slug) {
+      return
+    }
 
     setValidatingSection(section)
     setValidationError(null)
@@ -121,9 +134,11 @@ export function CityDetailPage() {
         ...prev,
         [section]: data.result,
       }))
-    } catch (error) {
+    } catch (requestError) {
       setValidationError(
-        error instanceof Error ? error.message : "Validation request failed"
+        requestError instanceof Error
+          ? requestError.message
+          : "Validation request failed"
       )
     } finally {
       setValidatingSection(null)
@@ -131,7 +146,9 @@ export function CityDetailPage() {
   }
 
   async function handleSearchNews() {
-    if (!slug) {return}
+    if (!slug) {
+      return
+    }
 
     setSearchingNews(true)
     setNewsError(null)
@@ -150,9 +167,11 @@ export function CityDetailPage() {
       }
 
       setNewsResults(data)
-    } catch (error) {
+    } catch (requestError) {
       setNewsError(
-        error instanceof Error ? error.message : "News search request failed"
+        requestError instanceof Error
+          ? requestError.message
+          : "News search request failed"
       )
     } finally {
       setSearchingNews(false)
@@ -160,16 +179,25 @@ export function CityDetailPage() {
   }
 
   if (loading) {
-    return <div style={messageStyle}>Loading city data...</div>
+    return (
+      <div className="text-muted-foreground px-1 py-6 text-sm">
+        Loading city data...
+      </div>
+    )
   }
 
   if (error || !city) {
     return (
-      <div>
-        <Link to="/cities" style={backLinkStyle}>
+      <div className="space-y-3">
+        <Link
+          to="/cities"
+          className="text-muted-foreground hover:text-foreground inline-flex items-center text-xs transition-colors"
+        >
           &larr; Cities
         </Link>
-        <div style={errorBannerStyle}>{error ?? "City not found"}</div>
+        <div className="border-destructive/30 bg-destructive/10 text-destructive rounded-none border px-3 py-2 text-xs">
+          {error ?? "City not found"}
+        </div>
       </div>
     )
   }
@@ -177,44 +205,49 @@ export function CityDetailPage() {
   const visibleSections = SECTIONS.filter((s) => city[s.key] != null)
 
   return (
-    <div>
-      <Link to="/cities" style={backLinkStyle}>
+    <div className="space-y-6">
+      <Link
+        to="/cities"
+        className="text-muted-foreground hover:text-foreground inline-flex items-center text-xs transition-colors"
+      >
         &larr; Cities
       </Link>
 
-      <div style={headerStyle}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 style={titleStyle}>
+          <h1 className="text-xl font-semibold tracking-tight">
             {city.name}, {city.country}
           </h1>
-          <p style={taglineStyle}>{city.tagline}</p>
+          <p className="text-muted-foreground mt-1 text-sm">{city.tagline}</p>
         </div>
-        <div style={statusContainerStyle}>
-          <StatusBadge configured={apiConfigured} checked={statusChecked} />
-        </div>
+        <StatusBadge configured={apiConfigured} checked={statusChecked} />
       </div>
 
       {!apiConfigured && statusChecked && (
-        <div style={warningBannerStyle}>
+        <div className="rounded-none border border-amber-300 bg-amber-50 px-3 py-2 text-xs text-amber-900">
           PERPLEXITY_API_KEY is not set. Export it in your shell before running
           the admin tool.
         </div>
       )}
 
-      {validationError && <div style={errorBannerStyle}>{validationError}</div>}
+      {validationError ? (
+        <div className="border-destructive/30 bg-destructive/10 text-destructive rounded-none border px-3 py-2 text-xs">
+          {validationError}
+        </div>
+      ) : null}
 
-      <div style={sectionGridStyle}>
-        {visibleSections.map((s) => (
+      <div className="space-y-3">
+        {visibleSections.map((section) => (
           <SectionCard
-            key={s.key}
-            sectionKey={s.key}
-            label={s.label}
-            data={city[s.key]}
-            result={validationResults[s.key]}
-            isValidating={validatingSection === s.key}
+            key={section.key}
+            sectionKey={section.key}
+            label={section.label}
+            data={city[section.key]}
+            result={validationResults[section.key]}
+            isValidating={validatingSection === section.key}
             anyValidating={validatingSection !== null}
             apiConfigured={apiConfigured}
-            onValidate={() => handleValidate(s.key)}
+            onValidate={() => handleValidate(section.key)}
           />
         ))}
       </div>
@@ -237,18 +270,28 @@ function StatusBadge({
   configured: boolean
   checked: boolean
 }) {
-  if (!checked) {return null}
+  if (!checked) {
+    return null
+  }
+
+  if (configured) {
+    return (
+      <Badge
+        variant="secondary"
+        className="border-emerald-600/20 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
+      >
+        Perplexity API connected
+      </Badge>
+    )
+  }
 
   return (
-    <span
-      style={{
-        ...badgeBaseStyle,
-        backgroundColor: configured ? "#e6f4ea" : "#fce8e6",
-        color: configured ? "#1e7e34" : "#c5221f",
-      }}
+    <Badge
+      variant="destructive"
+      className="border-destructive/20 bg-destructive/10"
     >
-      {configured ? "Perplexity API connected" : "API key missing"}
-    </span>
+      API key missing
+    </Badge>
   )
 }
 
@@ -271,92 +314,103 @@ function SectionCard({
   apiConfigured: boolean
   onValidate: () => void
 }) {
+  const isDisabled = isValidating || anyValidating || !apiConfigured
+
   return (
-    <div style={cardStyle}>
-      <div style={cardHeaderStyle}>
-        <span style={cardLabelStyle}>{label}</span>
-        <button
-          onClick={onValidate}
-          disabled={isValidating || anyValidating || !apiConfigured}
-          style={{
-            ...buttonStyle,
-            opacity: isValidating || anyValidating || !apiConfigured ? 0.5 : 1,
-            cursor:
-              isValidating || anyValidating || !apiConfigured
-                ? "not-allowed"
-                : "pointer",
-          }}
-        >
-          {isValidating ? "Validating..." : "Validate"}
-        </button>
-      </div>
+    <Card className="gap-0 overflow-hidden py-0" data-section={sectionKey}>
+      <CardHeader className="border-b px-4 py-3">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <CardTitle>{label}</CardTitle>
+          <Button
+            onClick={onValidate}
+            disabled={isDisabled}
+            size="xs"
+            variant="outline"
+          >
+            {isValidating ? "Validating..." : "Validate"}
+          </Button>
+        </div>
+      </CardHeader>
 
-      <details style={detailsStyle}>
-        <summary style={summaryStyle}>Current data</summary>
-        <pre style={dataPreStyle}>{JSON.stringify(data, null, 2)}</pre>
-      </details>
+      <CardContent className="px-0 pb-0">
+        <details>
+          <summary className="text-muted-foreground hover:bg-muted/40 cursor-pointer px-4 py-2 text-[11px] transition-colors">
+            Current data
+          </summary>
+          <pre className="bg-muted/30 border-border/60 max-h-72 overflow-auto border-t px-4 py-3 font-mono text-[11px] leading-relaxed">
+            {JSON.stringify(data, null, 2)}
+          </pre>
+        </details>
 
-      {result && <ValidationResultView result={result} />}
-    </div>
+        {result ? <ValidationResultView result={result} /> : null}
+      </CardContent>
+    </Card>
   )
 }
 
 function ValidationResultView({ result }: { result: ValidationResult }) {
   return (
-    <div style={resultContainerStyle}>
-      <div style={resultMetaStyle}>
+    <div className="border-border/60 bg-primary/5 border-t px-4 py-4">
+      <div className="text-muted-foreground mb-3 flex flex-col gap-1 text-[11px] sm:flex-row sm:items-center sm:justify-between">
         <span>Validated {new Date(result.validatedAt).toLocaleString()}</span>
-        <span style={resultModelStyle}>
-          {result.model} &middot; {result.usage.total_tokens} tokens
+        <span className="font-mono">
+          {result.model} - {result.usage.total_tokens} tokens
         </span>
       </div>
 
-      <div style={findingsStyle}>
-        {result.sonarFindings.split("\n").map((line, i) => {
+      <div className="space-y-1 text-xs leading-relaxed">
+        {result.sonarFindings.split("\n").map((line, index) => {
           if (line.startsWith("## ")) {
             return (
-              <h4 key={i} style={findingsHeadingStyle}>
+              <h4 key={index} className="pt-2 text-xs font-semibold">
                 {line.replace("## ", "")}
               </h4>
             )
           }
+
           if (
             line.startsWith("- **OUTDATED") ||
             line.startsWith("- OUTDATED")
           ) {
             return (
-              <p key={i} style={outdatedLineStyle}>
+              <p key={index} className="text-destructive font-medium">
                 {line}
               </p>
             )
           }
+
           if (line.startsWith("- **CURRENT") || line.startsWith("- CURRENT")) {
             return (
-              <p key={i} style={currentLineStyle}>
+              <p
+                key={index}
+                className="font-medium text-emerald-700 dark:text-emerald-300"
+              >
                 {line}
               </p>
             )
           }
-          if (line.trim() === "") {return <br key={i} />}
-          return (
-            <p key={i} style={findingsLineStyle}>
-              {line}
-            </p>
-          )
+
+          if (line.trim() === "") {
+            return <div key={index} className="h-2" />
+          }
+
+          return <p key={index}>{line}</p>
         })}
       </div>
 
-      {result.citations.length > 0 && (
-        <div style={citationsContainerStyle}>
-          <strong style={{ fontSize: 12 }}>Sources:</strong>
-          <ul style={citationsListStyle}>
-            {result.citations.map((url, i) => (
-              <li key={i}>
+      {result.citations.length > 0 ? (
+        <div className="border-border/60 mt-3 border-t pt-3">
+          <p className="text-muted-foreground text-[11px] font-medium">
+            Sources:
+          </p>
+          <ul className="mt-1 list-disc space-y-1 pl-4 text-xs">
+            {result.citations.map((url, index) => (
+              <li key={index}>
                 <a
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  style={citationLinkStyle}
+                  className="text-primary break-all hover:underline"
                 >
                   {truncateUrl(url)}
                 </a>
@@ -364,7 +418,7 @@ function ValidationResultView({ result }: { result: ValidationResult }) {
             ))}
           </ul>
         </div>
-      )}
+      ) : null}
     </div>
   )
 }
@@ -383,320 +437,84 @@ function NewsPanel({
   onSearch: () => void
 }) {
   return (
-    <div style={newsPanelStyle}>
-      <div style={newsPanelHeaderStyle}>
-        <h2 style={newsPanelTitleStyle}>News Preview</h2>
-        <button
-          onClick={onSearch}
-          disabled={isSearching || !apiConfigured}
-          style={{
-            ...buttonStyle,
-            opacity: isSearching || !apiConfigured ? 0.5 : 1,
-            cursor: isSearching || !apiConfigured ? "not-allowed" : "pointer",
-          }}
-        >
-          {isSearching ? "Searching..." : "Search News"}
-        </button>
-      </div>
-
-      <p style={newsDescStyle}>
-        Preview city news from Perplexity Search API. This will replace the
-        current RSS-based news provider.
-      </p>
-
-      {error && <div style={errorBannerStyle}>{error}</div>}
-
-      {results && (
-        <div>
-          <div style={newsMetaStyle}>
-            Query: &ldquo;{results.query}&rdquo; &middot;{" "}
-            {results.results.length} results &middot;{" "}
-            {new Date(results.searchedAt).toLocaleString()}
+    <Card>
+      <CardHeader className="border-b">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <CardTitle>News Preview</CardTitle>
+            <CardDescription className="mt-1">
+              Preview city news from Perplexity Search API. This will replace
+              the current RSS-based news provider.
+            </CardDescription>
           </div>
-
-          {results.results.map((item, i) => (
-            <div key={i} style={newsItemStyle}>
-              <a
-                href={item.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={newsItemTitleStyle}
-              >
-                {item.title}
-              </a>
-              {item.date && <span style={newsItemDateStyle}>{item.date}</span>}
-              {item.snippet && (
-                <p style={newsItemSnippetStyle}>
-                  {item.snippet.length > 300
-                    ? `${item.snippet.slice(0, 300)}...`
-                    : item.snippet}
-                </p>
-              )}
-            </div>
-          ))}
+          <Button
+            onClick={onSearch}
+            disabled={isSearching || !apiConfigured}
+            size="xs"
+            variant="outline"
+          >
+            {isSearching ? "Searching..." : "Search News"}
+          </Button>
         </div>
-      )}
-    </div>
+      </CardHeader>
+
+      <CardContent className="space-y-4 pt-4">
+        {error ? (
+          <div className="border-destructive/30 bg-destructive/10 text-destructive rounded-none border px-3 py-2 text-xs">
+            {error}
+          </div>
+        ) : null}
+
+        {results ? (
+          <div className="space-y-3">
+            <div className="text-muted-foreground text-xs italic">
+              Query: "{results.query}" - {results.results.length} results -{" "}
+              {new Date(results.searchedAt).toLocaleString()}
+            </div>
+
+            {results.results.map((item, index) => (
+              <article
+                key={index}
+                className="border-border/60 space-y-1 border-t pt-3 first:border-t-0 first:pt-0"
+              >
+                <a
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary block text-sm font-medium hover:underline"
+                >
+                  {item.title}
+                </a>
+                {item.date ? (
+                  <p className="text-muted-foreground text-[11px]">
+                    {item.date}
+                  </p>
+                ) : null}
+                {item.snippet ? (
+                  <p className="text-muted-foreground text-xs leading-relaxed">
+                    {item.snippet.length > 300
+                      ? `${item.snippet.slice(0, 300)}...`
+                      : item.snippet}
+                  </p>
+                ) : null}
+              </article>
+            ))}
+          </div>
+        ) : null}
+      </CardContent>
+    </Card>
   )
 }
 
 function truncateUrl(url: string): string {
   try {
-    const u = new URL(url)
+    const parsedUrl = new URL(url)
     const path =
-      u.pathname.length > 40 ? `${u.pathname.slice(0, 40)}...` : u.pathname
-    return `${u.hostname}${path}`
+      parsedUrl.pathname.length > 40
+        ? `${parsedUrl.pathname.slice(0, 40)}...`
+        : parsedUrl.pathname
+    return `${parsedUrl.hostname}${path}`
   } catch {
     return url.length > 60 ? `${url.slice(0, 60)}...` : url
   }
-}
-
-// --- Styles ---
-
-const backLinkStyle: React.CSSProperties = {
-  display: "inline-block",
-  marginBottom: 16,
-  fontSize: 13,
-  color: "#555",
-  textDecoration: "none",
-}
-
-const headerStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "flex-start",
-  marginBottom: 24,
-}
-
-const titleStyle: React.CSSProperties = {
-  fontSize: 22,
-  fontWeight: 700,
-  margin: 0,
-}
-
-const taglineStyle: React.CSSProperties = {
-  fontSize: 14,
-  color: "#666",
-  margin: "4px 0 0",
-}
-
-const statusContainerStyle: React.CSSProperties = {
-  flexShrink: 0,
-  marginLeft: 16,
-}
-
-const badgeBaseStyle: React.CSSProperties = {
-  display: "inline-block",
-  padding: "4px 10px",
-  borderRadius: 4,
-  fontSize: 12,
-  fontWeight: 600,
-}
-
-const messageStyle: React.CSSProperties = {
-  padding: 24,
-  color: "#666",
-  fontSize: 14,
-}
-
-const warningBannerStyle: React.CSSProperties = {
-  padding: "10px 14px",
-  marginBottom: 20,
-  backgroundColor: "#fff3cd",
-  border: "1px solid #ffc107",
-  borderRadius: 6,
-  fontSize: 13,
-  color: "#856404",
-}
-
-const errorBannerStyle: React.CSSProperties = {
-  padding: "10px 14px",
-  marginBottom: 20,
-  backgroundColor: "#fce8e6",
-  border: "1px solid #f5c6cb",
-  borderRadius: 6,
-  fontSize: 13,
-  color: "#c5221f",
-}
-
-const sectionGridStyle: React.CSSProperties = {
-  display: "flex",
-  flexDirection: "column",
-  gap: 12,
-}
-
-const cardStyle: React.CSSProperties = {
-  border: "1px solid #e0e0e0",
-  borderRadius: 6,
-  backgroundColor: "#fff",
-  overflow: "hidden",
-}
-
-const cardHeaderStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  padding: "10px 14px",
-  borderBottom: "1px solid #f0f0f0",
-}
-
-const cardLabelStyle: React.CSSProperties = {
-  fontSize: 14,
-  fontWeight: 600,
-}
-
-const buttonStyle: React.CSSProperties = {
-  padding: "5px 14px",
-  fontSize: 12,
-  fontWeight: 600,
-  border: "1px solid #d0d0d0",
-  borderRadius: 4,
-  backgroundColor: "#fff",
-  color: "#333",
-  transition: "background-color 0.15s",
-}
-
-const detailsStyle: React.CSSProperties = {
-  borderBottom: "1px solid #f0f0f0",
-}
-
-const summaryStyle: React.CSSProperties = {
-  padding: "8px 14px",
-  fontSize: 12,
-  color: "#888",
-  cursor: "pointer",
-}
-
-const dataPreStyle: React.CSSProperties = {
-  margin: 0,
-  padding: "8px 14px 12px",
-  fontSize: 11,
-  lineHeight: 1.5,
-  overflow: "auto",
-  maxHeight: 300,
-  backgroundColor: "#fafafa",
-}
-
-const resultContainerStyle: React.CSSProperties = {
-  padding: 14,
-  backgroundColor: "#f8fbff",
-  borderTop: "2px solid #4a90d9",
-}
-
-const resultMetaStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  fontSize: 11,
-  color: "#888",
-  marginBottom: 10,
-}
-
-const resultModelStyle: React.CSSProperties = {
-  fontFamily: "monospace",
-}
-
-const findingsStyle: React.CSSProperties = {
-  fontSize: 13,
-  lineHeight: 1.7,
-}
-
-const findingsHeadingStyle: React.CSSProperties = {
-  fontSize: 13,
-  fontWeight: 700,
-  margin: "12px 0 4px",
-  color: "#333",
-}
-
-const findingsLineStyle: React.CSSProperties = {
-  margin: "2px 0",
-}
-
-const outdatedLineStyle: React.CSSProperties = {
-  margin: "2px 0",
-  color: "#c5221f",
-  fontWeight: 500,
-}
-
-const currentLineStyle: React.CSSProperties = {
-  margin: "2px 0",
-  color: "#1e7e34",
-}
-
-const citationsContainerStyle: React.CSSProperties = {
-  marginTop: 12,
-  paddingTop: 10,
-  borderTop: "1px solid #e0e8f0",
-}
-
-const citationsListStyle: React.CSSProperties = {
-  margin: "4px 0 0",
-  paddingLeft: 18,
-  fontSize: 12,
-  lineHeight: 1.8,
-}
-
-const citationLinkStyle: React.CSSProperties = {
-  color: "#4a90d9",
-  textDecoration: "none",
-  wordBreak: "break-all",
-}
-
-const newsPanelStyle: React.CSSProperties = {
-  marginTop: 32,
-  border: "1px solid #e0e0e0",
-  borderRadius: 6,
-  backgroundColor: "#fff",
-  padding: 14,
-}
-
-const newsPanelHeaderStyle: React.CSSProperties = {
-  display: "flex",
-  justifyContent: "space-between",
-  alignItems: "center",
-  marginBottom: 8,
-}
-
-const newsPanelTitleStyle: React.CSSProperties = {
-  fontSize: 16,
-  fontWeight: 700,
-  margin: 0,
-}
-
-const newsDescStyle: React.CSSProperties = {
-  fontSize: 13,
-  color: "#666",
-  margin: "0 0 12px",
-}
-
-const newsMetaStyle: React.CSSProperties = {
-  fontSize: 12,
-  color: "#888",
-  marginBottom: 10,
-  fontStyle: "italic",
-}
-
-const newsItemStyle: React.CSSProperties = {
-  padding: "10px 0",
-  borderTop: "1px solid #f0f0f0",
-}
-
-const newsItemTitleStyle: React.CSSProperties = {
-  fontSize: 14,
-  fontWeight: 500,
-  color: "#1a73e8",
-  textDecoration: "none",
-  display: "block",
-}
-
-const newsItemDateStyle: React.CSSProperties = {
-  fontSize: 11,
-  color: "#999",
-  marginLeft: 8,
-}
-
-const newsItemSnippetStyle: React.CSSProperties = {
-  fontSize: 12,
-  color: "#555",
-  margin: "4px 0 0",
-  lineHeight: 1.5,
 }

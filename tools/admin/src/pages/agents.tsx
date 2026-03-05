@@ -1,50 +1,22 @@
+import { FeaturePlaceholder } from "../components/feature-placeholder"
+
 export function AgentsPage() {
   return (
-    <div>
-      <h1 style={titleStyle}>Agent Orchestration</h1>
-      <div style={placeholderStyle}>
-        <div style={iconStyle}>&#9881;</div>
-        <p style={messageStyle}>Agent orchestration will be configured here.</p>
-        <ul style={listStyle}>
-          <li>Register and manage AI agents</li>
-          <li>Define agent pipelines and workflows</li>
-          <li>Monitor agent execution status</li>
-          <li>View logs and output</li>
-        </ul>
-      </div>
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold tracking-tight">
+        Agent Orchestration
+      </h1>
+      <FeaturePlaceholder
+        title="Agent orchestration"
+        description="Agent orchestration will be configured here."
+        icon={<span className="font-mono text-xs uppercase">Agents</span>}
+        items={[
+          "Register and manage AI agents",
+          "Define agent pipelines and workflows",
+          "Monitor agent execution status",
+          "View logs and output",
+        ]}
+      />
     </div>
   )
-}
-
-const titleStyle: React.CSSProperties = {
-  fontSize: 22,
-  fontWeight: 700,
-  marginTop: 0,
-  marginBottom: 24,
-}
-
-const placeholderStyle: React.CSSProperties = {
-  border: "2px dashed #d0d0d0",
-  borderRadius: 8,
-  padding: 40,
-  textAlign: "center",
-  color: "#888",
-}
-
-const iconStyle: React.CSSProperties = {
-  fontSize: 36,
-  marginBottom: 12,
-}
-
-const messageStyle: React.CSSProperties = {
-  fontSize: 15,
-  fontWeight: 500,
-  marginBottom: 16,
-}
-
-const listStyle: React.CSSProperties = {
-  textAlign: "left",
-  display: "inline-block",
-  fontSize: 14,
-  lineHeight: 1.8,
 }

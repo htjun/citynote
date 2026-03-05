@@ -1,0 +1,8 @@
+@import "../../../app/[locale]/globals.css";
+
+:root {
+  --geist-sans:
+    "Inter", "Segoe UI", "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+  --geist-mono:
+    "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+}

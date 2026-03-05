@@ -1,4 +1,6 @@
 import { Link } from "react-router"
+import { Badge } from "@/components/ui/badge"
+import { Card } from "@/components/ui/card"
 import { cityRuntimeConfigBySlug } from "@citynote/data/city-runtime-config"
 import type { CityRuntimeConfig } from "@citynote/data/city-runtime-config"
 
@@ -8,135 +10,91 @@ const configs = Object.values(
 
 export function CitiesPage() {
   return (
-    <div>
-      <div style={headerStyle}>
-        <h1 style={titleStyle}>Cities</h1>
-        <span style={countStyle}>{configs.length} configured</span>
+    <div className="space-y-6">
+      <header className="flex flex-wrap items-center gap-3">
+        <h1 className="text-xl font-semibold tracking-tight">Cities</h1>
+        <Badge variant="outline" className="font-mono text-[11px]">
+          {configs.length} configured
+        </Badge>
+      </header>
+
+      <Card className="gap-0 overflow-hidden py-0">
+        <div className="overflow-x-auto">
+          <table className="min-w-full text-xs">
+            <thead className="bg-muted/40">
+              <tr>
+                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                  Slug
+                </th>
+                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                  Currency
+                </th>
+                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                  Weather Query
+                </th>
+                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                  News Aliases
+                </th>
+                <th className="text-muted-foreground border-border/80 border-b px-3 py-2 text-left text-[11px] font-medium uppercase tracking-wide whitespace-nowrap">
+                  Fallback Links
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {configs.map((config) => (
+                <tr
+                  key={config.slug}
+                  className="border-border/60 border-b last:border-b-0"
+                >
+                  <td className="px-3 py-2 align-top text-xs">
+                    <Link
+                      to={`/cities/${config.slug}`}
+                      className="text-primary font-mono text-xs font-medium hover:underline"
+                    >
+                      {config.slug}
+                    </Link>
+                  </td>
+                  <td className="px-3 py-2 align-top text-xs">
+                    {config.localCurrency}
+                  </td>
+                  <td className="px-3 py-2 align-top text-xs">
+                    <code className="bg-muted rounded-none px-1.5 py-0.5 font-mono text-[11px]">
+                      {config.weatherQuery}
+                    </code>
+                  </td>
+                  <td className="px-3 py-2 align-top text-xs">
+                    {config.newsProfile.cityAliases.join(", ")}
+                  </td>
+                  <td className="px-3 py-2 align-top text-xs">
+                    {config.newsFallbackLinks.length}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </Card>
+
+      <div className="space-y-3">
+        {configs.map((config) => (
+          <Card key={config.slug} className="gap-0 overflow-hidden py-0">
+            <details className="group">
+              <summary className="hover:bg-muted/40 cursor-pointer px-4 py-3 text-sm font-medium transition-colors">
+                <span className="font-mono text-xs">{config.slug}</span>
+                <span className="text-muted-foreground">
+                  {" "}
+                  - full runtime config
+                </span>
+              </summary>
+              <div className="border-border/70 border-t">
+                <pre className="bg-muted/30 max-h-96 overflow-auto px-4 py-4 font-mono text-[11px] leading-relaxed">
+                  {JSON.stringify(config, null, 2)}
+                </pre>
+              </div>
+            </details>
+          </Card>
+        ))}
       </div>
-
-      <table style={tableStyle}>
-        <thead>
-          <tr>
-            <th style={thStyle}>Slug</th>
-            <th style={thStyle}>Currency</th>
-            <th style={thStyle}>Weather Query</th>
-            <th style={thStyle}>News Aliases</th>
-            <th style={thStyle}>Fallback Links</th>
-          </tr>
-        </thead>
-        <tbody>
-          {configs.map((config) => (
-            <tr key={config.slug} style={trStyle}>
-              <td style={tdStyle}>
-                <Link to={`/cities/${config.slug}`} style={slugLinkStyle}>
-                  {config.slug}
-                </Link>
-              </td>
-              <td style={tdStyle}>{config.localCurrency}</td>
-              <td style={tdStyle}>
-                <code style={codeStyle}>{config.weatherQuery}</code>
-              </td>
-              <td style={tdStyle}>
-                {config.newsProfile.cityAliases.join(", ")}
-              </td>
-              <td style={tdStyle}>{config.newsFallbackLinks.length}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-
-      {configs.map((config) => (
-        <details key={config.slug} style={detailsStyle}>
-          <summary style={summaryStyle}>
-            {config.slug} &mdash; full runtime config
-          </summary>
-          <pre style={preStyle}>{JSON.stringify(config, null, 2)}</pre>
-        </details>
-      ))}
     </div>
   )
-}
-
-const headerStyle: React.CSSProperties = {
-  display: "flex",
-  alignItems: "baseline",
-  gap: 12,
-  marginBottom: 24,
-}
-
-const titleStyle: React.CSSProperties = {
-  fontSize: 22,
-  fontWeight: 700,
-  margin: 0,
-}
-
-const countStyle: React.CSSProperties = {
-  fontSize: 13,
-  color: "#888",
-}
-
-const tableStyle: React.CSSProperties = {
-  width: "100%",
-  borderCollapse: "collapse",
-  fontSize: 14,
-  marginBottom: 32,
-}
-
-const thStyle: React.CSSProperties = {
-  textAlign: "left",
-  padding: "8px 12px",
-  borderBottom: "2px solid #e0e0e0",
-  fontSize: 12,
-  fontWeight: 600,
-  textTransform: "uppercase",
-  letterSpacing: "0.04em",
-  color: "#666",
-}
-
-const trStyle: React.CSSProperties = {
-  borderBottom: "1px solid #eee",
-}
-
-const tdStyle: React.CSSProperties = {
-  padding: "8px 12px",
-  verticalAlign: "top",
-}
-
-const slugLinkStyle: React.CSSProperties = {
-  color: "#1a73e8",
-  textDecoration: "none",
-  fontWeight: 500,
-  fontSize: 13,
-  fontFamily: "monospace",
-}
-
-const codeStyle: React.CSSProperties = {
-  backgroundColor: "#f0f0f0",
-  padding: "2px 6px",
-  borderRadius: 3,
-  fontSize: 13,
-}
-
-const detailsStyle: React.CSSProperties = {
-  marginBottom: 12,
-  border: "1px solid #e0e0e0",
-  borderRadius: 6,
-  overflow: "hidden",
-}
-
-const summaryStyle: React.CSSProperties = {
-  padding: "10px 14px",
-  cursor: "pointer",
-  fontSize: 14,
-  fontWeight: 500,
-  backgroundColor: "#fff",
-}
-
-const preStyle: React.CSSProperties = {
-  margin: 0,
-  padding: 16,
-  backgroundColor: "#f8f8f8",
-  fontSize: 12,
-  lineHeight: 1.5,
-  overflow: "auto",
 }

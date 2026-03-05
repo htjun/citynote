@@ -1,50 +1,20 @@
+import { FeaturePlaceholder } from "../components/feature-placeholder"
+
 export function SchedulesPage() {
   return (
-    <div>
-      <h1 style={titleStyle}>Schedules</h1>
-      <div style={placeholderStyle}>
-        <div style={iconStyle}>&#128337;</div>
-        <p style={messageStyle}>Task scheduling will be configured here.</p>
-        <ul style={listStyle}>
-          <li>Create and manage scheduled tasks</li>
-          <li>Set cron expressions and intervals</li>
-          <li>View execution history</li>
-          <li>Enable / disable schedules</li>
-        </ul>
-      </div>
+    <div className="space-y-6">
+      <h1 className="text-xl font-semibold tracking-tight">Schedules</h1>
+      <FeaturePlaceholder
+        title="Task scheduling"
+        description="Task scheduling will be configured here."
+        icon={<span className="font-mono text-xs uppercase">Schedules</span>}
+        items={[
+          "Create and manage scheduled tasks",
+          "Set cron expressions and intervals",
+          "View execution history",
+          "Enable and disable schedules",
+        ]}
+      />
     </div>
   )
-}
-
-const titleStyle: React.CSSProperties = {
-  fontSize: 22,
-  fontWeight: 700,
-  marginTop: 0,
-  marginBottom: 24,
-}
-
-const placeholderStyle: React.CSSProperties = {
-  border: "2px dashed #d0d0d0",
-  borderRadius: 8,
-  padding: 40,
-  textAlign: "center",
-  color: "#888",
-}
-
-const iconStyle: React.CSSProperties = {
-  fontSize: 36,
-  marginBottom: 12,
-}
-
-const messageStyle: React.CSSProperties = {
-  fontSize: 15,
-  fontWeight: 500,
-  marginBottom: 16,
-}
-
-const listStyle: React.CSSProperties = {
-  textAlign: "left",
-  display: "inline-block",
-  fontSize: 14,
-  lineHeight: 1.8,
 }
