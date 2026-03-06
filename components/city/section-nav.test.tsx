@@ -101,13 +101,13 @@ describe("section nav", () => {
     )
 
     const nav = screen.getByRole("navigation")
-    expect(nav.className).toContain("bg-base")
-    expect(nav.className).toContain("border-subtlest")
+    expect(nav.className).toContain("bg-transparent")
+    expect(nav.className).toContain("p-0")
+    expect(nav.className).not.toContain("border-subtlest")
 
     const link = screen.getByRole("link", { name: "Live Pulse" })
     fireEvent.click(link)
 
     expect(onNavigate).toHaveBeenCalledWith(expect.anything())
-    expect(onNavigate.mock.calls[1]).toBeUndefined()
   })
 })

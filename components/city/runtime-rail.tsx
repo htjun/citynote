@@ -69,15 +69,15 @@ export function RuntimeRail({
   const firstHeadlines = runtimeInsights.cityNews.headlines.slice(0, 3)
 
   return (
-    <aside className={cn("space-y-4", className)}>
-      <div className="border-subtlest bg-raised rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
+    <aside className={cn("space-y-3", className)}>
+      <div className="border-subtlest bg-raised rounded-[18px] border p-4 shadow-[var(--shadow-subtle)]">
         <h2 className="text-sm font-semibold">{tShell("title")}</h2>
-        <p className="text-quiet mt-2 text-sm leading-relaxed">
+        <p className="text-quiet mt-1.5 text-sm leading-relaxed">
           {tShell("description")}
         </p>
       </div>
 
-      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
+      <section className="border-subtlest bg-raised space-y-2.5 rounded-[18px] border p-4 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#weather-now"
@@ -94,7 +94,7 @@ export function RuntimeRail({
             {tWeather(`freshness.${runtimeInsights.weatherNow.meta.freshness}`)}
           </span>
         </div>
-        <p className="font-editorial text-2xl tracking-[-0.03em]">
+        <p className="font-editorial text-[1.6rem] tracking-[-0.03em]">
           {runtimeInsights.weatherNow.condition}
         </p>
         <p className="text-quiet text-sm leading-relaxed">
@@ -112,7 +112,7 @@ export function RuntimeRail({
         </p>
       </section>
 
-      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
+      <section className="border-subtlest bg-raised space-y-2.5 rounded-[18px] border p-4 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#currency-watch"
@@ -132,7 +132,7 @@ export function RuntimeRail({
           </span>
         </div>
         {firstQuote ? (
-          <p className="font-editorial text-2xl tracking-[-0.03em]">
+          <p className="font-editorial text-[1.6rem] tracking-[-0.03em]">
             {tCurrency("pairValue", {
               base: firstQuote.base,
               target: firstQuote.target,
@@ -140,7 +140,7 @@ export function RuntimeRail({
             })}
           </p>
         ) : (
-          <p className="font-editorial text-2xl tracking-[-0.03em]">
+          <p className="font-editorial text-[1.6rem] tracking-[-0.03em]">
             {tCurrency("valueUnavailable")}
           </p>
         )}
@@ -151,7 +151,7 @@ export function RuntimeRail({
         </p>
       </section>
 
-      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
+      <section className="border-subtlest bg-raised space-y-2.5 rounded-[18px] border p-4 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#city-news"
@@ -171,7 +171,7 @@ export function RuntimeRail({
         {firstHeadlines.length === 0 ? (
           <p className="text-sm">{tNews("noHeadlines")}</p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1.5">
             {firstHeadlines.map((headline) => (
               <li key={headline.id}>
                 <a

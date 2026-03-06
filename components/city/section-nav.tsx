@@ -72,18 +72,18 @@ function toItemLink(item: SectionNavItem, options: ItemLinkOptions) {
       href={`#${item.id}`}
       onClick={options.onNavigate}
       className={cn(
-        "group inline-flex w-full items-center gap-2.5 rounded-[18px] transition-[background-color,color,transform] duration-normal ease-fluid",
+        "group inline-flex w-full items-center gap-2.5 transition-[background-color,color,transform] duration-normal ease-fluid",
         "focus-visible:ring-super/35 focus-visible:outline-none focus-visible:ring-2",
         options.dense
-          ? "text-quiet hover:text-foreground hover:bg-subtle px-3 py-2.5 text-[13px]"
-          : "text-quiet hover:text-foreground hover:bg-subtle px-3.5 py-3 text-sm"
+          ? "text-quiet hover:text-foreground hover:bg-subtle rounded-lg px-2 py-2 text-[13px]"
+          : "text-quiet hover:text-foreground hover:bg-subtle rounded-[14px] px-3 py-2.5 text-sm"
       )}
     >
       <Icon
         aria-hidden="true"
         className={cn(
           "shrink-0",
-          options.dense ? "size-4 opacity-90" : "size-4 opacity-75"
+          options.dense ? "size-4 opacity-85" : "size-4 opacity-75"
         )}
       />
       <span className="min-w-0 flex-1">{item.label}</span>
@@ -104,12 +104,12 @@ function toGroup(group: SectionNavGroup, options: GroupOptions) {
   return (
     <li
       key={group.id}
-      className={cn("space-y-1", options.dense && "space-y-0.5")}
+      className={cn("space-y-1", options.dense && "space-y-1")}
     >
       <h3
         className={cn(
           "text-quieter px-3 pt-2 text-[11px] font-semibold uppercase tracking-[0.18em]",
-          options.dense && "px-3 pt-1 text-[10px]"
+          options.dense && "px-2 pt-3 text-[10px]"
         )}
       >
         {group.label}
@@ -134,12 +134,13 @@ export function SectionNav({
   return (
     <nav
       className={cn(
-        "border-subtlest rounded-[28px] border shadow-[var(--shadow-subtle)]",
-        dense ? "bg-raised p-2" : "bg-raised p-2.5",
+        dense
+          ? "bg-transparent p-0"
+          : "border-subtlest bg-raised rounded-[20px] border p-2 shadow-[var(--shadow-subtle)]",
         className
       )}
     >
-      <ul className={cn("flex flex-col gap-2.5", dense && "gap-2")}>
+      <ul className={cn("flex flex-col gap-2.5", dense && "gap-3")}>
         {groups.map((group) => toGroup(group, { dense, onNavigate }))}
       </ul>
     </nav>

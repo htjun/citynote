@@ -2,13 +2,7 @@
 
 import type { ReactNode } from "react"
 import { useState } from "react"
-import {
-  RiAddLine,
-  RiArrowRightLine,
-  RiCloseLine,
-  RiMenuLine,
-  RiSparklingLine,
-} from "@remixicon/react"
+import { RiCloseLine, RiMenuLine } from "@remixicon/react"
 import { useTranslations } from "next-intl"
 
 import { RuntimeRail } from "@/components/city/runtime-rail"
@@ -17,8 +11,6 @@ import type {
   SectionNavGroup,
   SectionNavItem,
 } from "@/components/city/section-nav"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
 import type { Locale } from "@/i18n/locales"
 import type { CityRuntimeInsights } from "@/lib/insights/types"
 
@@ -43,12 +35,12 @@ interface CityPageShellProps {
 
 function renderForYouItems(items: SectionNavItem[]) {
   return (
-    <div className="flex flex-wrap gap-2">
+    <div className="flex flex-wrap gap-1.5">
       {items.map((item, index) => (
         <a
           key={item.id}
           href={`#${item.id}`}
-          className="border-subtlest bg-base hover:bg-subtle inline-flex items-center gap-2 rounded-full border px-3 py-2 text-xs font-medium transition-[background-color,border-color,color] duration-normal ease-fluid"
+          className="border-subtlest bg-base hover:bg-subtle inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-medium transition-[background-color,border-color,color] duration-normal ease-fluid"
         >
           <span className="text-quieter">{index + 1}</span>
           <span>{item.label}</span>
@@ -70,105 +62,41 @@ export function CityPageShell({
   const tShell = useTranslations("city.shell")
   const tForYou = useTranslations("city.forYou")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const brandName = "Citynote"
 
   return (
-    <main className="min-h-dvh">
-      <div className="mx-auto flex w-full max-w-[1600px]">
-        <aside className="border-subtlest bg-base/92 hidden h-dvh w-[272px] shrink-0 border-r backdrop-blur-sm lg:flex lg:flex-col">
-          <div className="border-subtlest border-b p-4">
-            <div className="border-subtlest bg-raised rounded-[28px] border p-4 shadow-[var(--shadow-subtle)]">
-              <p className="text-quieter text-[11px] uppercase tracking-[0.18em]">
-                {tShell("headerPrefix")}
-              </p>
-              <h1 className="font-editorial mt-3 text-4xl leading-none tracking-[-0.04em]">
-                {city.name}
-              </h1>
-              <p className="text-quiet mt-3 text-sm leading-relaxed">
-                {city.tagline}
-              </p>
-            </div>
+    <main className="flex h-dvh flex-col overflow-hidden">
+      <header className="border-subtlest bg-base/88 shrink-0 border-b backdrop-blur-sm">
+        <div className="flex w-full items-center gap-3 px-4 py-3 md:px-5">
+          <div className="flex min-w-0 items-center gap-2.5">
+            <button
+              aria-label={tShell("openMenu")}
+              className="border-subtlest bg-raised hover:bg-subtle inline-flex size-9 items-center justify-center rounded-xl border lg:hidden"
+              onClick={() => setIsMenuOpen(true)}
+              type="button"
+            >
+              <RiMenuLine aria-hidden="true" className="size-4.5" />
+            </button>
+
+            <p className="truncate text-[13px] font-semibold tracking-[0.16em] uppercase">
+              {brandName}
+            </p>
           </div>
+        </div>
+      </header>
 
-          {forYouItems.length > 0 ? (
-            <div className="p-4 pb-0">
-              <section className="border-subtlest bg-raised rounded-[28px] border p-4 shadow-[var(--shadow-subtle)]">
-                <div className="flex items-center gap-2">
-                  <RiSparklingLine aria-hidden="true" className="size-4" />
-                  <h2 className="text-sm font-semibold">{tForYou("title")}</h2>
-                </div>
-                <p className="text-quiet mt-2 text-xs leading-relaxed">
-                  {tForYou("description")}
-                </p>
-                <div className="mt-4 space-y-2">
-                  {forYouItems.map((item, index) => (
-                    <a
-                      key={item.id}
-                      href={`#${item.id}`}
-                      className="text-quiet hover:text-foreground hover:bg-subtle flex items-center gap-3 rounded-[20px] px-3 py-2.5 text-sm transition-[background-color,color] duration-normal ease-fluid"
-                    >
-                      <span className="text-quieter text-xs font-medium">
-                        {index + 1}
-                      </span>
-                      <span className="min-w-0 flex-1 truncate">
-                        {item.label}
-                      </span>
-                    </a>
-                  ))}
-                </div>
-              </section>
-            </div>
-          ) : null}
-
-          <div className="flex-1 overflow-y-auto p-4">
+      <div className="mx-auto flex min-h-0 w-full max-w-[1600px] flex-1 overflow-hidden">
+        <aside className="border-subtlest bg-base/92 hidden h-full w-[272px] shrink-0 border-r backdrop-blur-sm lg:flex lg:flex-col">
+          <div className="min-h-0 flex-1 overflow-y-auto px-2.5 py-3.5">
             <SectionNav groups={navGroups} mode="sidebar" />
           </div>
         </aside>
 
-        <div className="min-w-0 flex-1">
-          <header className="border-subtlest bg-base/88 sticky top-0 z-20 border-b backdrop-blur-sm">
-            <div className="mx-auto flex w-full max-w-[1280px] items-center gap-3 px-4 py-4 md:px-6">
-              <button
-                aria-label={tShell("openMenu")}
-                className="border-subtlest bg-raised hover:bg-subtle inline-flex size-10 items-center justify-center rounded-full border lg:hidden"
-                onClick={() => setIsMenuOpen(true)}
-                type="button"
-              >
-                <RiMenuLine aria-hidden="true" className="size-5" />
-              </button>
-
-              <div className="min-w-0">
-                <p className="text-quieter text-[11px] uppercase tracking-[0.18em]">
-                  {city.country}
-                </p>
-                <p className="truncate text-sm font-semibold md:text-base">
-                  {city.name}
-                </p>
-              </div>
-
-              <div className="hidden min-w-0 flex-1 lg:block">
-                <Input
-                  aria-label={tShell("searchLabel")}
-                  className="h-11 rounded-full bg-base px-4 text-sm"
-                  placeholder={tShell("searchPlaceholder", { city: city.name })}
-                  type="search"
-                />
-              </div>
-
-              <div className="ml-auto hidden items-center gap-2 md:flex">
-                <Button size="sm" variant="ghost" type="button">
-                  {tShell("saveAction")}
-                </Button>
-                <Button size="sm" variant="outline" type="button">
-                  {tShell("shareAction")}
-                </Button>
-              </div>
-            </div>
-          </header>
-
-          <div className="mx-auto w-full max-w-[1280px] px-4 py-6 md:px-6">
-            <section className="border-subtlest bg-raised rounded-[32px] border p-6 shadow-[var(--shadow-raised)] md:p-8">
-              <div className="flex flex-wrap items-center gap-2">
-                <span className="text-quieter rounded-full border border-current/10 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.16em]">
+        <div className="min-w-0 flex-1 overflow-y-auto">
+          <div className="mx-auto w-full max-w-[1280px] px-4 py-4 md:px-5 md:py-5">
+            <section className="border-subtlest bg-raised rounded-[22px] border p-5 shadow-[var(--shadow-raised)] md:p-6">
+              <div className="flex flex-wrap items-center gap-1.5">
+                <span className="text-quieter rounded-xl border border-current/10 px-2 py-1 text-[10px] font-medium uppercase tracking-[0.16em]">
                   {city.country}
                 </span>
                 <span className="text-quieter text-xs">
@@ -176,24 +104,24 @@ export function CityPageShell({
                 </span>
               </div>
 
-              <h1 className="font-editorial mt-5 max-w-4xl text-[clamp(3rem,7vw,5.5rem)] leading-[0.92] tracking-[-0.05em] text-balance">
+              <h1 className="font-editorial mt-4 max-w-3xl text-[clamp(2.4rem,5vw,4.25rem)] leading-[0.94] tracking-[-0.05em] text-balance">
                 {city.name}
               </h1>
-              <p className="text-quiet mt-5 max-w-3xl text-base leading-relaxed md:text-lg">
+              <p className="text-quiet mt-3 max-w-2xl text-sm leading-relaxed md:text-base">
                 {city.tagline}
               </p>
 
               {heroFacts.length > 0 ? (
-                <div className="mt-6 grid gap-3 md:grid-cols-3">
+                <div className="mt-5 grid gap-2.5 md:grid-cols-3">
                   {heroFacts.map((fact) => (
                     <div
                       key={fact.label}
-                      className="border-subtlest bg-base rounded-[24px] border p-4"
+                      className="border-subtlest bg-base rounded-[16px] border p-3.5"
                     >
-                      <p className="text-quieter text-[11px] uppercase tracking-[0.16em]">
+                      <p className="text-quieter text-[10px] uppercase tracking-[0.16em]">
                         {fact.label}
                       </p>
-                      <p className="mt-2 text-sm leading-relaxed">
+                      <p className="mt-1.5 text-sm leading-relaxed">
                         {fact.value}
                       </p>
                     </div>
@@ -202,8 +130,8 @@ export function CityPageShell({
               ) : null}
 
               {forYouItems.length > 0 ? (
-                <div className="mt-6">
-                  <div className="mb-3">
+                <div className="mt-5">
+                  <div className="mb-2.5">
                     <h2 className="text-sm font-semibold">
                       {tForYou("title")}
                     </h2>
@@ -216,34 +144,14 @@ export function CityPageShell({
               ) : null}
             </section>
 
-            <div className="mt-6 grid min-w-0 gap-6 xl:grid-cols-[minmax(0,1fr)_310px]">
-              <div className="flex min-w-0 flex-col gap-5">{children}</div>
+            <div className="mt-4 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_290px]">
+              <div className="flex min-w-0 flex-col gap-4">{children}</div>
               <RuntimeRail
-                className="hidden xl:sticky xl:top-[96px] xl:block xl:self-start"
+                className="hidden xl:sticky xl:top-4 xl:block xl:self-start"
                 locale={locale}
                 runtimeInsights={runtimeInsights}
               />
             </div>
-
-            <section className="border-subtlest bg-raised mt-6 rounded-[30px] border p-4 shadow-[var(--shadow-subtle)]">
-              <p className="text-sm font-semibold">{tShell("followUpTitle")}</p>
-              <div className="border-subtlest bg-base mt-3 flex items-center gap-3 rounded-[26px] border p-4 shadow-[var(--shadow-subtle)]">
-                <span className="bg-subtle inline-flex size-11 shrink-0 items-center justify-center rounded-full">
-                  <RiAddLine aria-hidden="true" className="size-4" />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <p className="text-quieter truncate text-base">
-                    {tShell("followUpPlaceholder", { city: city.name })}
-                  </p>
-                </div>
-                <span className="bg-subtle inline-flex size-11 shrink-0 items-center justify-center rounded-full">
-                  <RiArrowRightLine aria-hidden="true" className="size-4" />
-                </span>
-              </div>
-              <p className="text-quiet mt-3 text-sm leading-relaxed">
-                {tShell("followUpHint")}
-              </p>
-            </section>
           </div>
         </div>
       </div>
@@ -257,35 +165,30 @@ export function CityPageShell({
             type="button"
           />
           <div className="border-subtlest bg-base relative h-full w-[88%] max-w-sm border-r">
-            <div className="border-subtlest flex items-center justify-between border-b px-4 py-4">
-              <div>
-                <p className="text-quieter text-[11px] uppercase tracking-[0.18em]">
-                  {city.country}
-                </p>
-                <p className="font-editorial mt-2 text-3xl leading-none tracking-[-0.03em]">
-                  {city.name}
-                </p>
-              </div>
+            <div className="border-subtlest flex items-center justify-between border-b px-4 py-3">
+              <p className="text-[13px] font-semibold tracking-[0.16em] uppercase">
+                {brandName}
+              </p>
               <button
                 aria-label={tShell("closeMenu")}
-                className="border-subtlest bg-raised hover:bg-subtle inline-flex size-9 items-center justify-center rounded-full border"
+                className="border-subtlest bg-raised hover:bg-subtle inline-flex size-8 items-center justify-center rounded-xl border"
                 onClick={() => setIsMenuOpen(false)}
                 type="button"
               >
                 <RiCloseLine aria-hidden="true" className="size-4" />
               </button>
             </div>
-            <div className="h-[calc(100%-81px)] overflow-y-auto p-4">
+            <div className="h-[calc(100%-73px)] overflow-y-auto p-3.5">
               {forYouItems.length > 0 ? (
-                <section className="border-subtlest bg-raised mb-4 rounded-[24px] border p-4">
+                <section className="border-subtlest bg-raised mb-3.5 rounded-[18px] border p-3.5">
                   <h2 className="text-sm font-semibold">{tForYou("title")}</h2>
-                  <div className="mt-3 space-y-2">
+                  <div className="mt-2.5 space-y-1.5">
                     {forYouItems.map((item, index) => (
                       <a
                         key={item.id}
                         href={`#${item.id}`}
                         onClick={() => setIsMenuOpen(false)}
-                        className="text-quiet hover:text-foreground hover:bg-subtle flex items-center gap-3 rounded-[18px] px-3 py-2 text-sm transition-[background-color,color] duration-normal ease-fluid"
+                        className="text-quiet hover:text-foreground hover:bg-subtle flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm transition-[background-color,color] duration-normal ease-fluid"
                       >
                         <span className="text-quieter text-xs font-medium">
                           {index + 1}
