@@ -20,9 +20,9 @@ export default async function MarketingLayout({
   }
 
   return (
-    <div className="min-h-screen">
+    <div className="bg-base min-h-screen lg:grid lg:grid-cols-[272px_minmax(0,1fr)]">
       <TopNav locale={locale as Locale} />
-      {children}
+      <div className="min-w-0">{children}</div>
     </div>
   )
 }

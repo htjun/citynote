@@ -42,6 +42,7 @@ import {
   parsePersonalizationInput,
   PERSONALIZATION_COOKIE_KEYS,
 } from "@/lib/personalization/schema"
+import { cn } from "@/lib/utils"
 import type { Metadata } from "next"
 import { cookies } from "next/headers"
 import { getTranslations } from "next-intl/server"
@@ -203,6 +204,32 @@ function toForYouItems(
   }))
 }
 
+function toHeroFacts(city: City, tNav: (key: string) => string) {
+  const neighborhoods = city.neighborhoods
+    .slice(0, 2)
+    .map((neighborhood) => neighborhood.name.trim())
+    .filter(Boolean)
+    .join(" · ")
+
+  return [
+    {
+      label: tNav("climate"),
+      value: city.climate.bestMonths,
+    },
+    {
+      label: tNav("cost"),
+      value:
+        city.costOfLiving.budgetTiers[1]?.price ??
+        city.costOfLiving.budgetTiers[0]?.price ??
+        city.costOfLiving.comparisonAnchor,
+    },
+    {
+      label: tNav("neighborhoods"),
+      value: neighborhoods || city.country,
+    },
+  ]
+}
+
 export function generateStaticParams() {
   const citySlugs = getCitySlugs()
 
@@ -293,6 +320,7 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const navGroups = toNavGroups(orderedSections, navLabels, groupLabels)
   const forYouItems = toForYouItems(orderedSections, navLabels)
+  const heroFacts = toHeroFacts(city, tNav)
 
   return (
     <CityPageShell
@@ -302,19 +330,27 @@ export default async function CityPage({ params }: CityPageProps) {
         tagline: city.tagline,
       }}
       forYouItems={forYouItems}
+      heroFacts={heroFacts}
       locale={locale}
       navGroups={navGroups}
       runtimeInsights={runtimeInsights}
     >
-      {orderedSections.map((section) => (
-        <div key={section.id}>
+      {orderedSections.map((section, index) => (
+        <article
+          key={section.id}
+          className={cn(
+            "border-subtlest bg-raised overflow-hidden rounded-[30px] border p-5 shadow-[var(--shadow-subtle)] md:p-6",
+            index === 0 &&
+              "bg-[linear-gradient(180deg,oklch(var(--surface-raised)),oklch(var(--surface-base)))]"
+          )}
+        >
           {renderSection(section.id, {
             city,
             locale,
             runtimeInsights,
             contentSelection,
           })}
-        </div>
+        </article>
       ))}
     </CityPageShell>
   )

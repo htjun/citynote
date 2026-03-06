@@ -7,6 +7,40 @@
     "title": "Understand any city in minutes",
     "description": "Dense, practical cheat sheets on neighborhoods, transport, costs, and culture."
   },
+  "discover": {
+    "eyebrow": "City intelligence",
+    "title": "Discover",
+    "tabs": {
+      "forYou": "For You",
+      "cities": "Cities",
+      "signals": "Signals"
+    },
+    "openGuide": "Open {city}",
+    "composerTitle": "Search the guide",
+    "composerPlaceholder": "Search cities, neighborhoods, costs, and culture...",
+    "composerHint": "Open a city briefing to browse ranked sections, live signals, and source-aware summaries.",
+    "cardsTitle": "City briefings",
+    "cardsDescription": "Each card is a compact editorial snapshot before you drop into the full guide.",
+    "cardBadge": "Guide",
+    "coverageTitle": "Coverage",
+    "coverageDescription": "CityNote stays compact on purpose: a small set of opinionated guides with current runtime context.",
+    "coverageStats": {
+      "cities": "Guides",
+      "signals": "Signals",
+      "personalization": "Personalization"
+    },
+    "coverageStatCities": "{count} live city guides",
+    "coverageStatSignals": "Weather, FX, and headlines show freshness labels",
+    "coverageStatPersonalization": "Purpose and nationality reorder the reading flow",
+    "neighborhoodSignalsTitle": "Neighborhood signals",
+    "quickLinksTitle": "Jump to a guide",
+    "metrics": {
+      "climate": "Best months",
+      "budget": "Mid-range",
+      "neighborhoods": "Neighborhoods",
+      "transport": "Transport"
+    }
+  },
   "setup": {
     "title": "Set your purpose and nationality",
     "description": "Use the Preferences menu in the top navigation to set purpose (Trip, Study, Live) and optional nationality for personalized section order."

@@ -1,6 +1,12 @@
 {
   "nav": {
     "brand": "CityNote",
+    "discover": "둘러보기",
+    "featuredGuide": "{city} 브리핑",
+    "cityGuides": "도시 가이드",
+    "personalize": "개인화",
+    "personalizeDescription": "목적과 국적을 설정하면 읽기 전에 섹션 순서가 조정됩니다.",
+    "sidebarDescription": "실용적인 브리핑, 실시간 신호, 도시 중심 탐색.",
     "languageSwitcherLabel": "언어",
     "locales": {
       "en": "EN",

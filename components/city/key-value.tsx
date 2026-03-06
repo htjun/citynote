@@ -10,14 +10,14 @@ export function KeyValue({ label, value, className }: KeyValueProps) {
   return (
     <div
       className={cn(
-        "border-border/80 bg-card rounded-none border p-3",
+        "border-subtlest bg-base rounded-[22px] border p-4 shadow-[var(--shadow-subtle)]",
         className
       )}
     >
-      <p className="text-muted-foreground text-[11px] uppercase tracking-wide">
+      <p className="text-quieter text-[11px] uppercase tracking-[0.16em]">
         {label}
       </p>
-      <p className="mt-1 text-sm leading-snug">{value}</p>
+      <p className="mt-2 text-sm leading-relaxed">{value}</p>
     </div>
   )
 }

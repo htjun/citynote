@@ -70,12 +70,14 @@ export function RuntimeRail({
 
   return (
     <aside className={cn("space-y-4", className)}>
-      <div>
+      <div className="border-subtlest bg-raised rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
         <h2 className="text-sm font-semibold">{tShell("title")}</h2>
-        <p className="text-quiet mt-1 text-xs">{tShell("description")}</p>
+        <p className="text-quiet mt-2 text-sm leading-relaxed">
+          {tShell("description")}
+        </p>
       </div>
 
-      <section className="border-subtlest bg-raised space-y-2 rounded-2xl border p-4">
+      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#weather-now"
@@ -92,8 +94,10 @@ export function RuntimeRail({
             {tWeather(`freshness.${runtimeInsights.weatherNow.meta.freshness}`)}
           </span>
         </div>
-        <p className="text-sm">{runtimeInsights.weatherNow.condition}</p>
-        <p className="text-quiet text-xs">
+        <p className="font-editorial text-2xl tracking-[-0.03em]">
+          {runtimeInsights.weatherNow.condition}
+        </p>
+        <p className="text-quiet text-sm leading-relaxed">
           {tShell("weatherValue", {
             temperature: formatTemperature(
               runtimeInsights.weatherNow.temperatureC
@@ -108,7 +112,7 @@ export function RuntimeRail({
         </p>
       </section>
 
-      <section className="border-subtlest bg-raised space-y-2 rounded-2xl border p-4">
+      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#currency-watch"
@@ -128,7 +132,7 @@ export function RuntimeRail({
           </span>
         </div>
         {firstQuote ? (
-          <p className="text-sm">
+          <p className="font-editorial text-2xl tracking-[-0.03em]">
             {tCurrency("pairValue", {
               base: firstQuote.base,
               target: firstQuote.target,
@@ -136,7 +140,9 @@ export function RuntimeRail({
             })}
           </p>
         ) : (
-          <p className="text-sm">{tCurrency("valueUnavailable")}</p>
+          <p className="font-editorial text-2xl tracking-[-0.03em]">
+            {tCurrency("valueUnavailable")}
+          </p>
         )}
         <p className="text-quieter text-xs">
           {tShell("updatedAt", {
@@ -145,7 +151,7 @@ export function RuntimeRail({
         </p>
       </section>
 
-      <section className="border-subtlest bg-raised space-y-2 rounded-2xl border p-4">
+      <section className="border-subtlest bg-raised space-y-3 rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">
         <div className="flex items-center justify-between gap-2">
           <a
             href="#city-news"
@@ -170,7 +176,7 @@ export function RuntimeRail({
               <li key={headline.id}>
                 <a
                   href={headline.url}
-                  className="line-clamp-2 text-xs font-medium leading-snug underline-offset-2 hover:underline"
+                  className="line-clamp-2 text-sm font-medium leading-snug underline-offset-2 hover:underline"
                   rel="noreferrer"
                   target="_blank"
                 >

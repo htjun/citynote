@@ -11,16 +11,16 @@ export function StatCard({ label, value, helper, className }: StatCardProps) {
   return (
     <div
       className={cn(
-        "bg-card border-border/80 rounded-none border p-3",
+        "border-subtlest bg-base rounded-[22px] border p-4 shadow-[var(--shadow-subtle)]",
         className
       )}
     >
-      <p className="text-muted-foreground text-[11px] uppercase tracking-wide">
+      <p className="text-quieter text-[11px] uppercase tracking-[0.16em]">
         {label}
       </p>
-      <p className="font-geist-mono mt-1 text-lg font-medium">{value}</p>
+      <p className="font-geist-mono mt-2 text-lg font-medium">{value}</p>
       {helper ? (
-        <p className="text-muted-foreground mt-1 text-xs">{helper}</p>
+        <p className="text-quiet mt-2 text-xs leading-relaxed">{helper}</p>
       ) : null}
     </div>
   )

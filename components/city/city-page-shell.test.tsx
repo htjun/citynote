@@ -35,6 +35,12 @@ const forYouItems: SectionNavItem[] = [
   { id: "currency-watch", label: "Currency Watch" },
 ]
 
+const heroFacts = [
+  { label: "Best months", value: "Apr-Jun, Sep-Oct" },
+  { label: "Mid-range", value: "$95-160/day" },
+  { label: "Neighborhoods", value: "Myeongdong · Hongdae" },
+]
+
 const runtimeInsights: CityRuntimeInsights = {
   weatherNow: {
     condition: "Clear",
@@ -97,6 +103,7 @@ describe("city page shell", () => {
           tagline: "Dense city rhythm and neighborhood contrast.",
         }}
         forYouItems={forYouItems}
+        heroFacts={heroFacts}
         locale="en"
         navGroups={navGroups}
         runtimeInsights={runtimeInsights}
@@ -125,6 +132,7 @@ describe("city page shell", () => {
           tagline: "Dense city rhythm and neighborhood contrast.",
         }}
         forYouItems={forYouItems}
+        heroFacts={heroFacts}
         locale="en"
         navGroups={navGroups}
         runtimeInsights={runtimeInsights}

@@ -1,6 +1,12 @@
 {
   "nav": {
     "brand": "CityNote",
+    "discover": "Discover",
+    "featuredGuide": "{city} briefing",
+    "cityGuides": "City Guides",
+    "personalize": "Personalize",
+    "personalizeDescription": "Set your purpose and nationality to reorder sections before you read.",
+    "sidebarDescription": "Practical briefings, live signals, and city-first navigation.",
     "languageSwitcherLabel": "Language",
     "locales": {
       "en": "EN",

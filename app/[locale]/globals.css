@@ -7,6 +7,9 @@
 @theme inline {
   --font-geist-sans: var(--geist-sans);
   --font-geist-mono: var(--geist-mono);
+  --font-editorial:
+    "Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Book Antiqua",
+    Baskerville, Georgia, serif;
   --font-sans:
     var(--geist-sans), "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
     "Nanum Gothic", sans-serif;
@@ -69,24 +72,24 @@
 
 :root {
   /* Research-inspired design tokens */
-  --surface-base: 0.985 0.003 250;
-  --surface-raised: 0.973 0.004 250;
-  --surface-subtle: 0.958 0.005 250;
-  --surface-quiet: 0.944 0.006 250;
+  --surface-base: 0.978 0.006 95;
+  --surface-raised: 0.964 0.007 95;
+  --surface-subtle: 0.944 0.008 100;
+  --surface-quiet: 0.924 0.009 100;
 
-  --text-foreground: 0.24 0.01 255;
-  --text-quiet: 0.5 0.014 255;
-  --text-quieter: 0.63 0.012 255;
+  --text-foreground: 0.29 0.015 92;
+  --text-quiet: 0.5 0.012 100;
+  --text-quieter: 0.63 0.01 100;
   --text-inverse: 0.99 0 0;
 
-  --accent-super: 0.7 0.13 210;
-  --accent-super-contrast: 0.2 0.03 235;
+  --accent-super: 0.55 0.08 165;
+  --accent-super-contrast: 0.99 0.002 95;
 
-  --border-subtle: 0.89 0.008 250;
-  --border-subtlest: 0.93 0.006 250;
+  --border-subtle: 0.87 0.01 100;
+  --border-subtlest: 0.9 0.008 100;
 
-  --finance-positive: 0.72 0.17 150;
-  --finance-negative: 0.63 0.21 26;
+  --finance-positive: 0.62 0.14 150;
+  --finance-negative: 0.6 0.2 28;
 
   --duration-quick: 150ms;
   --duration-normal: 300ms;
@@ -95,8 +98,8 @@
   --ease-fluid: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-out-expo: cubic-bezier(0.19, 1, 0.22, 1);
 
-  --shadow-subtle: 0 1px 2px oklch(0.2 0 0 / 0.08);
-  --shadow-raised: 0 12px 30px oklch(0.2 0 0 / 0.12);
+  --shadow-subtle: 0 1px 2px oklch(0.24 0.01 100 / 0.08);
+  --shadow-raised: 0 20px 48px oklch(0.24 0.01 100 / 0.12);
 
   --radius: 0.625rem;
 
@@ -138,24 +141,24 @@
 
 .dark {
   /* Light-only: preserve parity even when .dark is present */
-  --surface-base: 0.985 0.003 250;
-  --surface-raised: 0.973 0.004 250;
-  --surface-subtle: 0.958 0.005 250;
-  --surface-quiet: 0.944 0.006 250;
+  --surface-base: 0.978 0.006 95;
+  --surface-raised: 0.964 0.007 95;
+  --surface-subtle: 0.944 0.008 100;
+  --surface-quiet: 0.924 0.009 100;
 
-  --text-foreground: 0.24 0.01 255;
-  --text-quiet: 0.5 0.014 255;
-  --text-quieter: 0.63 0.012 255;
+  --text-foreground: 0.29 0.015 92;
+  --text-quiet: 0.5 0.012 100;
+  --text-quieter: 0.63 0.01 100;
   --text-inverse: 0.99 0 0;
 
-  --accent-super: 0.7 0.13 210;
-  --accent-super-contrast: 0.2 0.03 235;
+  --accent-super: 0.55 0.08 165;
+  --accent-super-contrast: 0.99 0.002 95;
 
-  --border-subtle: 0.89 0.008 250;
-  --border-subtlest: 0.93 0.006 250;
+  --border-subtle: 0.87 0.01 100;
+  --border-subtlest: 0.9 0.008 100;
 
-  --finance-positive: 0.72 0.17 150;
-  --finance-negative: 0.63 0.21 26;
+  --finance-positive: 0.62 0.14 150;
+  --finance-negative: 0.6 0.2 28;
 
   --background: oklch(var(--surface-base));
   --foreground: oklch(var(--text-foreground));
@@ -203,6 +206,17 @@
 
   body {
     @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(
+        circle at top left,
+        oklch(0.99 0.008 85 / 0.95),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at top right,
+        oklch(0.985 0.01 140 / 0.45),
+        transparent 24%
+      );
   }
 }
 
@@ -257,6 +271,14 @@
 
 .ease-out-expo {
   transition-timing-function: var(--ease-out-expo);
+}
+
+.font-editorial {
+  font-family: var(--font-editorial);
+  font-feature-settings:
+    "liga" 1,
+    "dlig" 1,
+    "kern" 1;
 }
 
 .shadow-subtle {

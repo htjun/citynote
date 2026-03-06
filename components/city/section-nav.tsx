@@ -72,18 +72,18 @@ function toItemLink(item: SectionNavItem, options: ItemLinkOptions) {
       href={`#${item.id}`}
       onClick={options.onNavigate}
       className={cn(
-        "group inline-flex w-full items-center gap-2 rounded-lg transition-[background-color,color] duration-normal ease-fluid",
+        "group inline-flex w-full items-center gap-2.5 rounded-[18px] transition-[background-color,color,transform] duration-normal ease-fluid",
         "focus-visible:ring-super/35 focus-visible:outline-none focus-visible:ring-2",
         options.dense
-          ? "text-quiet hover:text-foreground hover:bg-subtle px-2 py-1.5 text-[13px]"
-          : "text-quiet hover:text-foreground hover:bg-subtle px-3 py-2 text-sm"
+          ? "text-quiet hover:text-foreground hover:bg-subtle px-3 py-2.5 text-[13px]"
+          : "text-quiet hover:text-foreground hover:bg-subtle px-3.5 py-3 text-sm"
       )}
     >
       <Icon
         aria-hidden="true"
         className={cn(
           "shrink-0",
-          options.dense ? "size-4 opacity-90" : "size-4 opacity-80"
+          options.dense ? "size-4 opacity-90" : "size-4 opacity-75"
         )}
       />
       <span className="min-w-0 flex-1">{item.label}</span>
@@ -108,8 +108,8 @@ function toGroup(group: SectionNavGroup, options: GroupOptions) {
     >
       <h3
         className={cn(
-          "text-quieter px-3 pt-2 text-xs font-semibold uppercase tracking-wide",
-          options.dense && "px-2 pt-1.5 text-[10px]"
+          "text-quieter px-3 pt-2 text-[11px] font-semibold uppercase tracking-[0.18em]",
+          options.dense && "px-3 pt-1 text-[10px]"
         )}
       >
         {group.label}
@@ -134,12 +134,12 @@ export function SectionNav({
   return (
     <nav
       className={cn(
-        "border-subtlest rounded-xl border",
-        dense ? "bg-base p-1.5" : "bg-raised p-2",
+        "border-subtlest rounded-[28px] border shadow-[var(--shadow-subtle)]",
+        dense ? "bg-raised p-2" : "bg-raised p-2.5",
         className
       )}
     >
-      <ul className={cn("flex flex-col gap-2", dense && "gap-1.5")}>
+      <ul className={cn("flex flex-col gap-2.5", dense && "gap-2")}>
         {groups.map((group) => toGroup(group, { dense, onNavigate }))}
       </ul>
     </nav>

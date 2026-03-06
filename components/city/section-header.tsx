@@ -6,10 +6,12 @@ interface SectionHeaderProps {
 
 export function SectionHeader({ id, title, description }: SectionHeaderProps) {
   return (
-    <header id={id} className="scroll-mt-8">
-      <h2 className="text-base font-semibold tracking-tight">{title}</h2>
+    <header id={id} className="scroll-mt-28">
+      <h2 className="font-editorial text-3xl tracking-[-0.03em]">{title}</h2>
       {description ? (
-        <p className="text-muted-foreground mt-1 text-sm">{description}</p>
+        <p className="text-quiet mt-2 max-w-3xl text-sm leading-relaxed">
+          {description}
+        </p>
       ) : null}
     </header>
   )
