@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { NextIntlClientProvider } from "next-intl"
+import type * as I18nNavigationModule from "@/i18n/navigation"
 import type { ReactNode } from "react"
 
 import { CityPageShell } from "@/components/city/city-page-shell"
@@ -8,11 +9,34 @@ import type {
   SectionNavItem,
 } from "@/components/city/section-nav"
 import cityMessages from "@/messages/en/city.json"
+import commonMessages from "@/messages/en/common.json"
 import type { CityRuntimeInsights } from "@/lib/insights/types"
+
+vi.mock<typeof I18nNavigationModule>(import("@/i18n/navigation"), () => ({
+  Link: ({
+    href,
+    className,
+    children,
+    onClick,
+  }: {
+    href: string
+    className?: string
+    children: ReactNode
+    onClick?: () => void
+  }) => (
+    <a href={href} className={className} onClick={onClick}>
+      {children}
+    </a>
+  ),
+  usePathname: () => "/seoul",
+}))
 
 function renderWithIntl(node: ReactNode) {
   return render(
-    <NextIntlClientProvider locale="en" messages={{ city: cityMessages }}>
+    <NextIntlClientProvider
+      locale="en"
+      messages={{ city: cityMessages, common: commonMessages }}
+    >
       {node}
     </NextIntlClientProvider>
   )
@@ -119,6 +143,7 @@ describe("city page shell", () => {
     expect(
       screen.getAllByRole("link", { name: "Live Pulse" }).length
     ).toBeGreaterThan(0)
+    expect(screen.getByRole("button", { name: "Preferences" })).toBeTruthy()
     expect(screen.getByText("Right Now")).toBeTruthy()
     expect(screen.getByText("Section Content")).toBeTruthy()
   })

@@ -11,6 +11,8 @@ import { Link } from "@/i18n/navigation"
 import type { Metadata } from "next"
 import { getTranslations } from "next-intl/server"
 
+import { PreferencesControls } from "@/components/preferences-controls"
+
 interface HomePageProps {
   params: Promise<{ locale: Locale }>
 }
@@ -186,6 +188,7 @@ export default async function HomePage({ params }: HomePageProps) {
                     <p className="text-quiet mt-3 text-sm leading-relaxed">
                       {t("setup.description")}
                     </p>
+                    <PreferencesControls className="border-subtlest bg-base mt-4 rounded-[24px] border p-4 shadow-[var(--shadow-subtle)]" />
                   </article>
 
                   <article className="border-subtlest bg-raised rounded-[28px] border p-5 shadow-[var(--shadow-subtle)]">

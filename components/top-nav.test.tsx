@@ -41,7 +41,7 @@ describe("top nav shell", () => {
     expect(nav.className).toContain("bg-base")
     expect(nav.className).toContain("border-subtlest")
 
-    const cityLink = screen.getByRole("link", { name: "Seoul" })
+    const [cityLink] = screen.getAllByRole("link", { name: "Seoul" })
     expect(cityLink.className).toContain("text-quiet")
     expect(cityLink.className).toContain("hover:bg-subtle")
   })

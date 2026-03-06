@@ -11,6 +11,7 @@ import type {
   SectionNavGroup,
   SectionNavItem,
 } from "@/components/city/section-nav"
+import { PreferencesPopover } from "@/components/preferences-popover"
 import type { Locale } from "@/i18n/locales"
 import type { CityRuntimeInsights } from "@/lib/insights/types"
 
@@ -81,6 +82,10 @@ export function CityPageShell({
             <p className="truncate text-[13px] font-semibold tracking-[0.16em] uppercase">
               {brandName}
             </p>
+          </div>
+
+          <div className="ml-auto shrink-0">
+            <PreferencesPopover />
           </div>
         </div>
       </header>

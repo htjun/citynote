@@ -43,7 +43,7 @@
   },
   "setup": {
     "title": "Set your purpose and nationality",
-    "description": "Use the Preferences menu in the top navigation to set purpose (Trip, Study, Live) and optional nationality for personalized section order."
+    "description": "언어, 국적, 목적을 선택해 가이드를 열기 전에 섹션 순서를 개인화하세요."
   },
   "trust": {
     "title": "Trust live signals responsibly",
