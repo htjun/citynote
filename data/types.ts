@@ -63,7 +63,7 @@ export interface NeighborhoodFit {
 
 export interface AccessibilitySnapshot {
   wheelchairTransitCoverage?: string
-  stepFreeConfidence: "Low" | "Medium" | "High"
+  stepFreeConfidence: Extract<RatingLevel, "low" | "medium" | "high">
   unknownDataRatio?: string
   notes: string[]
 }

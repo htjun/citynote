@@ -19,7 +19,7 @@ describe("personalization profile", () => {
   it("builds normalized profile values", () => {
     const profile = buildPersonalizationProfile({
       personalization: {
-        purpose: "LIVE",
+        purpose: "live",
         nationality: "kr",
       },
       cityCountryCode: "KR",

@@ -5,15 +5,17 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-geist-sans: var(--geist-sans);
-  --font-geist-mono: var(--geist-mono);
+  --font-geist-sans:
+    "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI",
+    system-ui, sans-serif;
+  --font-geist-mono:
+    "SF Mono", "SFMono-Regular", "Cascadia Mono", "JetBrains Mono",
+    "Roboto Mono", monospace;
   --font-editorial:
     "Iowan Old Style", "Palatino Linotype", "URW Palladio L", "Book Antiqua",
     Baskerville, Georgia, serif;
-  --font-sans:
-    var(--geist-sans), "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic",
-    "Nanum Gothic", sans-serif;
-  --font-mono: var(--geist-mono);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
 
   /* Research-inspired token aliases */
   --color-base: var(--surface-base);

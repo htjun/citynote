@@ -2,6 +2,8 @@ import { getCityList } from "@/data/cities"
 import { defaultLocale, locales } from "@/i18n/locales"
 
 describe("city insights data quality", () => {
+  const accessibilityLevels = ["low", "medium", "high"] as const
+
   it("requires source and verification date for every rule trap", () => {
     for (const locale of locales) {
       const cityList = getCityList(locale)
@@ -42,6 +44,9 @@ describe("city insights data quality", () => {
         expect(city.neighborhoodFit?.length).toBeTruthy()
         expect(city.accessibility).toBeDefined()
         expect(city.accessibility?.notes.length).toBeTruthy()
+        expect(accessibilityLevels).toContain(
+          city.accessibility?.stepFreeConfidence
+        )
       }
     }
   })

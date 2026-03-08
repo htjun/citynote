@@ -1,35 +1,42 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import { NextIntlClientProvider } from "next-intl"
+import type { ComponentProps, ReactNode } from "react"
 import type * as I18nNavigationModule from "@/i18n/navigation"
-import type { ReactNode } from "react"
+import type * as PreferencesPopoverModule from "@/components/preferences-popover"
+import type * as RuntimeRailModule from "@/components/city/runtime-rail"
 
 import { CityPageShell } from "@/components/city/city-page-shell"
-import type {
-  SectionNavGroup,
-  SectionNavItem,
-} from "@/components/city/section-nav"
+import type { SectionNavGroup } from "@/components/city/section-nav"
 import cityMessages from "@/messages/en/city.json"
 import commonMessages from "@/messages/en/common.json"
 import type { CityRuntimeInsights } from "@/lib/insights/types"
 
+type MockLinkProps = ComponentProps<typeof I18nNavigationModule.Link>
+
 vi.mock<typeof I18nNavigationModule>(import("@/i18n/navigation"), () => ({
-  Link: ({
-    href,
-    className,
-    children,
-    onClick,
-  }: {
-    href: string
-    className?: string
-    children: ReactNode
-    onClick?: () => void
-  }) => (
-    <a href={href} className={className} onClick={onClick}>
+  Link: (({ href, className, children, onClick }: MockLinkProps) => (
+    <a href={String(href)} className={className} onClick={onClick}>
       {children}
     </a>
-  ),
-  usePathname: () => "/seoul",
+  )) as unknown as typeof I18nNavigationModule.Link,
+  usePathname: (() => "/seoul") as typeof I18nNavigationModule.usePathname,
 }))
+
+vi.mock<typeof PreferencesPopoverModule>(
+  import("@/components/preferences-popover"),
+  () => ({
+    PreferencesPopover: () => <button type="button">Preferences</button>,
+  })
+)
+
+vi.mock<typeof RuntimeRailModule>(
+  import("@/components/city/runtime-rail"),
+  () => ({
+    RuntimeRail: (() => (
+      <aside>Right Now</aside>
+    )) as unknown as typeof RuntimeRailModule.RuntimeRail,
+  })
+)
 
 function renderWithIntl(node: ReactNode) {
   return render(
@@ -51,12 +58,6 @@ const navGroups: SectionNavGroup[] = [
       { id: "live-pulse", label: "Live Pulse" },
     ],
   },
-]
-
-const forYouItems: SectionNavItem[] = [
-  { id: "live-pulse", label: "Live Pulse" },
-  { id: "weather-now", label: "Weather Now" },
-  { id: "currency-watch", label: "Currency Watch" },
 ]
 
 const heroFacts = [
@@ -118,7 +119,7 @@ const runtimeInsights: CityRuntimeInsights = {
 }
 
 describe("city page shell", () => {
-  it("renders local city header, for-you block, and right rail summary", () => {
+  it("renders local city header and right rail summary", () => {
     renderWithIntl(
       <CityPageShell
         city={{
@@ -126,7 +127,6 @@ describe("city page shell", () => {
           name: "Seoul",
           tagline: "Dense city rhythm and neighborhood contrast.",
         }}
-        forYouItems={forYouItems}
         heroFacts={heroFacts}
         locale="en"
         navGroups={navGroups}
@@ -139,7 +139,6 @@ describe("city page shell", () => {
     )
 
     expect(screen.getByText("Citynote Guide")).toBeTruthy()
-    expect(screen.getByText("For You Now")).toBeTruthy()
     expect(
       screen.getAllByRole("link", { name: "Live Pulse" }).length
     ).toBeGreaterThan(0)
@@ -156,7 +155,6 @@ describe("city page shell", () => {
           name: "Seoul",
           tagline: "Dense city rhythm and neighborhood contrast.",
         }}
-        forYouItems={forYouItems}
         heroFacts={heroFacts}
         locale="en"
         navGroups={navGroups}

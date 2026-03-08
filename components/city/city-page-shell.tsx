@@ -7,10 +7,7 @@ import { useTranslations } from "next-intl"
 
 import { RuntimeRail } from "@/components/city/runtime-rail"
 import { SectionNav } from "@/components/city/section-nav"
-import type {
-  SectionNavGroup,
-  SectionNavItem,
-} from "@/components/city/section-nav"
+import type { SectionNavGroup } from "@/components/city/section-nav"
 import { PreferencesPopover } from "@/components/preferences-popover"
 import type { Locale } from "@/i18n/locales"
 import type { CityRuntimeInsights } from "@/lib/insights/types"
@@ -28,40 +25,20 @@ interface CityPageShellProps {
   }
   locale: Locale
   navGroups: SectionNavGroup[]
-  forYouItems: SectionNavItem[]
   heroFacts: HeroFact[]
   runtimeInsights: CityRuntimeInsights
   children: ReactNode
-}
-
-function renderForYouItems(items: SectionNavItem[]) {
-  return (
-    <div className="flex flex-wrap gap-1.5">
-      {items.map((item, index) => (
-        <a
-          key={item.id}
-          href={`#${item.id}`}
-          className="border-subtlest bg-base hover:bg-subtle inline-flex items-center gap-1.5 rounded-xl border px-2.5 py-1.5 text-xs font-medium transition-[background-color,border-color,color] duration-normal ease-fluid"
-        >
-          <span className="text-quieter">{index + 1}</span>
-          <span>{item.label}</span>
-        </a>
-      ))}
-    </div>
-  )
 }
 
 export function CityPageShell({
   city,
   locale,
   navGroups,
-  forYouItems,
   heroFacts,
   runtimeInsights,
   children,
 }: CityPageShellProps) {
   const tShell = useTranslations("city.shell")
-  const tForYou = useTranslations("city.forYou")
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const brandName = "Citynote"
 
@@ -133,20 +110,6 @@ export function CityPageShell({
                   ))}
                 </div>
               ) : null}
-
-              {forYouItems.length > 0 ? (
-                <div className="mt-5">
-                  <div className="mb-2.5">
-                    <h2 className="text-sm font-semibold">
-                      {tForYou("title")}
-                    </h2>
-                    <p className="text-quiet mt-1 text-sm leading-relaxed">
-                      {tForYou("description")}
-                    </p>
-                  </div>
-                  {renderForYouItems(forYouItems)}
-                </div>
-              ) : null}
             </section>
 
             <div className="mt-4 grid min-w-0 gap-4 xl:grid-cols-[minmax(0,1fr)_290px]">
@@ -184,29 +147,6 @@ export function CityPageShell({
               </button>
             </div>
             <div className="h-[calc(100%-73px)] overflow-y-auto p-3.5">
-              {forYouItems.length > 0 ? (
-                <section className="border-subtlest bg-raised mb-3.5 rounded-[18px] border p-3.5">
-                  <h2 className="text-sm font-semibold">{tForYou("title")}</h2>
-                  <div className="mt-2.5 space-y-1.5">
-                    {forYouItems.map((item, index) => (
-                      <a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        onClick={() => setIsMenuOpen(false)}
-                        className="text-quiet hover:text-foreground hover:bg-subtle flex items-center gap-2.5 rounded-xl px-2.5 py-2 text-sm transition-[background-color,color] duration-normal ease-fluid"
-                      >
-                        <span className="text-quieter text-xs font-medium">
-                          {index + 1}
-                        </span>
-                        <span className="min-w-0 flex-1 truncate">
-                          {item.label}
-                        </span>
-                      </a>
-                    ))}
-                  </div>
-                </section>
-              ) : null}
-
               <SectionNav
                 groups={navGroups}
                 mode="sidebar"

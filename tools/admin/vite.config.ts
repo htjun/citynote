@@ -7,7 +7,6 @@ export default defineConfig({
   plugins: [react(), adminApiPlugin()],
   resolve: {
     alias: {
-      "@citynote/data": path.resolve(__dirname, "../../data"),
       "@": path.resolve(__dirname, "../.."),
     },
   },

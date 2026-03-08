@@ -1,12 +1,9 @@
 import { Link } from "react-router"
 import { Badge } from "@/components/ui/badge"
 import { Card } from "@/components/ui/card"
-import { cityRuntimeConfigBySlug } from "@citynote/data/city-runtime-config"
-import type { CityRuntimeConfig } from "@citynote/data/city-runtime-config"
+import { cityRuntimeConfigBySlug } from "@/data/city-runtime-config"
 
-const configs = Object.values(
-  cityRuntimeConfigBySlug as Record<string, CityRuntimeConfig>
-)
+const configs = Object.values(cityRuntimeConfigBySlug)
 
 export function CitiesPage() {
   return (

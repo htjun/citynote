@@ -194,16 +194,6 @@ function toNavGroups(
   }).filter((group) => group.items.length > 0)
 }
 
-function toForYouItems(
-  orderedSections: RankedSection[],
-  navLabels: Record<string, string>
-): SectionNavItem[] {
-  return orderedSections.slice(0, 3).map((section) => ({
-    id: section.id,
-    label: navLabels[section.id],
-  }))
-}
-
 function toHeroFacts(city: City, tNav: (key: string) => string) {
   const neighborhoods = city.neighborhoods
     .slice(0, 2)
@@ -319,7 +309,6 @@ export default async function CityPage({ params }: CityPageProps) {
   ) as GroupLabelMap
 
   const navGroups = toNavGroups(orderedSections, navLabels, groupLabels)
-  const forYouItems = toForYouItems(orderedSections, navLabels)
   const heroFacts = toHeroFacts(city, tNav)
 
   return (
@@ -329,7 +318,6 @@ export default async function CityPage({ params }: CityPageProps) {
         name: city.name,
         tagline: city.tagline,
       }}
-      forYouItems={forYouItems}
       heroFacts={heroFacts}
       locale={locale}
       navGroups={navGroups}

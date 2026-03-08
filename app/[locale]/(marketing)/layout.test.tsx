@@ -1,27 +1,39 @@
 import { render, screen } from "@testing-library/react"
-import type * as RoutingModule from "@/i18n/routing"
-import type * as NextIntlModule from "next-intl"
-import type * as NextNavigationModule from "next/navigation"
 import type * as TopNavModule from "@/components/top-nav"
 
 import MarketingLayout from "@/app/[locale]/(marketing)/layout"
 
-vi.mock<typeof NextIntlModule>(import("next-intl"), () => ({
-  hasLocale: () => true,
-}))
+function hasLocale<LocaleType extends string>(
+  locales: readonly LocaleType[],
+  candidate: unknown
+): candidate is LocaleType {
+  return locales.includes(candidate as LocaleType)
+}
 
-vi.mock<typeof RoutingModule>(import("@/i18n/routing"), () => ({
-  routing: {
-    locales: ["en", "ko"],
-  },
-}))
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
 
-vi.mock<typeof NextNavigationModule>(import("next/navigation"), () => ({
-  notFound: vi.fn(),
-}))
+  return {
+    ...actual,
+    hasLocale: hasLocale as typeof actual.hasLocale,
+  }
+})
 
-vi.mock<typeof TopNavModule>(import("@/components/top-nav"), () => ({
-  TopNav: ({ locale }: { locale: string }) => <nav>mock-top-nav-{locale}</nav>,
+vi.mock(import("next/navigation"), async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    ...actual,
+    notFound: (() => {
+      throw new Error("notFound")
+    }) as typeof actual.notFound,
+  }
+})
+
+vi.mock(import("@/components/top-nav"), () => ({
+  TopNav: (({ locale }: { locale: string }) => (
+    <nav>mock-top-nav-{locale}</nav>
+  )) as unknown as typeof TopNavModule.TopNav,
 }))
 
 describe("marketing layout", () => {

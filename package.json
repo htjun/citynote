@@ -4,10 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
     "lint": "oxfmt --check . && oxlint .",
     "format": "oxfmt --write . && oxlint --fix .",
+    "typecheck": "tsc --noEmit",
     "test": "vitest",
     "test:watch": "vitest --watch",
     "test:run": "vitest run",
@@ -15,6 +16,7 @@
     "build-storybook": "storybook build",
     "validate:messages": "node scripts/validate-messages.mjs",
     "test:i18n": "pnpm run validate:messages",
+    "check:public": "pnpm run lint && pnpm run typecheck && pnpm run test:run && pnpm run validate:messages && pnpm --filter @citynote/admin build && pnpm run build-storybook && pnpm run build",
     "admin": "pnpm --filter @citynote/admin dev"
   },
   "dependencies": {

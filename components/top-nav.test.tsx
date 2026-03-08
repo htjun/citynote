@@ -1,28 +1,44 @@
 import { render, screen } from "@testing-library/react"
-import type * as CityDataModule from "@/data/cities"
+import type { ComponentProps } from "react"
 import type * as NextIntlServerModule from "next-intl/server"
 import type * as I18nNavigationModule from "@/i18n/navigation"
 import type * as PreferencesPopoverModule from "@/components/preferences-popover"
 
 import { TopNav } from "@/components/top-nav"
 
-vi.mock<typeof CityDataModule>(import("@/data/cities"), () => ({
-  getCityList: () => [
-    { slug: "seoul", name: "Seoul", country: "South Korea", tagline: "" },
-    { slug: "melbourne", name: "Melbourne", country: "Australia", tagline: "" },
-  ],
-}))
+type MockLinkProps = ComponentProps<typeof I18nNavigationModule.Link>
 
-vi.mock<typeof NextIntlServerModule>(import("next-intl/server"), () => ({
-  getTranslations: () => (key: string) => (key === "brand" ? "Citynote" : key),
-}))
+function createTranslator(
+  valueByKey: Record<string, string>
+): Awaited<ReturnType<typeof NextIntlServerModule.getTranslations>> {
+  return ((key: string) => valueByKey[key] ?? key) as unknown as Awaited<
+    ReturnType<typeof NextIntlServerModule.getTranslations>
+  >
+}
+
+async function resolveTranslations() {
+  return await Promise.resolve(
+    createTranslator({
+      brand: "Citynote",
+    })
+  )
+}
+
+vi.mock(import("next-intl/server"), async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    ...actual,
+    getTranslations: resolveTranslations as typeof actual.getTranslations,
+  }
+})
 
 vi.mock<typeof I18nNavigationModule>(import("@/i18n/navigation"), () => ({
-  Link: ({ href, className, children }: Record<string, unknown>) => (
-    <a href={String(href)} className={String(className)}>
-      {children as string}
+  Link: (({ href, className, children }: MockLinkProps) => (
+    <a href={String(href)} className={className}>
+      {children}
     </a>
-  ),
+  )) as unknown as typeof I18nNavigationModule.Link,
 }))
 
 vi.mock<typeof PreferencesPopoverModule>(

@@ -66,21 +66,25 @@ export function CurrencyWatch({
         </div>
 
         <DataGrid className="xl:grid-cols-2">
-          {visibleQuotes.map((quote) => (
-            <KeyValue
-              key={`${quote.base}-${quote.target}`}
-              label={`${quote.base} -> ${quote.target}`}
-              value={
-                formatRate(quote.rate)
-                  ? t("pairValue", {
-                      base: quote.base,
-                      rate: formatRate(quote.rate),
-                      target: quote.target,
-                    })
-                  : t("valueUnavailable")
-              }
-            />
-          ))}
+          {visibleQuotes.map((quote) => {
+            const formattedRate = formatRate(quote.rate)
+
+            return (
+              <KeyValue
+                key={`${quote.base}-${quote.target}`}
+                label={`${quote.base} -> ${quote.target}`}
+                value={
+                  formattedRate
+                    ? t("pairValue", {
+                        base: quote.base,
+                        rate: formattedRate,
+                        target: quote.target,
+                      })
+                    : t("valueUnavailable")
+                }
+              />
+            )
+          })}
         </DataGrid>
 
         {compact && currencyWatch.quotes.length > visibleQuotes.length ? (

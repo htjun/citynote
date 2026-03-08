@@ -70,6 +70,7 @@ describe("runtime sections", () => {
     expect(
       screen.getByText("Live currency quotes are currently unavailable.")
     ).toBeTruthy()
+    expect(screen.queryByText(/Rate date:/i)).toBeNull()
   })
 
   it("renders news empty state", () => {

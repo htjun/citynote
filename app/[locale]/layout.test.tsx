@@ -1,46 +1,70 @@
-import type * as FontsModule from "@/lib/fonts"
-import type * as NextIntlModule from "next-intl"
 import type * as NextIntlServerModule from "next-intl/server"
-import type * as NextNavigationModule from "next/navigation"
-import type * as RoutingModule from "@/i18n/routing"
 import type { ReactNode } from "react"
 import { renderToStaticMarkup } from "react-dom/server"
 
 import LocaleLayout from "@/app/[locale]/layout"
 
-vi.mock<typeof FontsModule>(import("@/lib/fonts"), () => ({
-  geistMono: { variable: "font-mono-mock" },
-  geistSans: { variable: "font-sans-mock" },
-}))
+function hasLocale<LocaleType extends string>(
+  locales: readonly LocaleType[],
+  candidate: unknown
+): candidate is LocaleType {
+  return locales.includes(candidate as LocaleType)
+}
 
-vi.mock<typeof NextIntlModule>(import("next-intl"), () => ({
-  NextIntlClientProvider: ({ children }: { children: ReactNode }) => (
-    <>{children}</>
-  ),
-  hasLocale: () => true,
-}))
+function createTranslator(
+  valueByKey: Record<string, string>
+): Awaited<ReturnType<typeof NextIntlServerModule.getTranslations>> {
+  return ((key: string) => valueByKey[key] ?? key) as unknown as Awaited<
+    ReturnType<typeof NextIntlServerModule.getTranslations>
+  >
+}
 
-vi.mock<typeof NextIntlServerModule>(import("next-intl/server"), () => ({
-  getMessages: async () => {
-    const messages = await Promise.resolve({})
-    return messages
-  },
-  getTranslations: async () => {
-    const translator = await Promise.resolve(() => "mock-title")
-    return translator
-  },
-  setRequestLocale: vi.fn(),
-}))
+async function resolveMessages() {
+  return await Promise.resolve({})
+}
 
-vi.mock<typeof NextNavigationModule>(import("next/navigation"), () => ({
-  notFound: vi.fn(),
-}))
+async function resolveTranslations() {
+  return await Promise.resolve(
+    createTranslator({
+      description: "mock-description",
+      title: "mock-title",
+    })
+  )
+}
 
-vi.mock<typeof RoutingModule>(import("@/i18n/routing"), () => ({
-  routing: {
-    locales: ["en", "ko"],
-  },
-}))
+vi.mock(import("next-intl"), async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    ...actual,
+    NextIntlClientProvider: (({ children }: { children: ReactNode }) => (
+      <>{children}</>
+    )) as unknown as typeof actual.NextIntlClientProvider,
+    hasLocale: hasLocale as typeof actual.hasLocale,
+  }
+})
+
+vi.mock(import("next-intl/server"), async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    ...actual,
+    getMessages: resolveMessages as typeof actual.getMessages,
+    getTranslations: resolveTranslations as typeof actual.getTranslations,
+    setRequestLocale: vi.fn() as unknown as typeof actual.setRequestLocale,
+  }
+})
+
+vi.mock(import("next/navigation"), async (importOriginal) => {
+  const actual = await importOriginal()
+
+  return {
+    ...actual,
+    notFound: (() => {
+      throw new Error("notFound")
+    }) as typeof actual.notFound,
+  }
+})
 
 describe("locale root layout", () => {
   it("renders providers and children without top nav chrome", async () => {

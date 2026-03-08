@@ -28,10 +28,6 @@
     "planYourStay": "Plan Your Stay",
     "localContext": "Local Context"
   },
-  "forYou": {
-    "title": "For You Now",
-    "description": "Top sections prioritized from your purpose, nationality, and data freshness."
-  },
   "shell": {
     "openMenu": "Open city menu",
     "closeMenu": "Close city menu",

@@ -102,5 +102,9 @@ export const cityRuntimeConfigBySlug = {
 export function getCityRuntimeConfig(
   slug: string
 ): CityRuntimeConfig | undefined {
-  return cityRuntimeConfigBySlug[slug]
+  if (!(slug in cityRuntimeConfigBySlug)) {
+    return undefined
+  }
+
+  return cityRuntimeConfigBySlug[slug as keyof typeof cityRuntimeConfigBySlug]
 }
